@@ -574,7 +574,7 @@ let bye = by[Math.floor(Math.random() * by.length)]
 if (media === 'texto')
 sock.sendMessage(anu.id, { text: bye, mentions: [num]}, {quoted: null, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 if (media === 'texto2')
-sock.sendMessage(anu.id, { text: `\`\`\`[!] Un miembro ha salido del grupo: @${name.split("@")[0]} 🫡. Esperamos verte de nuevo.\`\`\``,
+sock.sendMessage(anu.id, { text: `\`\`\`[!] Un miembro ha salido del grupo: @${name.split("@")[0]} 🫡. Esperamos no verte de nuevo.\`\`\``,
 contextInfo:{
 forwardedNewsletterMessageInfo: { 
 newsletterJid: '120363296103096943@newsletter', 
