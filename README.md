@@ -58,7 +58,7 @@ npm start
 Si despues que ya instalas tu bot y termux te salta en blanco, se fue tu internet o reiniciaste tu celular, solo realizas estos pasos
 ```bash
 > cd ansi-BOT-MD
-> inicio npm
+> npm start
 ```
 ### `,💥  𝙾𝙱𝚃𝙴𝙽𝙴𝚁 𝙾𝚃𝚁𝙾 𝙲𝙾𝙳𝙸𝙶𝙾 𝚀𝚁 𝙴𝙽 𝚃𝙴𝚁𝙼𝚄𝚇`
 Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
