@@ -391,7 +391,7 @@ if (!isUrl(args[0]) && !args[0].includes('tiktok')) return m.reply(`Link invalid
 conn.fakeReply(m.chat, `${lenguaje.lengua.espere}`, '0@s.whatsapp.net', 'No haga spam')
 try {
 require('../libs/tiktok').Tiktok(args).then( data => {
-conn.sendButton(m.chat, `*🔥 AQUI ESTA TU VIDEO DEL TIKTOK*\n_*• Titulo:*_ ${result.title}`, 'Server proveido por NovaBot-MD', data.nowm, [['Descargar audio', `.tik2 ${text}`]], null, null, m)}) 
+conn.sendButton(m.chat, `*🔥 AQUI ESTA TU VIDEO DEL TIKTOK*\n_*• Titulo:*_ ${result.title}`, 'Server proveido por ✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨', data.nowm, [['Descargar audio', `.tik2 ${text}`]], null, null, m)}) 
 /*conn.sendMessage(m.chat, { video: { url: data.nowm }}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 conn.sendMessage(m.chat, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})})*/
 db.data.users[m.sender].limit -= 1
