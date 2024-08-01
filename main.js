@@ -1073,7 +1073,7 @@ try {
 let stdout = execSync('git pull' + (m.fromMe && q ? ' ' + q : ''))
 await m.reply(stdout.toString())
 } catch { 
-let updatee = execSync('git remote set-url origin https://github.com/Eliasar54/YuGi-BOT-1.2.git && git pull')
+let updatee = execSync('git remote set-url origin https://github.com/Eliasar54/ansi-BOT-MD && git pull')
 await m.reply(updatee.toString())}  
 break
 case 'reiniciar': case 'restart':
@@ -1113,7 +1113,7 @@ if (media === 'texto')
 m.reply('*Mi jefe no me quiere 😢*')        
 if (media === 'sticker')         
 conn.sendFile(m.chat, e, 'sticker.webp', '',m, true, { contextInfo: { forwardedNewsletterMessageInfo: { newsletterJid: '120363160031023229@newsletter', serverMessageId: '', newsletterName: 'INFINITY-WA 💫' }, forwardingScore: 9999999, isForwarded: true, 'forwardingScore': 200, 'isForwarded': false, externalAdReply:{ showAdAttribution: false, title: 'ᶜ ᴬᵘᵗᵒᵈᵉˢᶜʳᵘʸᵉ', mediaType: 2, sourceUrl: nna, thumbnail: imagen1}}}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})}
-if (budy.includes(`YuGi-BOT`) || budy.includes(`yugi bot`) || budy.includes(`YuGi`) || budy.includes(`YuGi BOT`)) {
+if (budy.includes(`Ansi`) || budy.includes(`Ansi-BOT`) || budy.includes(`BOT`) || budy.includes(`ANSi`)) {
 m.react(`${pickRandom(['🌟', '👀', '🤑'])}`)}
 if (budy.includes(`Avisos`) || budy.includes(`Atencion`)) {
 m.react(`${pickRandom(['📢', '👀', '⚠️'])}`)}
