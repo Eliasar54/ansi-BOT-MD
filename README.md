@@ -84,7 +84,7 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 ### `ANFITRIÓN INFINITA`
 > Activar ansí-BOT 24/7 en infinity-host
 
-<a href="https://dash.infinitywa-host.com"><img src="https://qu.ax/TPhh.jpg" height="125px"></a>
+<a href="https://dash.infinitywa-host.com"><img src="https://telegra.ph/file/6b2ec24ae37f6c118b762.jpg" height="125px"></a>
 ### Información del Host
 
 - **Crea una cuenta:** [`Haga clic aquí`](https://dash.infinitywa-host.com/register?ref=TSArjgj3)
