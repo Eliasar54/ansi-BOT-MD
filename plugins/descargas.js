@@ -52,10 +52,10 @@ if (command == 'play' || command == 'play2') {
     });
 
     await conn.sendButton(m.chat, texto1, botname, yt_play[0].thumbnail, [
-        ['Audio', `.ytmp3 ${text}`],
-        ['Video', `.ytmp4 ${text}`],
+        ['Audio', `.musica ${text}`],
+        ['Video', `.video ${text}`],
         ['Más resultados', `.yts ${text}`],
-        ['Menú', `.menú`],
+        ['Menu', `.menu`],
         ['Creador', `.creador`]
     ], null, null, m);
 
