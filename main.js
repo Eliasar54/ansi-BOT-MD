@@ -176,7 +176,7 @@ chalk.bold.cyan(`\n│📊${lenguaje.consola.text3} `) + chalk.cyanBright(pushna
 chalk.bold.white(`\n│💬${lenguaje.consola.text6}`) + chalk.whiteBright(`\n━━━━━━━━━━✦✗✦━━━━━━━━━━━\n${msgs(m.text)}\n`))
 )}
 //--------------------[ AUTOBIO ]----------------------- 
-if (global.db.data.settings[numBot].autobio) { 
+/*if (global.db.data.settings[numBot].autobio) { 
 let setting = global.db.data.settings[numBot]
 if (new Date() * 1 - setting.status > 1000) {
 let uptime = await runtime(process.uptime())
@@ -191,7 +191,7 @@ await conn.updateProfileStatus(bio)
 setting.status = new Date() * 1 
 } catch {
 console.log(`[𝚄𝙿𝙳𝙰𝚃𝙴]\n𝙿𝚒𝚗𝚐: ${latensi.toFixed(4)}`) 
-}}}
+}}}*/
   
 //--------------------[ AUTOREAD ]-----------------------
 if (!conn.autoread && m.message && prefix) {
