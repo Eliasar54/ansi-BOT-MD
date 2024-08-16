@@ -129,7 +129,7 @@ global.nn6 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //test
 global.nn7 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //Grupo ayuda sobre el bot
 global.nn8 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //enlace YuGi-BOT
 global.multi = 'https://chat.whatsapp.com/CBY978TEw5N10tRhQiapZV' //Grupo náufrazapp
-global.nna2 = 'CPGKvG1sV3v4wOwF6c1UiD'
+global.nna2 = 'JHnIQUdCGBHHsA6naIGjHG'
 global.n2 = "https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36"
 //---------[ INFO ]--------- 
 global.info = { wait: '*_■■□□□40%_*', 
