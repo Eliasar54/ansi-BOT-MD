@@ -80,7 +80,7 @@ global.APIKeys = {
 };
  
 //---------[ STICKERS ]---------
-global.packname = "."
+global.packname = ""
 global.author = `{
  "bot": "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
   "autor": "Eliasar YT",
@@ -90,6 +90,7 @@ global.author = `{
 `
  
 //-----------------IMAGENES---------
+global.vid1 = "https://a.uguu.se/pgQUNPne.mp4"
 global.img = "https://tinyurl.com/23s36pbo";
 global.img1 = 'https://tinyurl.com/29nl4hec';
 global.img2 = 'https://tinyurl.com/22qrb3o7';
