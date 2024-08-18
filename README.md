@@ -129,7 +129,7 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 
 ------------------
 
-<a href="https://github.com/GataNina-Li" target="_blank"> <img src="https://telegra.ph/file/bd13a944d2b0632cb8707.jpg" alt="Ansi" width="150"/> </a> 
+<a href="https://https://repl.it/https://github.com/Eliasar54" target="_blank"> <img src="https://telegra.ph/file/bd13a944d2b0632cb8707.jpg" alt="Ansi" width="150"/> </a> 
 ### 💫 ACTIVAR EN REPLIT
 [![Run on Repl.it](https://repl.it/badge/github/AzamiJs/CuriosityBot-MD)](https://repl.it/https://github.com/Eliasar54/ansi-BOT-MD) 
 
