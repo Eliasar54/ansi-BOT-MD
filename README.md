@@ -81,6 +81,17 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 
 ------------------
 
+### 🚀 CORINPLUS-HOST 🚀
+<a href="https://dash.corinplus.com"><img src="https://qu.ax/ZycD.png" height="125px"></a>
+### Información del Host
+
+- **Dashboard:** [`Aquí`](https://dash.corinplus.com)
+- **Panel:** [`Aquí`](https://panel.corinplus.com)
+- **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g)
+- **Soporte:** [`Aquí`](https://chat.whatsapp.com/K235lkvaGvlGRQKYm26xZP)
+
+------------------
+
 ### `ANFITRIÓN INFINITA`
 > Activar ansí-BOT 24/7 en infinity-host
 
