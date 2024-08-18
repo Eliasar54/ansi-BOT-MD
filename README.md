@@ -1,8 +1,8 @@
 > <b> Versión 1.2 </b>
 
 
-<p align="centro">
-<a href="#"><img title="ansí-BOT" src="https://qu.ax/XutR.jpg/insignia/a-purpura?colorA=%cc33ff&colorB=%cc33ff&style=for-the-badge"></a>
+<p align="center">
+<a href="#"><img title="ansí-BOT" src="https://qu.ax/XutR.jpg" alt="ansí-BOT" style="width:100%; max-width:400px;"></a>
 </p>
 <p align="centro">
 <a href="#"><img title="Supra-BOT" src="https://img.shields.io/badge/SI%20TE%20AGRADA%20EL%20REPOSITORIO%20APOYAME%20CON%20UNA%20%E2%AD%90%20%C2%A1GRACIAS!%20-red?colorA=%23ffff00&colorB=%23ffff00&style=for-the-badge"></a>
