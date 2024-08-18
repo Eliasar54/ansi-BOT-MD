@@ -486,7 +486,7 @@ if (command === 'menu' || command === 'Menu') {
     let randomImage = pickRandom([img1, img2, img, img3, img4, img5, img6, img7, img8, img9]);
     
     
-    conn.sendButton(m.chat, submenu, menu0, randomImage, 
+    conn.sendButton(m.chat, submenu, menu0, vid1, 
         [['𝙈𝙀𝙉𝙐 𝙇𝙄𝙎𝙏𝘼 💥', `#help`], 
          ['𝙈𝙀𝙉𝙐 𝘾𝙊𝙈𝙋𝙇𝙀𝙏𝙊 📜', `#allmenu`], 
          ['𝙋𝙍𝙐𝙀𝘽𝘼 𝘿𝙀 𝙑𝙀𝙇𝙊𝘾𝙄𝘿𝘼𝘿⚡', `#ping`],
