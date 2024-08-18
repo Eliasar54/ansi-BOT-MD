@@ -129,3 +129,9 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 
 <a href="https://Eliasar54@github.com"><img src="https://github.com/Eliasar54.png" width="250" height="250" alt="Eliasar54"/></a>
 
+
+> ### 📜 Créditos
+> <a href="https://github.com/elrebelde21"><img src="https://github.com/elrebelde21.png" width="250" height="250" alt="elrebelde21"/></a>
+> 
+> [`elrebelde21`](https://github.com/elrebelde21)
+> 
