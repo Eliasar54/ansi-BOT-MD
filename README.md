@@ -135,3 +135,33 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 > 
 > [`elrebelde21`](https://github.com/elrebelde21)
 > 
+
+
+> ### 🤝 Contribuidores del Código Original
+> 
+> **[OfcDiego](https://github.com/OfcDiego)**
+> <a href="https://github.com/OfcDiego"><img src="https://github.com/OfcDiego.png" width="50" height="50" style="border-radius:50%;" alt="OfcDiego"/></a>
+> 
+> **[AzamiJs](https://github.com/AzamiJs)**
+> <a href="https://github.com/AzamiJs"><img src="https://github.com/AzamiJs.png" width="50" height="50" style="border-radius:50%;" alt="AzamiJs"/></a>
+> 
+> **[sensei-ofc](https://github.com/sensei-ofc)**
+> <a href="https://github.com/sensei-ofc"><img src="https://github.com/sensei-ofc.png" width="50" height="50" style="border-radius:50%;" alt="sensei-ofc"/></a>
+> 
+> **[Skidy89](https://github.com/Skidy89)**
+> <a href="https://github.com/Skidy89"><img src="https://github.com/Skidy89.png" width="50" height="50" style="border-radius:50%;" alt="Skidy89"/></a>
+> 
+> **[KatashiFukushima](https://github.com/KatashiFukushima)**
+> <a href="https://github.com/KatashiFukushima"><img src="https://github.com/KatashiFukushima.png" width="50" height="50" style="border-radius:50%;" alt="KatashiFukushima"/></a>
+> 
+> **[HACHEJOTA](https://github.com/HACHEJOTA)**
+> <a href="https://github.com/HACHEJOTA"><img src="https://github.com/HACHEJOTA.png" width="50" height="50" style="border-radius:50%;" alt="HACHEJOTA"/></a>
+> 
+> **[Alba070503](https://github.com/Alba070503)**
+> <a href="https://github.com/Alba070503"><img src="https://github.com/Alba070503.png" width="50" height="50" style="border-radius:50%;" alt="Alba070503"/></a>
+> 
+> **[DIEGO-OFC](https://github.com/DIEGO-OFC)**
+> <a href="https://github.com/DIEGO-OFC"><img src="https://github.com/DIEGO-OFC.png" width="50" height="50" style="border-radius:50%;" alt="DIEGO-OFC"/></a>
+> 
+> **[glytglobal](https://github.com/glytglobal)**
+> <a href="https://github.com/glytglobal"><img src="https://github.com/glytglobal.png" width="50" height="50" style="border-radius:50%;" alt="glytglobal"/></a>
