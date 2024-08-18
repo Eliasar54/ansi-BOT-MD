@@ -1,8 +1,8 @@
 # Código desarrollado por @gata_dios 
   # * Al bifurcar este repositorio, dejen los créditos a todos los creadores de cada código por favor. ♥
 #!/data/data/com.termux/files/usr/bin/bash 
-BOT_DIR="NovaBot-MD"  
-BOT_REPO="https://github.com/elrebelde21/$BOT_DIR"
+BOT_DIR="ansi-BOT-MD"  
+BOT_REPO="https://github.com/Eliasar54/$BOT_DIR"
 DB_FILE="database.json"
 
 GREEN='\033[32m'
