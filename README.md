@@ -91,7 +91,7 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 
 - **Dashboard:** [`Aquí`](https://control.azuraultra-host.pro/)
 - **Panel:** [`Aquí`](https://control.azuraultra-host.pro/)
-- **Canal de WhatsApp:** [`Aquí`](https://chat.whatsapp.com/KhcwE17XcalGuMwS4Tc2L0)
+- **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029VaWABAMG8l5K8K9PAB3v)
 
 ### 🚀 CORINPLUS-HOST 🚀
 <a href="https://dash.corinplus.com"><img src="https://qu.ax/ZycD.png" height="125px"></a>
