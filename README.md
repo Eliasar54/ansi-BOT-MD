@@ -85,6 +85,14 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 
 ------------------
 
+### 👾 AZURA ULTRA
+<a href="https://store.azuraultra-host.pro/login"><img src="https://qu.ax/ewVT.jpg" height="125px"></a>
+### Información del Host
+
+- **Dashboard:** [`Aquí`](https://control.azuraultra-host.pro/)
+- **Panel:** [`Aquí`](https://control.azuraultra-host.pro/)
+- **Canal de WhatsApp:** [`Aquí`](https://chat.whatsapp.com/KhcwE17XcalGuMwS4Tc2L0)
+
 ### 🚀 CORINPLUS-HOST 🚀
 <a href="https://dash.corinplus.com"><img src="https://qu.ax/ZycD.png" height="125px"></a>
 ### Información del Host
