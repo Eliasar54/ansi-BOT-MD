@@ -166,15 +166,8 @@ let msg = {...chatUpdate, messages: [proto.WebMessageInfo.fromObject(messages)],
 conn.ev.emit('messages.upsert', msg)}
    
 //--------------------[ INFO CONSOLE ]-----------------------
-if (m.message) {
-console.log(chalk.bold.cyanBright(`━━━━━━━━━━ •♬• ━━━━━━━━━━\n│+${conn.user.jid.split`@`[0]} ➥ ${botname} ${conn.user.id == global.numBot2 ? '' : '(sub-bot)'} ${vs}`), 
-chalk.bold.magenta(`\n│────────────\n│⏰${lenguaje.consola.text} `) + chalk.magentaBright(new Date().toLocaleString('es-ES', { timeZone: 'America/Argentina/Buenos_Aires' }),
-chalk.bold.red(`\n️│🏷️ ${lenguaje.consola.text1} `) + chalk.bold.white(`[${conn.public ? 'Publico' : 'Privado'}]`), 
-chalk.bold.yellow(`\n│📑${lenguaje.consola.text2} `) + chalk.yellowBright(`${type}`),  
-m.isGroup ? chalk.bold.greenBright(`\n│📤${lenguaje.consola.text4} `) + chalk.greenBright(groupName) + ' ➜ ' + gradient.rainbow(from) : chalk.bold.greenBright(`\n│📥${lenguaje.consola.text5}`, userSender), 
-chalk.bold.cyan(`\n│📊${lenguaje.consola.text3} `) + chalk.cyanBright(pushname) + ' ➜', gradient.rainbow(userSender), 
-chalk.bold.white(`\n│💬${lenguaje.consola.text6}`) + chalk.whiteBright(`\n━━━━━━━━━━✦✗✦━━━━━━━━━━━\n${msgs(m.text)}\n`))
-)}
+if (m.message) { console.log(chalk.bold.hex('#FFB6C1')(`━━━━━━━━━━ ❀~❀ ━━━━━━━━━━\n│❁ ${conn.user.jid.split`@`[0]} ➥ ${botname} ${conn.user.id == global.numBot2 ? '' : '(sub-bot)'} ${vs}`) + chalk.bold.hex('#DA70D6')(`\n│──────────────\n│⏰ ${lenguaje.consola.text} `) + chalk.hex('#FF69B4')(new Date().toLocaleString('es-ES', { timeZone: 'America/Argentina/Buenos_Aires' })) + chalk.bold.hex('#FF1493')(`\n️│🏷️ ${lenguaje.consola.text1} `) + chalk.bold.hex('#FFFAFA')(`[${conn.public ? 'Público' : 'Privado'}]`) + chalk.bold.hex('#FFD700')(`\n│📑 ${lenguaje.consola.text2} `) + chalk.hex('#FFDAB9')(`${type}`) + (m.isGroup ? chalk.bold.hex('#98FB98')(`\n│🌸 ${lenguaje.consola.text4} `) + chalk.hex('#ADFF2F')(groupName) + ' ➜ ' + gradient.pastel(from) : chalk.bold.hex('#98FB98')(`\n│💌 ${lenguaje.consola.text5} `) + chalk.hex('#ADFF2F')(userSender)) + chalk.bold.hex('#BA55D3')(`\n│✨ ${lenguaje.consola.text3} `) + chalk.hex('#9370DB')(pushname) + ' ➜ ' + gradient.pastel(userSender) + chalk.bold.hex('#FFF5EE')(`\n│💬 ${lenguaje.consola.text6}`) + chalk.hex('#FFFAFA')(`\n━━━━━━━━━━❦✿❦━━━━━━━━━━━\n${msgs(m.text)}\n`)); }
+
 //--------------------[ AUTOBIO ]----------------------- 
 /*if (global.db.data.settings[numBot].autobio) { 
 let setting = global.db.data.settings[numBot]
