@@ -102,32 +102,9 @@ Detener el bot apretado CTRL y aplastas Z en tu teclado, darle enter y escribe:
 - **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g)
 - **Soporte:** [`Aquí`](https://chat.whatsapp.com/K235lkvaGvlGRQKYm26xZP)
 
-------------------
 
-### `ANFITRIÓN INFINITA`
-> Activar ansí-BOT 24/7 en infinity-host
 
-<a href="https://dash.infinitywa-host.com"><img src="https://telegra.ph/file/6b2ec24ae37f6c118b762.jpg" height="125px"></a>
-### Información del Host
 
-- **Crea una cuenta:** [`Haga clic aquí`](https://dash.infinitywa-host.com/register?ref=TSArjgj3)
-- **Página:** [`Haga clic aquí`](https://infinitywa-host.com/)
-- **Panel de control:** [`Aquí](https://dash.infinitywa-host.com)
-- **Panel:** [`Aquí](https://panel.infinitywa-host.com)
-- **Grupo de WhatsApp:** [`Aquí](https://chat.whatsapp.com/GQ82mPnSYnm0XL2hLPk7FV)
-- **Canal de WhatsApp:** [`Aquí](https://whatsapp.com/channel/0029Va4QjH7DeON0ePwzjS1A)
-- **Soporte:** [`Bot exclusivo`](https://wa.me/message/FETBF7YBO37CG1)
-
-------------------  
-
-### 🔵 OLYMPUS-HOST 
-<a href="https://kingsvhost.asifofc.xyz"><img src="https://qu.ax/waCu.jpg" height="125px"></a>
-### Información del Host
-
-- **Dashboard:** [`Aquí`](https://dash.olympus-host.xyz)
-- **Panel:** [`Aquí`](https://dash.olympus-host.xyz)
-- **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029ValCkNT2ER6gHWFRQ71J)
-- **Correo:** [`Aquí`](olympussupport@gmail.com.com)
 
 
 ------------------
