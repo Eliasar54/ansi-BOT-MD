@@ -5,7 +5,7 @@ const { en, es, ar, id, pt, rs } = require('./libs/idiomas/total-idiomas.js')
 const axios = require('axios')
 
 //---------[ PROPIETARIO/OWNER ]---------
-global.owner = [["50582340051", "Owner", true], ["595984838201"], ["51918534156"], ["123456789"]]
+global.owner = [["50582340051", "Owner", true], ["595984838201"], ["51918534156"], ["18098781279"]]
 global.mods = []
 global.premium = []
 global.blockList = []
@@ -15,7 +15,7 @@ global.pagina = "atom.bio/blogansi"
 global.botname = "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
 global.wm = '✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨'
 global.vs = '1.2'
-global.creador = '𝐸𝐿𝐼𝐴𝑆𝐴𝑅 𝑌𝑇'
+global.creador = 'Antoni 𝑌𝑇'
 global.creador2 = 'ELIASAR YT'
 global.name = '𝑪𝑹𝑬𝑨𝑫𝑶𝑹'
 global.nunber = Math.floor(Math.random() * (27 - 18 + 1)) + 18;
