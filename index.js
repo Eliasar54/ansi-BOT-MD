@@ -662,7 +662,7 @@
                             });
                         } else if (anu.action === "remove") {
                             sock.sendMessage(anu.id, {
-                                text: `Adiós @${num.split("@")[0]}, esperamos verte pronto.`,
+                                text: `Adiós @${num.split("@")[0]}, esperamos no verte nadie te quiso`,
                                 mentions: [num]
                             });
                         }
