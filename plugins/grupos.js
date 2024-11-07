@@ -16,7 +16,6 @@ require('../main')
 async function grupo(m, command, isGroupAdmins, text, conn, participants, isBotAdmins, args, isCreator, delay, sender, quoted, mime, from, isCreator, groupMetadata, fkontak, delay, store, chats) {
 //if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
 if (global.db.data.users[m.sender].banned) return
-let usuario = global.db.data.users[m.sender]
 if (command == 'hidetag' || command == 'notificar' || command == 'tag') {  
 if (!m.isGroup) return m.reply(info.group) 
 if (!isGroupAdmins) return m.reply(info.admin)

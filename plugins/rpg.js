@@ -12,73 +12,132 @@ const Jimp = require('jimp')
 const os = require('os')
 const {createHash} = require('crypto') 
 const { canLevelUp, xpRange } = require('../libs/levelling.js')
-let minar = `${pickRandom(['Que pro 😎 has minado',
-'🌟✨ Genial!! Obtienes', 'WOW!! eres un(a) gran Minero(a) ⛏️ Obtienes', 'Has Minado!!', '😲 Lograste Minar la cantidad de', 'Tus Ingresos subiran gracias a que minaste', '⛏️⛏️⛏️⛏️⛏️ Minando', '🤩 SII!!! AHORA TIENES', 'La minaria esta de tu lado, por ello obtienes', '😻 La suerte de Minar', '♻️ Tu Mision se ha cumplido, lograste minar', '⛏️ La Mineria te ha beneficiado con', '🛣️ Has encontrado un Lugar y por minar dicho lugar Obtienes', '👾 Gracias a que has minado tus ingresos suman', 'Felicidades!! Ahora tienes','⛏️⛏️⛏️ Obtienes', '⛏️ has obtenido'])}` 
-let robar = `${pickRandom(['Robaste un Banco 🏦 y Obtuviste', 'Negociarte con el jefe de la mafia y Obtuviste :', 'Casi te atrapa la policía pero lograste robar una cantidad valiosa de 💰. !Te cuidado la próxima vez! Obtuviste:', 'Los mafiosos te han pagado :', 'Le has robado al Administrador del Grupo', 'Le robarte a tu presidente una sumar de :', 'le robarte a un famoso un valor de :', 'Entraste sigilosamente en el museo y robaste una obra de arte valiosa:', 'Infiltraste una joyería y obtuviste un botín impresionante:', 'Te convertiste en el ladrón más buscado del país, obtuviste:', 'Robaste un camión lleno de productos valiosos y obtuviste', 'Asaltaste un tren y conseguiste', 'Robaste un avión cargado de mercancía y obtuviste', 'Te hiciste pasar por un millonario para robar una joya única, obtuviste', 'Entraste a la casa de un coleccionista de arte y robaste una pieza invaluable, obtuviste', 'Secuestraste a un empresario y conseguiste un rescate importante:', 'Amenazaste a un político y obtuviste una gran suma de dinero:', 'Sobornaste a un oficial de policía para obtener información valiosa, conseguiste'])}` 
-let robmal = `${pickRandom(['LA POLICIA TE VIO 🙀👮‍♂️ PERDISTE', 'Fuiste a robar un banco 🏦 y tu ayudarte que vendio a la policía, perdiste', 'No pudiste escapar de la Policía 🚔🤡, perdiste :', 'Intentaste robar un casino pero te descubrieron, perdiste', 'Te atraparon tratando de robar una tienda, perdiste :', 'La alarma sonó cuando intentabas robar un almacén, perdiste', 'El dueño del lugar te atrapó in fraganti, perdiste', 'Intentaste hackear una cuenta bancaria pero te rastrearon, perdiste', 'Fuiste descubierto tratando de sobornar a un oficial, perdiste', 'Tu plan para chantajear a un empresario salió mal, perdiste'])}` 
+let minar = `${pickRandom([
+    '¡Eres una diosa de la minería! 👸⛏️✨ ¡Has minado una gran cantidad!', 
+    '¡🌟✨ Maravillosa! Obtienes mucho 💎 por tu excelente minería', 
+    '¡Qué increíble! 😍⛏️ Eres la reina de las minas y obtuviste', 
+    '👑⛏️ ¡Lo lograste! Has minado con estilo y ahora tienes', 
+    '😲 ¡Guau! Lograste minar la cantidad de', 
+    '⚡💥 Tus habilidades de minería son legendarias, ahora tienes', 
+    '⛏️💫 ¡Mina como una campeona! Has obtenido', 
+    '✨🌈 ¡Sigue brillando! Ahora tienes', 
+    '😻 ¡La suerte está de tu lado, minera estrella! 🌟 Obtienes', 
+    '🌟🎉 ¡Has hecho un trabajo increíble minando y te llevas', 
+    '⚒️✨ La minería está en tu sangre 💪. Obtienes', 
+    '🌸⛏️ ¡Qué gran esfuerzo! Has encontrado un tesoro y obtienes', 
+    '👑⛏️ ¡La reina de las minas vuelve a triunfar! Ahora tienes', 
+    '🌟🛣️ Tu camino como minera es brillante, has minado y obtuviste', 
+    '🌈 ¡La fortuna te sonríe mientras minas! Ahora tienes', 
+    '🌸💪 Eres imparable, ¡obtienes una gran recompensa por tu minería!', 
+    '🌟🌟 ¡Has demostrado ser la mejor en las minas! Obtienes', 
+    '💖⛏️ ¡Qué estilo! Minaste como nadie y obtuviste', 
+    '⛏️💎 ¡El poder de la minería está contigo! Obtienes', 
+    '💫⚒️ ¡Cada golpe de tu pico trae fortuna! ¡Ahora tienes!'
+])}`
+
+let robar = `${pickRandom([
+    '👑💰 ¡Eres la reina del robo! Robaste un banco y obtuviste', 
+    '💎✨ ¡Maestra del crimen! Lograste negociar con la mafia y obtuviste', 
+    '😎💵 ¡Wow! Casi te atrapan, pero tu astucia te hizo escapar con 💰. Obtienes:', 
+    '💰🎩 ¡Los mafiosos están impresionados por tu estilo! Te pagaron', 
+    '💼👸 ¡Eres increíble! Lograste robar al administrador del grupo y obtuviste', 
+    '💄💸 Robaste a una celebridad con elegancia y conseguiste', 
+    '🎨💰 Entraste sigilosamente al museo y robaste una obra maestra de valor incalculable. Obtienes:', 
+    '💍🕵️ ¡Te infiltraste en la joyería y conseguiste un botín impresionante! Ahora tienes', 
+    '🚨👑 ¡Nadie puede contigo! Robaste un camión lleno de tesoros y obtuviste', 
+    '💸😎 ¡Te convertiste en la ladrona más buscada, pero el botín es enorme! Ahora tienes', 
+    '🎩🎁 ¡Qué elegancia! Robaste una mansión de lujo y obtuviste', 
+    '👜💎 Te hiciste pasar por una millonaria y robaste una joya única. ¡Increíble!', 
+    '🎭💰 ¡Qué audaz! Entraste a un evento de alta sociedad y saliste con una fortuna', 
+    '👗💍 ¡El arte del engaño es lo tuyo! Lograste robar una fortuna y obtienes', 
+    '🚁🤑 ¡Asaltaste un helicóptero lleno de joyas y obtuviste!', 
+    '🎯💸 ¡Robaste con precisión de experta! Ahora tienes en tus manos', 
+    '🎩✨ Te infiltraste en un casino y ganaste más de lo que robaste. ¡Obtienes!', 
+    '🎀💰 ¡Qué golpe maestro! Lograste robar y obtuviste'
+])}`
+
+let robmal = `${pickRandom([
+    '🙀👮‍♂️ ¡LA POLICÍA TE ATRAPÓ! PERDISTE', 
+    '🏦🚨 Fuiste a robar un banco, pero te traicionaron y la policía te capturó. ¡Perdiste!', 
+    '🚔🤡 ¡No pudiste escapar de la policía! ¡Perdiste!', 
+    '🎰 ¡Intentaste robar un casino, pero te descubrieron! Perdiste:', 
+    '🛑💼 ¡Te atraparon tratando de robar una tienda! Perdiste:', 
+    '🚨🔔 ¡La alarma sonó y fuiste capturada tratando de robar un almacén! ¡Perdiste!', 
+    '🏠👀 El dueño del lugar te sorprendió robando. ¡Perdiste!', 
+    '💻🔒 ¡Intentaste hackear una cuenta bancaria, pero te rastrearon! ¡Perdiste!', 
+    '👮‍♀️💼 Intentaste sobornar a un oficial, pero te descubrieron. ¡Perdiste!', 
+    '😱💰 ¡Tu plan para chantajear a un empresario salió mal y perdiste todo!', 
+    '🚔💸 ¡Fuiste atrapada en el acto! Perdiste todo lo robado.', 
+    '🎭❌ ¡Tu máscara cayó en pleno robo y fuiste identificada! Perdiste:', 
+    '🚨👮‍♀️ ¡Te atraparon justo antes de escapar! ¡Perdiste tu botín.'
+])}`
+
+let verificados2 = 'https://i.ibb.co/LJdWZ4x/20241019-084424.jpg';
+let verificadosError = 'https://i.ibb.co/YL9ykFr/20241104-172510.jpg';
 
 async function reg(command, conn, m, sender, text, budy, fkontak, delay, args) {
-if (global.db.data.users[m.sender].banned) return
-if (command == 'reg' || command == 'verificar') {
-let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
-let user = global.db.data.users[m.sender]
-let codigosIdiomas = ['es', 'en']
-let nombresIdiomas = {'es': 'Español', 'en': 'English' }
-if (user.registered === true) return m.reply(lenguaje.smsReg()) 
-if (!Reg.test(text)) return m.reply(lenguaje.smsReg1(prefix)) 
-let [_, name, splitter, age] = text.match(Reg)
-if (!name) return m.reply(lenguaje.smsReg2()) 
-if (!age) return m.reply(lenguaje.smsReg3()) 
-age = parseInt(age)
-if (age > 100) return m.reply(lenguaje.smsReg4()) 
-if (age < 6) return m.reply(lenguaje.smsReg5()) 
-if (name.length >= 45) return m.reply(lenguaje.smsReg6()) 
-user.name = name + 'ͧͧͧͦꙶͣͤ✓'.trim()
-user.age = age
-user.regTime = + new Date
-user.registered = true
-let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.fromMe ? conn.user.jid : m.sender
-const date = moment.tz('America/Bogota').format('DD/MM/YYYY')
-const time = moment.tz('America/Argentina/Buenos_Aires').format('LT')
-let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
-global.db.data.users[m.sender].limit += 2
-global.db.data.users[m.sender].exp += 200
-conn.sendMessage(m.chat, { text: lenguaje.smsReg7(name, user, age, time, date, sender, sn, prefix, rtotalreg),
-contextInfo:{
-mentionedJid:[name],
-forwardingScore: 9999999,
-isForwarded: false, 
-"externalAdReply": {
-"showAdAttribution": true,
-"containsAutoReply": true,
-"title": `${botname}`,
-"body": `${name}`,
-"previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": imagen1, 
-"sourceUrl": md}}},
-{ quoted: fkontak, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
-await delay(2 * 2000)
-conn.sendMessage(m.chat, { text: sn, contextInfo:{forwardingScore: 9999999, isForwarded: false, }}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
-await delay(2 * 2000)
-conn.sendMessage(m.chat, { text: lenguaje.smsReg8(), contextInfo:{forwardingScore: 9999999, isForwarded: false, }}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+    if (global.db.data.users[m.sender].banned) return;
+    if (command == 'reg' || command == 'verificar' || command == 'Registrar') {
+        let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
+        let user = global.db.data.users[m.sender];
+        
+        if (user.registered === true) return m.reply('*Ya estás registrado 🧐*');
+        
+        if (!Reg.test(text)) {
+            return conn.sendMessage(m.chat, {image: {url: verificadosError}, caption: `*❌ Forma incorrecta*\n\nUse de esta forma\nEjemplo: ${prefix}reg nombre.edad`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
+        }
+
+        let [_, name, splitter, age] = text.match(Reg);
+        if (!name) return m.reply('El nombre no puede estar vacío');
+        if (!age) return m.reply('La edad no puede estar vacía (Numeros)');
+        
+        age = parseInt(age);
+        if (age > 100) return m.reply('Está Viejo (。-`ω´-)');
+        if (age < 3) return m.reply('🚼  Basado, los bebés saben escribir.✍️😳');
+        if (name.length >= 99) return m.reply('🐈 Fua que basado, el nombre es muy largo que quiere un puente como nombre😹');
+        
+        user.name = name + 'ͧͧͧͦꙶͣͤ✓'.trim();
+        user.age = age;
+        user.regTime = + new Date();
+        user.registered = true;
+        
+        let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
+        let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.fromMe ? conn.user.jid : m.sender;
+        const date = moment.tz('America/Bogota').format('DD/MM/YYYY');
+        const time = moment.tz('America/Argentina/Buenos_Aires').format('LT');
+        let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length;
+        
+        global.db.data.users[m.sender].limit += 5;
+        global.db.data.users[m.sender].exp += 600;
+        
+        conn.sendMessage(m.chat, {
+            image: {url: verificados2}, 
+            caption: `[ ✅ REGISTRO EXITOSO ✨ ]\n\n ◉ *Nombre:* ${name} ${user.registered === true ? '✔️' : ''}\n ◉ *Edad:* ${age} años 🌸\n ◉ *Hora:* ${time} ⏰\n ◉ *Fecha:* ${date} 📅\n ◉ *Número:* wa.me/${sender.split("@")[0]} 📞\n ◉ *Número de serie:*\n ⤷ ${sn} 🔢\n\n 🎁 *Recompensa:* 🎉\n ⤷ 2 diamantes 💎\n ⤷ 200 puntos de experiencia 🌟\n\n *◉ Para ver los comandos del bot usa:*\n ${prefix}menu 📜\n\n ◉ *Total de usuarios registrados:* ${rtotalreg} 👥`
+        }, {quoted: fkontak, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
+        
+        await delay(2 * 2000);
+        
+        conn.sendMessage(m.chat, {text: sn, contextInfo: {forwardingScore: 9999999, isForwarded: false}}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
+        await delay(2 * 2000);
+        
+        conn.sendMessage(m.chat, {text: '*𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾 𝙰 𝙰𝙽𝚂𝙸𝙱𝙾𝚃 🥰*', contextInfo: {forwardingScore: 9999999, isForwarded: false}}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 }
+
 
 if (command == 'unreg') {
 const {createHash} = require('crypto') 
 if (!args[0]) return m.reply(lenguaje.rpg.unreg) 
 const user = global.db.data.users[m.sender];
-let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)
+let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
 if (args[0] !== sn) return m.reply(lenguaje.rpg.myns) 
 user.registered = false; 
-global.db.data.users[m.sender].limit -= 2
-global.db.data.users[m.sender].exp -= 200
+global.db.data.users[m.sender].limit -= 5
+global.db.data.users[m.sender].exp -= 600
 m.reply(lenguaje.rpg.delreg)}
 
 if (command == 'myns') {
 const {createHash} = require('crypto') 
-let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)
+let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
 conn.fakeReply(m.chat, sn, '0@s.whatsapp.net', `${lenguaje.rpg.myns2}`, 'status@broadcast')}}
 
 async function rpg(m, command, participants, args, sender, pushname, text, conn, fkontak, replace, who) {
@@ -102,26 +161,25 @@ const usersRole = sortedRole.map(enumGetKey)
 const len = args[0] && args[0].length > 0 ? Math.min(100, Math.max(parseInt(args[0]), 10)) : Math.min(10, sortedExp.length);
 const texto = `${lenguaje.rpg.text3}
 
-╔═❖ *𝚃𝙾𝙿 ${len} 𝚇𝙿* 🧬 
-║𝚃𝚞 : ${usersExp.indexOf(m.sender) + 1} 𝚍𝚎 ${usersExp.length}
-${sortedExp.slice(0, len).map(({jid, exp}, i) => `║${i + 1}. ${participants.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *${exp} exp*`).join`\n`}
-╚═══════════════  
+╭🌟 *Top ${len} XP* 🌟╮
+┃ 🌸 *Tú*: ${usersExp.indexOf(m.sender) + 1} / ${usersExp.length}
+${sortedExp.slice(0, len).map(({jid, exp}, i) => `┃ ${i + 1}. ${(participants.some((p) => jid === p.jid) ? `💖 ${conn.getName(jid)}` : '@')}${jid.split`@`[0]} ➜ *${exp} XP*`).join`\n`}
+╰──────────╯
 
-╔═❖ *𝚃𝙾𝙿 ${len} 𝙳𝙸𝙰𝙼𝙰𝙽𝚃𝙴𝚂 💎*
-║𝚃𝚞 : ${usersLim.indexOf(m.sender) + 1} 𝚍𝚎 ${usersLim.length}
-${sortedLim.slice(0, len).map(({jid, limit}, i) => `║${i + 1}. ${participants.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *${limit} diamantes*`).join`\n`}
-╚═══════════════  
+╭💎 *Top ${len} Diamantes* 💎╮
+┃ ✨ *Tú*: ${usersLim.indexOf(m.sender) + 1} / ${usersLim.length}
+${sortedLim.slice(0, len).map(({jid, limit}, i) => `┃ ${i + 1}. ${(participants.some((p) => jid === p.jid) ? `🌷 ${conn.getName(jid)}` : '@')}${jid.split`@`[0]} ➜ *${limit} diamantes*`).join`\n`}
+╰──────────╯
 
-╔═❖ *𝚃𝙾𝙿 ${len} 𝙽𝙸𝚅𝙴𝙻* ⬆️
-║𝚃𝚞 : ${usersLevel.indexOf(m.sender) + 1} 𝚍𝚎 ${usersLevel.length}
-${sortedLevel.slice(0, len).map(({jid, level}, i) => `║${i + 1}. ${participants.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *nivel ${level}*`).join`\n`}
-╚═══════════════ 
+╭⬆️ *Top ${len} Nivel* ⬆️╮
+┃ 🌸 *Tú*: ${usersLevel.indexOf(m.sender) + 1} / ${usersLevel.length}
+${sortedLevel.slice(0, len).map(({jid, level}, i) => `┃ ${i + 1}. ${(participants.some((p) => jid === p.jid) ? `🌺 ${conn.getName(jid)}` : '@')}${jid.split`@`[0]} ➜ *nivel ${level}*`).join`\n`}
+╰──────────╯
 
-╔═❖ *𝚃𝙾𝙿 ${len} 𝚁𝙾𝙻 | 𝚁𝙰𝙽𝙶𝙾  💪* 
-║𝚃𝚞 : ${usersLevel.indexOf(m.sender) + 1} 𝚍𝚎 ${usersLevel.length} 𝚄𝚜𝚞𝚊𝚛𝚒𝚘𝚜
- 
-${sortedLevel.slice(0, len).map(({jid, role, level}, i) => `║${i + 1}. ${participants.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *${role}*`).join`\n`}
-╚═══════════════`.trim();
+╭💪 *Top ${len} Rango* 💪╮
+┃ 🌟 *Tú*: ${usersLevel.indexOf(m.sender) + 1} / ${usersLevel.length}
+${sortedLevel.slice(0, len).map(({jid, role}, i) => `┃ ${i + 1}. ${(participants.some((p) => jid === p.jid) ? `💖 ${conn.getName(jid)}` : '@')}${jid.split`@`[0]} ➜ *${role}*`).join`\n`}
+╰──────────╯`.trim();
 conn.sendMessage(m.chat, { text: texto, contextInfo:{
 mentionedJid: [...texto.matchAll(/@(\d{0,16})/g)].map(v => v[1] + '@s.whatsapp.net')}}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})}
 
@@ -314,35 +372,31 @@ ${lenguaje.rpg.pp7} ${registered ? 'Si': 'No'}`}, { quoted: fkontak, ephemeralEx
 m.react(done)}
 
 if (command == 'levelup' || command == 'nivel') {
-//let name = conn.getName(m.sender);  
-let user = global.db.data.users[m.sender]; 
-if (!canLevelUp(user.level, user.exp, global.multiplier)) { 
-let {min, xp, max} = xpRange(user.level, global.multiplier);
-return m.reply(`╭╌「 ${lenguaje.rpg.level} 」
-├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-├ ${lenguaje.rpg.level2}
-├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-├─ ${lenguaje.rpg.level3} ${pushname}
-├─ ❐ *XP 🆙:* ${user.exp - min}/${xp}
-├─ ${lenguaje['smsAutonivel3']()} ${user.level}
-├─ ${lenguaje['smsAutonivel6']()} ${user.role}
-╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-
-${lenguaje.rpg.level4} *${max - user.exp}* ${lenguaje.rpg.level5}`)} 
-const before = user.level * 1; 
-while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++; 
-if (before !== user.level) {
-const str = `╭╌「 *LEVEL UP 🎊* 」
-├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-├『 🥳 ${pushname} ${lenguaje.rpg.level6}
-├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-├─ ${lenguaje['smsAutonivel4']()} ${before}
-├─ ${lenguaje['smsAutonivel5']()} ${user.level}
-├─ ${lenguaje['smsAutonivel6']()} ${user.role}
-╰╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-
-${lenguaje.rpg.level7}`.trim()
-return m.reply(str)}}
+  let user = global.db.data.users[m.sender];
+  if (!canLevelUp(user.level, user.exp, global.multiplier)) {
+    let {min, xp, max} = xpRange(user.level, global.multiplier);
+    return m.reply(`╭💖 「 ${lenguaje.rpg.level} 」 💖
+│🌸 ${lenguaje.rpg.level2}
+│🌺 ${lenguaje.rpg.level3} ${pushname}
+│✨ *XP:* ${user.exp - min}/${xp}
+│🎀 Nivel: ${user.level}
+│👑 Rango: ${user.role}
+╰💫 Restan *${max - user.exp}* XP para el siguiente nivel.`);
+  }
+  
+  const before = user.level * 1;
+  while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++;
+  
+  if (before !== user.level) {
+    const str = `╭🎉 「 ¡LEVEL UP! 」 🎉
+│🥂 ¡Felicidades, ${pushname}! 🌟
+│✨ Nivel anterior: ${before}
+│🎀 Nuevo nivel: ${user.level}
+│👑 Rango actual: ${user.role}
+╰🌈 ¡Sigue brillando y alcanzando nuevas alturas! ✨`.trim();
+    return m.reply(str);
+  }
+}
 
 if (command == 'cofre') {
 if (global.db.data.users[m.sender].level < 9) return m.reply(`${lenguaje['nivel']()} 9 ${lenguaje['nivel2']()} ${prefix}nivel`) 

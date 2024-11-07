@@ -16,9 +16,8 @@ let cafi = "https://whatsapp.com/channel/0029VaFVSkRCMY0KFmCMDX2q"
 let cafi2 = "https://chat.whatsapp.com/FBtyc8Q5w2iJXVl5zGJdFJ"
 
 async function info(command, conn, m, speed, sender, fkontak, pickRandom, pushname, from, msg, text) {
-if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
+if (global.db.data.users[m.sender].registered < true) return  conn.sendMessage(m.chat, {video: {url: verificar}, caption: info.registra}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 if (global.db.data.users[m.sender].banned) return
-let usuario = global.db.data.users[m.sender]
 if (command == 'estado' || command == 'infobot') {
 const totalMemory = Math.round(os.totalmem() / (1024 * 1024 * 1024))
 const freeMemory = Math.round(os.freemem() / (1024 * 1024 * 1024))
@@ -96,9 +95,54 @@ isForwarded: true,
 }
 
 if (command == 'ping') {
-var timestamp = speed();  
-var latensi = speed() - timestamp
-conn.sendMessage(from, { text: `*Pong 🏓  ${latensi.toFixed(4)}*` }, { quoted: msg, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+  const { execSync } = require('child_process');
+  
+  var timestamp = speed();  
+  var latensi = speed() - timestamp;
+  var platform = os.platform();
+  var cpuModel = os.cpus()[0].model;
+  var cpuCores = os.cpus().length;
+  var systemArch = os.arch();
+  var systemVersion = os.release();
+  var freeMem = (os.freemem() / (1024 ** 3)).toFixed(2) + ' GB';
+  var totalMem = (os.totalmem() / (1024 ** 3)).toFixed(2) + ' GB';
+  var usedMem = (totalMem - freeMem).toFixed(2) + ' GB';
+  var ramPercentageUsed = ((1 - os.freemem() / os.totalmem()) * 100).toFixed(2) + '%';
+  var uptime = os.uptime();
+  var uptimeDays = Math.floor(uptime / (60 * 60 * 24));
+  var uptimeHours = Math.floor((uptime % (60 * 60 * 24)) / (60 * 60));
+  var uptimeMinutes = Math.floor((uptime % (60 * 60)) / 60);
+  
+  var diskSpace = 'No disponible';
+  try {
+    diskSpace = execSync('df -h /').toString().split('\n')[1].replace(/\s+/g, ' ').split(' ');
+    diskSpace = `${diskSpace[3]} libre de ${diskSpace[1]}`;
+  } catch (error) {
+    diskSpace = 'No disponible';
+  }
+
+  var loadAverage = os.loadavg().map(num => num.toFixed(2)).join(', ');
+
+  var cpuUsage = os.cpus().map((core, index) => `- Núcleo ${index + 1}: ${(core.times.user / 100).toFixed(2)}%`).join('\n');
+
+  var userHome = os.homedir() || 'No disponible';
+
+  conn.sendMessage(from, {
+    text: `🏓 *PONG:* ${latensi.toFixed(4)} ms\n
+    🖥️ *PLATAFORMA:* ${platform}\n
+    🔢 *NUCLEOS DE CPU:* ${cpuCores}\n
+    📡 *MODELO DE CPU:* ${cpuModel}\n
+    🏗️ *ARQUITECTURA DEL SISTEMA:* ${systemArch}\n
+    🔢 *VERSION DEL SISTEMA:* ${systemVersion}\n
+    💾 *RAM USADA:* ${usedMem} / ${totalMem}\n
+    📊 *PORCENTAJE DE RAM USADA:* ${ramPercentageUsed}\n
+    💾 *RAM LIBRE:* ${freeMem}\n
+    📦 *ESPACIO TOTAL EN DISCO:* ${diskSpace}\n
+    ⏳ *UPTIME:* ${uptimeDays}d ${uptimeHours}h ${uptimeMinutes}m\n
+    📈 *CARGA PROMEDIO :* ${loadAverage}\n
+    ⚙️ *DETALLES DE CPU POR NÚCLEO:*\n${cpuUsage}\n
+    📂 *Ruta:* ${userHome}`,
+  }, { quoted: msg, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60 });
 }
 
 if (command == 'report') {
