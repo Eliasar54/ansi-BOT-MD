@@ -1,3 +1,3 @@
-const espanol = require('./espanol.js'); // Español
+const espanol = require('./mensajes.js'); 
 
 module.exports.es = espanol;
