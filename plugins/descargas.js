@@ -65,133 +65,143 @@ async function descarga(m, command, conn, text, command, args, fkontak, from, bu
     if (global.db.data.users[m.sender].banned) return
 
 
-    if (command == 'play' || command == 'play2') {
-        if (!text) return m.reply(`*¿Qué está buscando? 🎶*\nEjemplo: *${prefix + command}* ozuna`);
+if (command === 'play' || command === 'musica') {
+    if (!text) return m.reply(`*¿Qué está buscando? 🎶*\nEjemplo: *${prefix + command}* ozuna`);
 
-        const yt_play = await search(args.join(' '));
+    const startTime = Date.now();
 
-        if (!yt_play || yt_play.length === 0) {
-            return m.reply("⚠️ No se encontró ninguna canción.");
-        }
+    conn.fakeReply(
+        m.chat,
+        `*ᴇsᴘᴇʀᴀ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ 🔈.*\n\n> No hagas spam de comandos`,
+        '0@s.whatsapp.net',
+        '𝐄𝐧𝐯𝐢𝐚𝐧𝐝𝐨 𝐚𝐮𝐝𝐢𝐨 𝐞𝐬𝐩𝐞𝐫𝐚'
+    );
 
-        const texto1 = `*🎵 Canción Encontrada ✅*\n📌 *Título:* ${yt_play[0].title}\n🕒 *Publicado:* ${yt_play[0].ago}\n⏱️ *Duración:* ${secondString(yt_play[0].duration.seconds)}\n👀 *Vistas:* ${MilesNumber(yt_play[0].views)}\n✍️ *Autor:* ${yt_play[0].author.name}\n🔗 *Link:* ${yt_play[0].url}`;
+    m.react(rwait);
 
-        await conn.sendButton(
-            m.chat,
-            texto1,
-            botname,
-            yt_play[0].thumbnail,
-            [
-                ['🔈 𝐀𝐔𝐃𝐈𝐎 🔈', `.musica ${yt_play[0].url}`],
-                ['📹 𝐕𝐈𝐃𝐄𝐎 📹', `.video ${yt_play[0].url}`]
-            ],
-            null,
-            [
-                ['📢 𝐂𝐀𝐍𝐀𝐋 📢', 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36']
-            ],
-            m
-        );
+    const yt_play = await search(args.join(' '));
+    if (!yt_play || yt_play.length === 0) {
+        return m.reply("⚠️ No se encontró ninguna canción.");
     }
 
+    const videoInfo = yt_play[0];
+    const texto1 = `*🎵 Canción Encontrada ✅*\n📌 *Título:* ${videoInfo.title}\n🕒 *Publicado:* ${videoInfo.ago}\n⏱️ *Duración:* ${secondString(videoInfo.duration.seconds)}\n👀 *Vistas:* ${MilesNumber(videoInfo.views)}\n✍️ *Autor:* ${videoInfo.author.name}\n🔗 *Link:* ${videoInfo.url}\n\n✨ *Recuerda seguir mi canal, me apoyarías mucho* 🙏: https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36`;
 
+    await conn.sendMessage(m.chat, {
+        image: { url: videoInfo.thumbnail },
+        caption: texto1
+    }, { quoted: m });
 
+    const apiUrl = `https://api.nyxs.pw/dl/yt-direct?url=${encodeURIComponent(videoInfo.url)}`;
 
-    if (command == 'musica') {
-        if (!text) return m.reply(lenguaje.descargar.text + ` *${prefix + command}* ozuna`);
-
-        conn.fakeReply(m.chat, `*ᴇsᴘᴇʀᴀ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ 🔈.*\n\n> No hagas spam de comandos`, '0@s.whatsapp.net', '𝐄𝐧𝐯𝐢𝐚𝐧𝐝𝐨 𝐚𝐮𝐝𝐢𝐨 𝐞𝐬𝐩𝐞𝐫𝐚');
-
-        m.react(rwait);
-
-        const apiUrl = `https://api.nyxs.pw/dl/yt-direct?url=${encodeURIComponent(text)}`;
-
-        try {
-            const response = await axios.get(apiUrl);
-            if (response.data.status) {
-                const audioUrl = response.data.result.urlAudio;
-                await conn.sendMessage(m.chat, {
-                    audio: {
-                        url: audioUrl
-                    },
-                    mimetype: 'audio/mpeg'
-                }, {
-                    quoted: m
-                });
-                m.react(done);
-            } else {
-                throw new Error('No se pudo obtener el audio');
-            }
-        } catch (e) {
-            const audioUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(text)}`;
-            try {
-                await conn.sendMessage(m.chat, {
-                    audio: {
-                        url: audioUrl
-                    },
-                    mimetype: 'audio/mpeg'
-                }, {
-                    quoted: m
-                });
-                m.react(done);
-            } catch (error) {
-                m.react(error);
-                m.reply(`Ocurrió un error inesperado - ${error.message}`);
-            }
-        }
-    }
-
-    if (command === 'video') {
-        if (!text) return m.reply(lenguaje.descargar.text + ` *${prefix + command}* ozuna`);
-
-        conn.fakeReply(m.chat, `*ᴇsᴘᴇʀᴀ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ 🎥.*\n\n> No hagas spam de comandos`, '0@s.whatsapp.net', '𝐄𝐧𝐯𝐢𝐚𝐧𝐝𝐨 𝐯𝐢𝐝𝐞𝐨 𝐞𝐬𝐩𝐞𝐫𝐚');
-
-        m.react(rwait);
-
-        try {
-            const response = await fetch(`https://api.ryzendesu.vip/api/downloader/ytdl?url=${encodeURIComponent(text)}`);
-            const data = await response.json();
-            const videoInfo = data.resultUrl.video.find(v => v.quality === '360p');
-
-            if (!videoInfo) throw new Error('No se encontró video en 360p');
-
+    try {
+        const response = await axios.get(apiUrl);
+        if (response.data.status) {
+            const audioUrl = response.data.result.urlAudio;
             await conn.sendMessage(m.chat, {
-                video: {
-                    url: videoInfo.download
-                },
-                fileName: `${data.result.title}.mp4`,
-                mimetype: 'video/mp4',
-                caption: `${lenguaje.descargar.text4}\n🔰 ${lenguaje.descargar.title} ${data.result.title}`
-            }, {
-                quoted: m
-            });
+                audio: { url: audioUrl },
+                mimetype: 'audio/mpeg'
+            }, { quoted: m });
 
+            const endTime = Date.now();
+            const totalTime = ((endTime - startTime) / 1000).toFixed(2);
             m.react(done);
-        } catch (e) {
-            const apiUrl = `https://api.nyxs.pw/dl/yt-direct?url=${encodeURIComponent(text)}`;
-            try {
-                const response = await axios.get(apiUrl);
-                if (response.data.status) {
-                    const videoUrl = response.data.result.urlVideo;
-                    await conn.sendMessage(m.chat, {
-                        video: {
-                            url: videoUrl
-                        },
-                        fileName: `${response.data.result.title}.mp4`,
-                        mimetype: 'video/mp4',
-                        caption: `${lenguaje.descargar.text4}\n🔰 ${lenguaje.descargar.title} ${response.data.result.title}`
-                    }, {
-                        quoted: m
-                    });
-                    m.react(done);
-                } else {
-                    throw new Error('No se pudo obtener el video de la segunda API');
-                }
-            } catch (error) {
-                m.react(error);
-                return m.reply(`Ocurrió un error inesperado - ${error.message}`);
-            }
+            m.reply(`✅ ¡Audio enviado! Tiempo total de envío: ${totalTime} segundos.`);
+        } else {
+            throw new Error('No se pudo obtener el audio');
+        }
+    } catch (e) {
+        const fallbackAudioUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoInfo.url)}`;
+        try {
+            await conn.sendMessage(m.chat, {
+                audio: { url: fallbackAudioUrl },
+                mimetype: 'audio/mpeg'
+            }, { quoted: m });
+
+            const endTime = Date.now();
+            const totalTime = ((endTime - startTime) / 1000).toFixed(2);
+            m.react(done);
+            m.reply(`✅ ¡Audio enviado! Tiempo total de envio: ${totalTime} segundos.`);
+        } catch (error) {
+            m.react(error);
+            m.reply(`Ocurrió un error inesperado - ${error.message}`);
         }
     }
+}
+
+
+if (command === 'video' || command === 'play2') {
+    if (!text) return m.reply(`*¿Qué video está buscando? 🎥*\nEjemplo: *${prefix + command}* ozuna`);
+
+    const startTime = Date.now();
+
+    conn.fakeReply(
+        m.chat,
+        `*ᴇsᴘᴇʀᴀ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ 🎥.*\n\n> No hagas spam de comandos`,
+        '0@s.whatsapp.net',
+        '𝐄𝐧𝐯𝐢𝐚𝐧𝐝𝐨 𝐯𝐢𝐝𝐞𝐨 𝐞𝐬𝐩𝐞𝐫𝐚'
+    );
+
+    m.react(rwait);
+
+    const yt_play = await search(args.join(' '));
+    if (!yt_play || yt_play.length === 0) {
+        return m.reply("⚠️ No se encontró ningún video.");
+    }
+
+    const texto1 = `*🎬 Video Encontrado ✅*\n📌 *Título:* ${yt_play[0].title}\n🕒 *Publicado:* ${yt_play[0].ago}\n⏱️ *Duración:* ${secondString(yt_play[0].duration.seconds)}\n👀 *Vistas:* ${MilesNumber(yt_play[0].views)}\n✍️ *Autor:* ${yt_play[0].author.name}\n🔗 *Link:* ${yt_play[0].url}\n\n✨ *Recuerda seguir mi canal, me apoyarías mucho* 🙏: https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36`;
+
+    await conn.sendMessage(m.chat, {
+        image: { url: yt_play[0].thumbnail },
+        caption: texto1
+    }, { quoted: m });
+
+    const apiUrl = `https://api.ryzendesu.vip/api/downloader/ytdl?url=${encodeURIComponent(yt_play[0].url)}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const videoInfo = data.resultUrl.video.find(v => v.quality === '360p');
+
+        if (!videoInfo) throw new Error('No se encontró video en 360p');
+
+        await conn.sendMessage(m.chat, {
+            video: { url: videoInfo.download },
+            fileName: `${data.result.title}.mp4`,
+            mimetype: 'video/mp4',
+            caption: `${lenguaje.descargar.text4}\n🔰 ${lenguaje.descargar.title} ${data.result.title}`
+        }, { quoted: m });
+
+        const endTime = Date.now();
+        const totalTime = ((endTime - startTime) / 1000).toFixed(2);
+        m.react(done);
+        m.reply(`✅ ¡Video enviado! Tiempo total de envío: ${totalTime} segundos.`);
+    } catch (e) {
+        const apiUrlFallback = `https://api.nyxs.pw/dl/yt-direct?url=${encodeURIComponent(yt_play[0].url)}`;
+        try {
+            const response = await axios.get(apiUrlFallback);
+            if (response.data.status) {
+                const videoUrl = response.data.result.urlVideo;
+                await conn.sendMessage(m.chat, {
+                    video: { url: videoUrl },
+                    fileName: `${response.data.result.title}.mp4`,
+                    mimetype: 'video/mp4',
+                    caption: `${lenguaje.descargar.text4}\n🔰 ${lenguaje.descargar.title} ${response.data.result.title}`
+                }, { quoted: m });
+
+                const endTime = Date.now();
+                const totalTime = ((endTime - startTime) / 1000).toFixed(2);
+                m.react(done);
+                m.reply(`✅ ¡Video enviado! Tiempo total de envio: ${totalTime} segundos.`);
+            } else {
+                throw new Error('No se pudo obtener el video de la segunda API');
+            }
+        } catch (error) {
+            m.react(error);
+            return m.reply(`Ocurrió un error inesperado - ${error.message}`);
+        }
+    }
+}
 
     if (command === 'bilibili') {
         if (!text) return m.reply(`Por favor proporciona un enlace de Bilibili usando el comando de esta forma: *${prefix + command} <URL del video>*`);
@@ -336,40 +346,47 @@ async function descarga(m, command, conn, text, command, args, fkontak, from, bu
         }
     }
 
+if (command == 'tiktok' || command == 'tt') {
+    if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://vm.tiktok.com/ZMjdrFCtg/`);
+    if (!isUrl(args[0]) && !args[0].includes('tiktok')) return m.reply(`¡Link inválido!`);
+    conn.fakeReply(m.chat, `${lenguaje.lengua.espere}`, '0@s.whatsapp.net', 'No haga spam');
 
-    if (command == 'tiktok' || command == 'tt') {
-        if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://vm.tiktok.com/ZMjdrFCtg/`);
-        if (!isUrl(args[0]) && !args[0].includes('tiktok')) return m.reply(`¡Link inválido!`);
-        conn.fakeReply(m.chat, `${lenguaje.lengua.espere}`, '0@s.whatsapp.net', 'No haga spam');
+    try {
+        const url = args[0];
 
-        try {
-            const url = args[0];
-            const apiUrl = `https://api.dorratz.com/v2/tiktok-dl?url=${url}`;
+        const apiUrl = `https://eliasar-yt-api.vercel.app/api/search/tiktok?query=${url}`;
+        const apiResponse = await axios.get(apiUrl);
+        const { status, results } = apiResponse.data;
 
-            const response = await axios.get(apiUrl);
-            const {
-                data
-            } = response.data;
+        let videoUrl, caption = "No se pudo obtener la información del video.";
+
+        if (status && results) {
+            videoUrl = results.nowm;
+            caption = `Título: ${results.title}\nAutor: ${results.author}`;
+        } else {
+            throw new Error('Error al obtener datos de la nueva API');
+        }
+
+        if (!videoUrl) {
+            const backupApiUrl = `https://api.dorratz.com/v2/tiktok-dl?url=${url}`;
+            const backupResponse = await axios.get(backupApiUrl);
+            const { data } = backupResponse.data;
 
             if (data && data.media && data.media.org) {
-                const videoUrl = data.media.org;
-                await conn.sendMessage(m.chat, {
-                    video: {
-                        url: videoUrl
-                    }
-                }, {
-                    quoted: m
-                });
-                db.data.users[m.sender].limit -= 1;
-                m.reply('1 ' + info.limit);
+                videoUrl = data.media.org;
             } else {
-                m.reply('Error al procesar el video.');
+                throw new Error('Error al procesar el video en la API de respaldo.');
             }
-        } catch (e) {
-            console.log(e);
-            m.reply(info.error);
         }
+
+        await conn.sendMessage(m.chat, {
+            video: { url: videoUrl },
+            caption: caption
+        }, { quoted: m });
+    } catch (e) {
+        m.reply(info.error);
     }
+}
 
     if (command == 'tik2') {
         if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://vm.tiktok.com/ZMjdrFCtg/`)
