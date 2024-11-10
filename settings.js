@@ -142,19 +142,19 @@ global.fb = 'https://www.facebook.com/EliasarYT2'
 global.faceb = 'https://www.facebook.com/EliasarYT2'
 global.paypal = 'https://www.paypal.me/EliasarMoncada72'
 
-global.host = 'https://chat.whatsapp.com/GQ82mPnSYnm0XL2hLPk7FV' //Infinity-host
-global.nna = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36' //Update 
-global.nn = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //𝐘𝐮𝐆𝐢-𝐁𝐎𝐓
-global.nn2 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //Loli & Nova
-global.nn3 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //Grupo de Colaboracion
-global.nn4 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' // Grupo COL 2
-global.nn5 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //Grupo COL 3
-global.nn6 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //test
-global.nn7 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //Grupo ayuda sobre el bot
-global.nn8 = 'https://chat.whatsapp.com/CPGKvG1sV3v4wOwF6c1UiD' //enlace YuGi-BOT
-global.multi = 'https://chat.whatsapp.com/CBY978TEw5N10tRhQiapZV' //Grupo náufrazapp
-global.nna2 = 'JHnIQUdCGBHHsA6naIGjHG'
-global.n2 = "https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36"
+global.host = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4';
+global.nna = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36';
+global.nn = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn2 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn3 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn4 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn5 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn6 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn7 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nn8 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.multi = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
+global.nna2 = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36'
+global.n2 = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36'
 //---------[ INFO ]--------- 
 global.info = {
     wait: '*_■■□□□40%_*',
