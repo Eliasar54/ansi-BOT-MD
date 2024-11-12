@@ -1053,7 +1053,7 @@ ${isWin ? `@${winner.split('@')[0]} ${lenguaje.game.text2} ${winScore} XP` : isT
             break
 
             //jadibot/serbot  
-        case 'ansisub':
+        case 'serbot':
         case 'jadibot':
         case 'qr':
             jadibot(conn, m, command, text, args, sender)
@@ -1786,7 +1786,7 @@ ${arr.slice(6).join('')}
         }
         break
 
-        case 'serbot':
+        /*case 'serbot':
             conn.sendButton(
                 m.chat,
                 `🎉 ¡Gracias por querer ser parte del equipo como sub-bot de ANSI-BOT! 🎉\n\nAquí tienes algunas opciones para comenzar. Al elegir una opción, tendrás acceso a herramientas y soporte para facilitar tu experiencia como sub-bot. 🚀 ¡Empecemos!\n\nElige una opción y da el primer paso hacia algo increíble. 🤩`,
@@ -1800,7 +1800,7 @@ ${arr.slice(6).join('')}
                 null,
                 m
             );
-            break;
+            break;*/
 
 
 
