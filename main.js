@@ -293,12 +293,12 @@ module.exports = conn = async (conn, m, chatUpdate, mek, store) => {
     /*const reply = (text) => {  
     m.reply(text)}*/
     let canalId = [
-        "120363296103096943@newsletter",
-        "120363350628883149@newsletter"
+        "120363350628883149@newsletter",
+        "120363296103096943@newsletter"
     ];
     let canalNombre = [
-        "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨",
-        "【★】𝚃𝚎𝚊𝚖  乂   𝐴𝑁𝐺  乂 𝐶𝐻𝐴𝑁𝑁𝐸𝐿  𝑂𝑓𝑐【★】"
+        "【★】𝚃𝚎𝚊𝚖  乂   𝐴𝑁𝐺  乂 𝐶𝐻𝐴𝑁𝑁𝐸𝐿  𝑂𝑓𝑐【★】",
+        "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
     ];
 
     async function getRandomChannel() {
