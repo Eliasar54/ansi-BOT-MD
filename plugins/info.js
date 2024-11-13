@@ -94,7 +94,7 @@ isForwarded: true,
 { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 }
 
-if (command == 'ping') {
+/*if (command == 'ping') {
   const { execSync } = require('child_process');
   
   var timestamp = speed();  
@@ -143,7 +143,7 @@ if (command == 'ping') {
     ⚙️ *DETALLES DE CPU POR NÚCLEO:*\n${cpuUsage}\n
     📂 *Ruta:* ${userHome}`,
   }, { quoted: msg, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60 });
-}
+}*/
 
 if (command == 'report') {
 if (!text) return m.reply(`${lenguaje.info.text21}\n${prefix + command} sticker no funciona`)
