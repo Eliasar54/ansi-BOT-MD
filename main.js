@@ -2049,7 +2049,60 @@ case 'gnula': {
     break;
 }
 
+case 'cuevana': {
+    async function buscarPelicula(nombre) {
+        try {
+            const url = `https://eliasar-yt-api.vercel.app/api/search/cuevana?name=${encodeURIComponent(nombre)}`;
+            const response = await axios.get(url);
+            const data = response.data;
 
+            if (!data.status || !data.movie) {
+                conn.sendMessage(from, {
+                    text: `No se encontraron resultados para: ${nombre}`
+                }, {
+                    quoted: msg
+                });
+                return;
+            }
+
+            const pelicula = data.movie;
+            const mensaje = `
+🎬 Título: ${pelicula.title || 'Desconocido'}
+📅 Año: ${pelicula.year || 'Desconocido'}
+⭐ Calificación: ${pelicula.rating || 'No disponible'}
+📖 Sinopsis: ${pelicula.description || 'No disponible'}
+🎞️ Género: ${pelicula.genre || 'No disponible'}
+👤 Director: ${pelicula.director || 'No disponible'}
+🖼️ Enlace: ${pelicula.link || 'No disponible'}
+📺 Calidad: ${pelicula.quality || 'No disponible'}
+`.trim();
+
+            conn.sendMessage(from, {
+                text: mensaje
+            }, {
+                quoted: msg
+            });
+        } catch (error) {
+            conn.sendMessage(from, {
+                text: `Error al buscar la película: ${error.message}`
+            }, {
+                quoted: msg
+            });
+        }
+    }
+
+    if (!text) {
+        conn.sendMessage(from, {
+            text: 'Por favor, proporciona el nombre de una película para buscar.'
+        }, {
+            quoted: msg
+        });
+    } else {
+        buscarPelicula(text);
+    }
+
+    break;
+}
 
 case 'antilink':
     try {
