@@ -293,11 +293,11 @@ module.exports = conn = async (conn, m, chatUpdate, mek, store) => {
     /*const reply = (text) => {  
     m.reply(text)}*/
     let canalId = [
-        "120363296103096943@newsletter",
+        "120363352827504495@newsletter",
         "120363296103096943@newsletter"
     ];
     let canalNombre = [
-        "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨",
+        "𖠌 𝗧𝗲𝗮𝗺 𝗔𝗸𝘂𝗺𝗮 𖠌",
         "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
     ];
 
