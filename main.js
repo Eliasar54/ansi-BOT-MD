@@ -2532,7 +2532,7 @@ case 'antilink':
                 game(m, budy, command, text, pickRandom, pushname, conn, participants, sender, who, body, sendImageAsUrl)
             }
 
-            if (m.mentionedJid.includes(conn.user.jid) || (m.quoted && m.quoted.sender === conn.user.jid)) {
+            /*if (m.mentionedJid.includes(conn.user.jid) || (m.quoted && m.quoted.sender === conn.user.jid)) {
                 await conn.sendPresenceUpdate('composing', m.chat)
 
                 async function luminsesi(q, username, logic) {
@@ -2559,7 +2559,7 @@ case 'antilink':
                     await conn.sendTextWithMentions(m.chat, result, m)
                 }
             }
-            /*if (m.mentionedJid.includes(conn.user.jid)) {
+            if (m.mentionedJid.includes(conn.user.jid)) {
             let noetiqueta = 'https://qu.ax/lqFC.webp'
             let or = ['texto', 'sticker']; 
             let media = or[Math.floor(Math.random() * 2)]
