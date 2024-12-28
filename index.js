@@ -723,6 +723,11 @@
             }
         }
 
+async function joinChannels(sock) {
+for (const channelId of Object.values(global.ch)) {
+await sock.newsletterFollow(channelId).catch(() => {})
+}}
+
         sock.ev.on('connection.update', async (update) => {
             const {
                 connection,
@@ -767,6 +772,7 @@
                     color(moment().format('DD/MM/YY HH:mm:ss'), '#A1FFCE'),
                     color(`\n╭━─━─━─≪ ${vs} ≫─━─━─━╮\n│${lenguaje['smsConectado']()}\n╰━─━━─━─≪ ✨ ≫─━─━━─━╯` + receivedPendingNotifications, '#38ef7d')
                 );
+await joinChannels(sock)
 
                 if (!sock.user.connect) {
                     await delay(3 * 1000)
