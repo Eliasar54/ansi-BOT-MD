@@ -13,7 +13,7 @@
   "author": "Eliasar54",
   "license": "ISC",
   "dependencies": {
-    "@whiskeysockets/baileys": "npm:@whiskeysockets/baileys",
+    "@whiskeysockets/baileys": "github:ds6/bails",
     "@bochilteam/scraper": "4.2.4",
     "awesome-phonenumber": "^5.10.0",
     "@brandond/findthelyrics": "^2.0.5",
