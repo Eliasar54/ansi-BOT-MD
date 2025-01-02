@@ -142,7 +142,7 @@ global.yt = 'https://www.youtube.com/@Eliasar_yt'
 global.tiktok = 'https://www.tiktok.com/@eliasar_yt?_t=8mjJpoJfOBK&_r=1'
 global.fb = 'https://www.facebook.com/EliasarYT2'
 global.faceb = 'https://www.facebook.com/EliasarYT2'
-global.paypal = 'https://www.paypal.me/EliasarMoncada72'
+global.paypal = 'https://www.paypal.me/eliasarmoncada'
 
 global.host = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4';
 global.nna = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36';
