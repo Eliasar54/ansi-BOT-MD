@@ -2420,6 +2420,47 @@ case 'perfil': {
     break;
 }
 
+case 'carousel': {
+    const sections = [
+        {
+            title: "Categoría 1",
+            rows: [
+                {
+                    title: "Opción 1",
+                    description: "Descripción de la opción 1",
+                    rowId: "opcion1"
+                },
+                {
+                    title: "Opción 2",
+                    description: "Descripción de la opción 2",
+                    rowId: "opcion2"
+                }
+            ]
+        },
+        {
+            title: "Categoría 2",
+            rows: [
+                {
+                    title: "Opción 3",
+                    description: "Descripción de la opción 3",
+                    rowId: "opcion3"
+                }
+            ]
+        }
+    ];
+
+    const listMessage = {
+        text: "Elige una opción del menú:",
+        footer: "Este es un ejemplo de carrusel.",
+        title: "Título del mensaje",
+        buttonText: "Abrir menú",
+        sections
+    };
+
+conn.sendMessage(from, listMessage, { quoted: m });
+}
+break;
+
 case 'testcmd': {
     if (!isOwner) return;
     const texto = args.join(' ');
@@ -2456,6 +2497,219 @@ case 'tourl2': {
     } catch (error) {
         fs.unlinkSync(tempFilePath);
         m.reply('Error al subir la imagen. Intenta nuevamente.');
+    }
+    break;
+}
+
+
+case 'quemusica':
+case 'quemusicaes':
+case 'whatmusic': {
+    const acrcloud = require('acrcloud');
+    const fs = require('fs');
+    const yts = require('yt-search');
+    const acr = new acrcloud({
+        host: 'identify-eu-west-1.acrcloud.com',
+        access_key: 'c33c767d683f78bd17d4bd4991955d81',
+        access_secret: 'bvgaIAEtADBTbLwiPGYlxupWqkNGIjT7J9Ag2vIu',
+    });
+
+    const q = m.quoted ? m.quoted : m;
+    const mime = (q.msg || q).mimetype || '';
+
+    if (/audio|video/.test(mime)) {
+        if ((q.msg || q).seconds > 20) {
+            m.reply('⚠️ El archivo que carga es demasiado grande. Le sugerimos que lo corte a 10-20 segundos para identificarlo correctamente.');
+            break;
+        }
+
+        const media = await q.download();
+        const ext = mime.split('/')[1];
+        const tempFilePath = `./tmp/${m.sender}.${ext}`;
+        fs.writeFileSync(tempFilePath, media);
+
+        try {
+            const res = await acr.identify(fs.readFileSync(tempFilePath));
+            const { code, msg } = res.status;
+
+            if (code !== 0) {
+                throw msg;
+            }
+
+            const { title, artists, album, genres, release_date } = res.metadata.music[0];
+            const txt = `
+𝐑𝐄𝐒𝐔𝐋𝐓𝐀𝐃𝐎𝐒 𝐃𝐄 𝐋𝐀 𝐁𝐔𝐒𝐐𝐔𝐄𝐃𝐀
+
+• 📌 𝐓𝐢𝐭𝐮𝐥𝐨: ${title}
+• 👨‍🎤 𝐀𝐫𝐭𝐢𝐬𝐭𝐚: ${artists !== undefined ? artists.map((v) => v.name).join(', ') : 'No encontrado'}
+• 💾 𝐀𝐥𝐛𝐮𝐦: ${album.name || 'No encontrado'}
+• 🌐 𝐆𝐞𝐧𝐞𝐫𝐨: ${genres !== undefined ? genres.map((v) => v.name).join(', ') : 'No encontrado'}
+• 📆 𝐅𝐞𝐜𝐡𝐚 𝐝𝐞 𝐥𝐚𝐧𝐳𝐚𝐦𝐢𝐞𝐧𝐭𝐨: ${release_date || 'No encontrado'}
+`.trim();
+
+            const search = await yts(title);
+            const video = search.videos.length > 0 ? search.videos[0] : null;
+
+            if (!video) {
+                m.reply('⚠️ No se encontró ningún video relacionado en YouTube.');
+                return;
+            }
+
+            await conn.sendMessage(m.chat, {
+                image: { url: video.thumbnail },
+                caption: txt,
+                footer: "EliasarYT",
+                buttons: [
+                    {
+                        buttonId: `.musica ${video.url}`,
+                        buttonText: {
+                            displayText: "Descargar Música",
+                        },
+                        type: 1,
+                    },
+                ],
+                viewOnce: true,
+                headerType: 4,
+                mentions: [m.sender],
+            }, { quoted: m });
+
+        } catch (error) {
+            m.reply(`*⚠️ Error al identificar la música:* ${error}`);
+        } finally {
+            fs.unlinkSync(tempFilePath);
+        }
+    } else {
+        m.reply('*⚠️ Responde a un audio o video para identificar la música.*');
+    }
+    break;
+}
+
+/*case 'quemusica':
+case 'quemusicaes':
+case 'whatmusic': {
+    const acrcloud = require('acrcloud');
+    const fs = require('fs');
+    const acr = new acrcloud({
+        host: 'identify-eu-west-1.acrcloud.com',
+        access_key: 'c33c767d683f78bd17d4bd4991955d81',
+        access_secret: 'bvgaIAEtADBTbLwiPGYlxupWqkNGIjT7J9Ag2vIu',
+    });
+
+    const q = m.quoted ? m.quoted : m;
+    const mime = (q.msg || q).mimetype || '';
+
+    if (/audio|video/.test(mime)) {
+        if ((q.msg || q).seconds > 20) {
+            m.reply('⚠️ El archivo que carga es demasiado grande. Le sugerimos que lo corte a 10-20 segundos para identificarlo correctamente.');
+            break;
+        }
+
+        const media = await q.download();
+        const ext = mime.split('/')[1];
+        const tempFilePath = `./tmp/${m.sender}.${ext}`;
+        fs.writeFileSync(tempFilePath, media);
+
+        try {
+            const res = await acr.identify(fs.readFileSync(tempFilePath));
+            const { code, msg } = res.status;
+
+            if (code !== 0) {
+                throw msg;
+            }
+
+            const { title, artists, album, genres, release_date } = res.metadata.music[0];
+            const txt = `
+𝐑𝐄𝐒𝐔𝐋𝐓𝐀𝐃𝐎𝐒 𝐃𝐄 𝐋𝐀 𝐁𝐔𝐒𝐐𝐔𝐄𝐃𝐀
+
+• 📌 𝐓𝐢𝐭𝐮𝐥𝐨: ${title}
+• 👨‍🎤 𝐀𝐫𝐭𝐢𝐬𝐭𝐚: ${artists !== undefined ? artists.map((v) => v.name).join(', ') : 'No encontrado'}
+• 💾 𝐀𝐥𝐛𝐮𝐦: ${album.name || 'No encontrado'}
+• 🌐 𝐆𝐞𝐧𝐞𝐫𝐨: ${genres !== undefined ? genres.map((v) => v.name).join(', ') : 'No encontrado'}
+• 📆 𝐅𝐞𝐜𝐡𝐚 𝐝𝐞 𝐥𝐚𝐧𝐳𝐚𝐦𝐢𝐞𝐧𝐭𝐨: ${release_date || 'No encontrado'}
+`.trim();
+
+            await conn.sendMessage(m.chat, {
+                image: { url: 'https://tinyurl.com/2ba3hubq' },
+                caption: txt,
+                footer: "EliasarYT",
+                buttons: [
+                    {
+                        buttonId: `.play ${title}`,
+                        buttonText: {
+                            displayText: "Descargar",
+                        },
+                        type: 1,
+                    },
+                ],
+                viewOnce: true,
+                headerType: 4,
+                mentions: [m.sender],
+            }, { quoted: m });
+
+        } catch (error) {
+            m.reply(`*⚠️ Error al identificar la música:* ${error}`);
+        } finally {
+            fs.unlinkSync(tempFilePath);
+        }
+    } else {
+        m.reply('*⚠️ Responde a un audio o video para identificar la música.*');
+    }
+    break;
+}*/
+
+case 'inspectchannel':
+case 'channelinfo': {
+    if (!text) return m.reply(`*⚠️ Proporcione un enlace válido de un canal de WhatsApp.*`);
+
+    const channelUrl = text.match(/(?:https:\/\/)?(?:www\.)?(?:chat\.|wa\.)?whatsapp\.com\/(?:channel\/|joinchat\/)?([0-9A-Za-z]{22,24})/i)?.[1];
+    if (!channelUrl) return m.reply(`*⚠️ El enlace proporcionado no parece ser un enlace válido de canal.*`);
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return date.toLocaleDateString('es-ES', options);
+    };
+
+    try {
+        const channelInfo = await conn.newsletterMetadata("invite", channelUrl);
+        if (!channelInfo) return m.reply(`*⚠️ No se pudo recuperar la información del canal. Verifique que el enlace sea correcto.*`);
+
+        const name = channelInfo.name || "Nombre no disponible";
+        const description = channelInfo.description || "Descripción no disponible";
+        const subscribers = channelInfo.subscribers ? channelInfo.subscribers.toLocaleString() : "No disponible";
+        const state = channelInfo.state === "ACTIVE" ? "Activo" : "Inactivo";
+        const createdAt = channelInfo.creation_time ? formatDate(channelInfo.creation_time * 1000) : "Fecha no disponible";
+        const picture = channelInfo.picture ? await getUrlFromDirectPath(channelInfo.picture) : null;
+        const handle = channelInfo.handle || "Alias no disponible";
+        const verification = channelInfo.verification === "VERIFIED" ? "Verificado" : "No verificado";
+        const reactionCodes = channelInfo.reaction_codes ? 
+            (channelInfo.reaction_codes === "ALL" ? "Todas las reacciones permitidas" : 
+            channelInfo.reaction_codes === "BASIC" ? "Reacciones básicas permitidas" : 
+            "No se permiten reacciones") : "Desconocido";
+        const newsletterId = channelInfo.id || "No disponible";
+
+        let caption = `*📢 Información del Canal*\n\n`;
+        caption += `🆔 *ID del Canal:* ${newsletterId}\n`;
+        caption += `🏷️ *Nombre:* ${name}\n`;
+        caption += `📝 *Descripción:* ${description}\n`;
+        caption += `👥 *Suscriptores:* ${subscribers}\n`;
+        caption += `📅 *Creado el:* ${createdAt}\n`;
+        caption += `📌 *Estado:* ${state}\n`;
+        caption += `✅ *Verificación:* ${verification}\n`;
+        caption += `👤 *Alias:* ${handle}\n`;
+        caption += `😃 *Reacciones permitidas:* ${reactionCodes}\n`;
+
+        if (picture) {
+            await conn.sendMessage(m.chat, {
+                image: { url: picture },
+                caption: caption
+            }, { quoted: m });
+        } else {
+            await conn.sendMessage(m.chat, { text: caption }, { quoted: m });
+        }
+    } catch (e) {
+        console.error(e);
+        m.reply(`*⚠️ Ocurrió un error al recuperar la información del canal.*`);
     }
     break;
 }
@@ -2863,8 +3117,121 @@ conn.sendMessage(from, { image: { url: "https://i.ibb.co/9gXhQFV/58a304e5d673a64
     break;
 }
 
+case 'testp': {
+    const os = require('os');
+    const si = require('systeminformation');
+    const { execSync } = require('child_process');
+    const { performance } = require('perf_hooks');
 
-case 'test3': {
+    async function getSystemInfo() {
+        const disk = await si.fsSize();
+        const memInfo = await si.mem();
+        const load = await si.currentLoad();
+        const cpus = os.cpus();
+        const networkStats = await si.networkStats();
+        const battery = await si.battery();
+        const cpuTemp = await si.cpuTemperature();
+
+        let timestamp = performance.now();
+        let latensi = performance.now() - timestamp;
+
+        const networkInterfaces = os.networkInterfaces();
+        let ipAddress = '';
+        for (const iface of Object.values(networkInterfaces)) {
+            for (const ifaceDetails of iface) {
+                if (ifaceDetails.family === 'IPv4' && !ifaceDetails.internal) {
+                    ipAddress = ifaceDetails.address;
+                    break;
+                }
+            }
+            if (ipAddress) break;
+        }
+
+        const currentPath = process.cwd();
+        const nodeVersion = process.version;
+
+        let latestConsoleMessage = '';
+        try {
+            latestConsoleMessage = execSync('tail -n 1 /var/log/syslog').toString().trim();
+        } catch (error) {
+            latestConsoleMessage = '*No disponible*';
+        }
+
+        const isPterodactyl = currentPath === '/home/container';
+
+        const data = {
+            latencia: `${latensi.toFixed(4)} ms`,
+            plataforma: os.platform(),
+            núcleosCPU: cpus.length,
+            modeloCPU: cpus[0]?.model || '*No disponible*',
+            arquitecturaSistema: os.arch(),
+            versiónSistema: os.release(),
+            procesosActivos: os.loadavg()[0].toFixed(2),
+            porcentajeCPUUsada: load.currentLoad.toFixed(2) + '%',
+            ramUsada: `${(memInfo.used / (1024 ** 3)).toFixed(2)} GB`,
+            ramTotal: `${(memInfo.total / (1024 ** 3)).toFixed(2)} GB`,
+            ramLibre: `${(memInfo.free / (1024 ** 3)).toFixed(2)} GB`,
+            porcentajeRAMUsada: `${((memInfo.used / memInfo.total) * 100).toFixed(2)}%`,
+            espacioTotalDisco: `${(disk[0]?.size / (1024 ** 3)).toFixed(2)} GB`,
+            espacioLibreDisco: `${(disk[0]?.available / (1024 ** 3)).toFixed(2)} GB`,
+            uptime: `${Math.floor(os.uptime() / (60 * 60 * 24))}d ${Math.floor((os.uptime() % (60 * 60 * 24)) / (60 * 60))}h ${Math.floor((os.uptime() % (60 * 60)) / 60)}m`,
+            cargaPromedio: os.loadavg().map((avg, index) => `${index + 1} min: ${avg.toFixed(2)}`).join(', '),
+            temperaturaCPU: cpuTemp.main ? `${cpuTemp.main} °C` : '*No disponible*',
+            horaActual: new Date().toLocaleString(),
+            detallesCPUNúcleo: cpus.map((cpu, i) => `Núcleo ${i + 1}: ${(load.cpus[i]?.load || 0).toFixed(2)}%`).join('\n'),
+            gruposBaneados: Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length,
+            usuariosBaneados: Object.entries(global.db.data.users).filter(user => user[1].banned).length,
+            usuariosTotales: Object.keys(global.db.data.users).length,
+            ipAddress: ipAddress,
+            rutaActual: currentPath,
+            esPterodactyl: isPterodactyl ? 'Sí' : 'No',
+            versiónNode: nodeVersion,
+            mensajeConsolaReciente: latestConsoleMessage,
+            velocidadRed: networkStats[0] ? 
+                `${(networkStats[0].rx_sec / 1024).toFixed(2)} KB/s de descarga, ${(networkStats[0].tx_sec / 1024).toFixed(2)} KB/s de subida` : '*No disponible*',
+            estadoRed: networkStats[0]?.operstate || 'Desconocido',
+            nivelBatería: battery.hasbattery ? `${battery.percent}%` : 'Sin batería',
+            cargando: battery.ischarging ? 'Sí' : 'No'
+        };
+
+        return data;
+    }
+
+    getSystemInfo().then((data) => {
+        const responseMessage = `
+🏓 *ᵖᵒᶰᵍ:* ${data.latencia}
+🖥️ *ᴘʟᴀᴛᴀғᴏʀᴍᴀ:* ${data.plataforma}
+🔢 *ᴄᴘᴜ ɴᴜᴄʟᴇᴏs:* ${data.núcleosCPU}
+📡 *ᴄᴘᴜ ᴍᴏᴅᴇʟᴏ:* ${data.modeloCPU}
+🏗️ *ᴀʀǫᴜɪᴛᴇᴄᴛᴜʀᴀ:* ${data.arquitecturaSistema}
+🔢 *ᴠᴇʀsɪᴏɴ sɪsᴛᴇᴍᴀ:* ${data.versiónSistema}
+📊 *ᴘᴏʀᴄᴇɴᴛᴀᴊᴇ ᴅᴇ ᴄᴘᴜ:* ${data.porcentajeCPUUsada}
+💾 *ʀᴀᴍ:* ${data.ramUsada} / ${data.ramTotal} (${data.porcentajeRAMUsada})
+💾 *ᴅɪsᴄᴏ:* ${data.espacioLibreDisco} de ${data.espacioTotalDisco}
+⏳ *ᴜᴘᴛɪᴍᴇ:* ${data.uptime}
+📈 *ᴄᴀʀɢᴀ:* ${data.cargaPromedio}
+🌡️ *ᴛᴇᴍᴘᴇʀᴀᴛᴜʀᴀ ᴄᴘᴜ:* ${data.temperaturaCPU}
+⚙️ *ᴄᴘᴜ ᴘᴏʀ ɴᴜᴄʟᴇᴏ:*\n${data.detallesCPUNúcleo}
+📡 *ᴇsᴛᴀᴅᴏ ʀᴇᴅ:* ${data.estadoRed}
+📶 *ᴠᴇʟᴏᴄɪᴅᴀᴅ ʀᴇᴅ:* ${data.velocidadRed}
+🔋 *ɴɪᴠᴇʟ ʙᴀᴛᴇʀíᴀ:* ${data.nivelBatería}
+🔌 *ᴄᴀʀɢᴀɴᴅᴏ:* ${data.cargando}
+📂 *ʀᴜᴛᴀ:* ${data.rutaActual}
+🚫 *ɢʀᴜᴘᴏs ʙᴀɴᴇᴀᴅᴏs:* ${data.gruposBaneados}
+🚫 *ᴜsᴜᴀʀɪᴏs ʙᴀɴᴇᴀᴅᴏs:* ${data.usuariosBaneados}
+👥 *ᴜsᴜᴀʀɪᴏs ᴛᴏᴛᴀʟᴇs:* ${data.usuariosTotales}
+📌 *ᴘᴛᴇʀᴏᴅᴀᴄᴛʏʟ:* ${data.esPterodactyl}
+🛠️ *ɴᴏᴅᴇ.js:* ${data.versiónNode}
+📝 *ᴄᴏɴsᴏʟᴀ:* ${data.mensajeConsolaReciente}
+`.trim();
+
+conn.sendMessage('120363386885800287@newsletter', { image: { url: "https://i.ibb.co/9gXhQFV/58a304e5d673a6422263d1bc2bc49cad.jpg" }, caption: responseMessage }, { quoted: msg, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 });
+});
+break;
+}
+
+
+/*case 'test3': {
 conn.sendMessage(m.chat, {
     image: { url: 'https://qu.ax/MFOVJ.jpg' },
     caption: `You like me?`, 
@@ -2889,8 +3256,8 @@ conn.sendMessage(m.chat, {
     headerType: 4,
     mentions: [m.sender],
   }, { quoted: m });
-}
-
+break
+}*/
 case 'ping': {
     const os = require('os');
     const si = require('systeminformation');
