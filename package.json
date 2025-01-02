@@ -13,7 +13,7 @@
   "author": "Eliasar54",
   "license": "ISC",
   "dependencies": {
-    "@whiskeysockets/baileys": "github:ds6/bails",
+  "@whiskeysockets/baileys": "github:ds6/bails",
     "@bochilteam/scraper": "4.2.4",
     "awesome-phonenumber": "^5.10.0",
     "@brandond/findthelyrics": "^2.0.5",
@@ -62,6 +62,7 @@
     "google-tts-api": "^2.0.2",
     "node-id3": "^0.2.3",
     "pino": "^8.14.1",
+    "xnxxjs": "^1.0.1",
     "qrcode": "^1.5.3",
     "qrcode-terminal": "^0.12.0",
     "qrcode-reader": "^1.0.4",

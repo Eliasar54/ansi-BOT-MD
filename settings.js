@@ -26,10 +26,9 @@ global.blockList = []
 global.pagina = "https://ansibot.netlify.app/"
 global.botname = "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
 global.wm = '✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨'
-global.vs = '1.2'
+global.vs = '𝟮.𝟭'
 global.creador = '𝐸𝐿𝐼𝐴𝑆𝐴𝑅 𝑌𝑇'
 global.creador2 = 'ELIASAR YT'
-global.name = '𝑪𝑹𝑬𝑨𝑫𝑶𝑹'
 global.nunber = Math.floor(Math.random() * (27 - 18 + 1)) + 18;
 
 function pickRandom(array) {
@@ -45,9 +44,12 @@ global.phoneNumber = ""
 //---------[ FECHA/IDIOMAS ]---------
 global.place = 'America/Managua' // Aquí puedes encontrar tu ubicación https://momentjs.com/timezone/
 global.lenguaje = es //Predeterminado en idioma Español 
-global.prefix = [`/`]
+global.prefix = [` `]
 
 //---------[ APIS GLOBAL ]---------
+global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({...query, ...(apikeyqueryname ? {[apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name]} : {})})) : '');
+global.apis = 'https://deliriussapi-oficial.vercel.app'
+global.eliasarapi = 'EliasarYT'
 global.keysZens = ['LuOlangNgentot', 'c2459db922', '37CC845916', '6fb0eff124', 'hdiiofficial', 'fiktod', 'BF39D349845E', '675e34de8a', '0b917b905e6f'];
 global.keysxxx = keysZens[Math.floor(keysZens.length * Math.random())];
 global.keysxteammm = ['29d4b59a4aa687ca', '5LTV57azwaid7dXfz5fzJu', 'cb15ed422c71a2fb', '5bd33b276d41d6b4', 'HIRO', 'kurrxd09', 'ebb6251cc00f9c63'];
@@ -110,7 +112,7 @@ global.author = `{
 `
 
 //-----------------IMAGENES---------
-global.menuimg = "https://i.ibb.co/NK3G4Pq/20241104-165340.jpg"
+global.menuimg = "https://tinyurl.com/2ba3hubq"
 global.img = "https://tinyurl.com/2clsqrcm";
 global.img1 = "https://tinyurl.com/289vd9yd";
 global.img2 = 'https://tinyurl.com/267ncfe7';
@@ -129,7 +131,7 @@ global.randomImage = pickRandom([img, img1, img2, img3, img4, img5, img6, img7, 
 
 
 global.imagen1 = fs.readFileSync('./media/menu.jpg')
-global.imagen2 = fs.readFileSync('./media/menu2.jpg')
+global.imagen2 = 'https://i.ibb.co/7GjhqZ7/20241129-183639.jpg'
 global.imagen3 = fs.readFileSync('./media/menu3.jpg')
 global.noperfil = fs.readFileSync('./media/sinfoto.jpg')
 global.verificar = fs.readFileSync('./media/menu2.jpg')
@@ -184,18 +186,8 @@ global.error = '⚠️'
 global.xmoji = '😈'
 
 //---------------[ NIVELES, ADVERTENCIA ]----------------
-global.multiplier = 100 // Cuanto más alto, más difícil subir de nivel 
+global.multiplier = 30 // Cuanto más alto, más difícil subir de nivel 
 global.maxwarn = '4' // máxima advertencias 
-
-//---------------[ IDs de canales ]----------------
-
-global.ch = {
-ch1: '120363386885800287@newsletter',
-ch2: '120363296103096943@newsletter', 
-ch3: '120363266665814365@newsletter', 
-ch4: '120363374372683775@newsletter', 
-ch5: '120363301598733462@newsletter', 
-}
 
 //----------------------------------------------------
 

@@ -258,28 +258,35 @@
     } = await fetchLatestBaileysVersion();
 
     //codigo adaptado por: https://github.com/GataNina-Li && https://github.com/elrebelde21
-    let opcion
-    if (methodCodeQR) {
-        opcion = '1'
-    }
-    if (!methodCodeQR && !methodCode && !fs.existsSync(`./sessions/creds.json`)) {
-        do {
-            let lineM = '━━━━━━━━━━━━━━━━━━━━';
-            opcion = await question(`╔${lineM}╗
-║ ${chalk.bgMagenta('          MENU          ')}
-║ ${chalk.bgMagenta('➫')} ${chalk.bold.cyan(lenguaje.console.text1)}
-║ ${chalk.bgMagenta('➫')} ${chalk.green.bold(lenguaje.console.text2)}
-║ ${chalk.bgMagenta('➫')} ${chalk.bold.redBright(lenguaje.console.text3)} ${chalk.greenBright(lenguaje.console.text4)}
-║ ${chalk.bgMagenta('➫')} ${chalk.bold.redBright(lenguaje.console.text5)} ${chalk.greenBright(lenguaje.console.text6)}
-║ ${chalk.bgMagenta('➫')} ${chalk.italic.magenta(lenguaje.console.text7)}
-║ ${chalk.bgMagenta('➫')} ${chalk.italic.magenta(lenguaje.console.text8)}
-╚${lineM}╝\n${chalk.bold.magentaBright('➫ ')}${chalk.bold.magentaBright('---> ')}`);
+  function clearScreen() {
+    console.clear();
+}
 
-            if (!/^[1-2]$/.test(opcion)) {
-                console.log(chalk.bold.redBright(`NO SE PERMITE NÚMEROS QUE NO SEAN ${chalk.bold.greenBright("1")} O ${chalk.bold.greenBright("2")}, TAMPOCO LETRAS O SÍMBOLOS ESPECIALES.\n${chalk.bold.yellowBright("CONSEJO: COPIE EL NÚMERO DE LA OPCIÓN Y PÉGUELO EN LA CONSOLA.")}`))
-            }
-        } while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./sessions/creds.json`))
-    }
+let opcion;
+
+if (methodCodeQR) {
+    opcion = '1';
+}
+
+if (!methodCodeQR && !methodCode && !fs.existsSync(`./sessions/creds.json`)) {
+    do {
+        clearScreen();
+        let lineM = '━━━━━━━━━━━━━━━━━━━━';
+        opcion = await question(`╔${lineM}╗
+║ ${chalk.bgBlueBright('          🌸 MENU 🌸          ')}
+║ ${chalk.bgBlueBright('➫')} ${chalk.bold.yellow(lenguaje.console.text1)}
+║ ${chalk.bgBlueBright('➫')} ${chalk.bold.greenBright(lenguaje.console.text2)}
+║ ${chalk.bgBlueBright('➫')} ${chalk.bold.redBright(lenguaje.console.text3)} ${chalk.bold.cyanBright(lenguaje.console.text4)}
+║ ${chalk.bgBlueBright('➫')} ${chalk.bold.magenta(lenguaje.console.text5)} ${chalk.bold.blueBright(lenguaje.console.text6)}
+║ ${chalk.bgBlueBright('➫')} ${chalk.italic.magentaBright(lenguaje.console.text7)}
+║ ${chalk.bgBlueBright('➫')} ${chalk.italic.cyanBright(lenguaje.console.text8)}
+╚${lineM}╝\n${chalk.bold.redBright('➫ ')}${chalk.bold.magentaBright('---> ')}`);
+
+        if (!/^[1-2]$/.test(opcion)) {
+            console.log(chalk.bold.redBright(`NO SE PERMITE NÚMEROS QUE NO SEAN ${chalk.bold.greenBright("1")} O ${chalk.bold.greenBright("2")}, TAMPOCO LETRAS O SÍMBOLOS ESPECIALES.\n${chalk.bold.yellowBright("CONSEJO: COPIE EL NÚMERO DE LA OPCIÓN Y PÉGUELO EN LA CONSOLA.")}`));
+        }
+    } while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./sessions/creds.json`));
+}
 
     async function startBot() {
 
@@ -638,34 +645,52 @@
         })
 
         //Welcome adaptado
-        sock.ev.on('group-participants.update', async (anu) => {
-            try {
-                if (global.db.data.chats[anu.id].welcome) {
-                    let metadata = await sock.groupMetadata(anu.id);
-                    let participants = anu.participants;
+const axios = require('axios');
+sock.ev.on('group-participants.update', async (anu) => {
+    try {
+        if (global.db.data.chats[anu.id]?.welcome) {
+            let metadata = await sock.groupMetadata(anu.id);
+            let participants = anu.participants;
 
-                    for (let num of participants) {
-                        let ppuser;
-                        try {
-                            ppuser = await sock.profilePictureUrl(num, 'image');
-                        } catch (err) {
-                            ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60';
-                        }
+            for (let num of participants) {
+                let ppuser;
+                ppuser = await sock.profilePictureUrl(num, 'image').catch(() => {
+                    return 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60';
+                });
 
-                        if (anu.action === "add") {
-                            sock.sendMessage(anu.id, {
-                                image: {
-                                    url: ppuser
-                                },
-                                caption: `Bienvenid@ @${num.split("@")[0]}`,
-                                mentions: [num]
-                            });
-                        } else if (anu.action === "remove") {
-                            sock.sendMessage(anu.id, {
-                                text: `Adiós @${num.split("@")[0]}, esperamos no verte nadie te quiso`,
-                                mentions: [num]
-                            });
-                        }
+                let participantData = metadata.participants.find(p => p.id === num);
+                let username = participantData?.notify || participantData?.name || num.split('@')[0];
+
+                if (anu.action === "add") {
+                    let groupDescription = metadata.desc || "No hay descripción del grupo.";
+                    let groupName = metadata.subject || "Nombre del grupo desconocido";
+                    let memberCount = metadata.participants.length || 0;
+
+                    let apiUrl = `https://eliasar-yt-api.vercel.app/api/v2/welcome?avatar=${encodeURIComponent(ppuser)}&username=${username}&bg=https://i.ibb.co/b3kycJP/9aaca021b696e6c31cda498ca489f114.jpg&groupname=${encodeURIComponent(groupName)}&member=${memberCount}`;
+
+                    let response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
+
+                    sock.sendMessage(anu.id, {
+                        image: response.data,
+                        caption: `✨🌸 ¡Holaaa~ @${username}! 🌸✨\n\n🌟 Por favor, lee la descripción del grupo para evitar malentendidos. ¡No queremos que te eliminen! 🤗💕\n\n💖 Bienvenid@ al grupo: *${groupName}* 💖\n\n📜 *Descripción del grupo:* ${groupDescription} 💬\n\n✨ ¡Disfruta y pásala genial! ✨`,
+                        mentions: [num]
+                    });
+                } else if (anu.action === "remove") {
+                    let imageUrl = ppuser;
+                    let imageBuffer;
+
+                    imageBuffer = await axios.get(imageUrl, { responseType: "arraybuffer" }).then(response => {
+                        return Buffer.from(response.data, "binary");
+                    }).catch(() => {
+                        return null;
+                    });
+
+                    if (imageBuffer) {
+                        sock.sendMessage(anu.id, {
+                            image: imageBuffer,
+                            caption: `┌─✶ αทsi-вστ-м∂ 🌟 \n│「 𝗔𝗗𝗜𝗢𝗦 🌸 」\n└┬✶ 「 @${username} 」\n   │✨  𝗦𝗲 𝗳𝘂𝗲\n   │✨ 𝗡𝘂𝗻𝗰𝗮 𝘁𝗲 𝗾𝘂𝗶𝘀𝗶𝗺𝗼𝘀 𝗮𝗾𝘂𝗶\n   └───────────────┈ ⳹`,
+                            mentions: [num]
+                        });
                     }
                 } else if (anu.action === 'promote') {
                     const groupAdmins = participants.filter(p => p.admin);
@@ -696,10 +721,12 @@
                         disappearingMessagesInChat: 24 * 60 * 100
                     });
                 }
-            } catch (err) {
-                console.log(err);
             }
-        });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
 
         function pickRandom(list) {
             return list[Math.floor(list.length * Math.random())]
@@ -722,11 +749,6 @@
                 return false
             }
         }
-
-async function joinChannels(sock) {
-for (const channelId of Object.values(global.ch)) {
-await sock.newsletterFollow(channelId).catch(() => {})
-}}
 
         sock.ev.on('connection.update', async (update) => {
             const {
@@ -772,7 +794,6 @@ await sock.newsletterFollow(channelId).catch(() => {})
                     color(moment().format('DD/MM/YY HH:mm:ss'), '#A1FFCE'),
                     color(`\n╭━─━─━─≪ ${vs} ≫─━─━─━╮\n│${lenguaje['smsConectado']()}\n╰━─━━─━─≪ ✨ ≫─━─━━─━╯` + receivedPendingNotifications, '#38ef7d')
                 );
-await joinChannels(sock)
 
                 if (!sock.user.connect) {
                     await delay(3 * 1000)
