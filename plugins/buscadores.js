@@ -37,7 +37,7 @@ const FormData = require("form-data")
 const os = require('os')
 
 async function buscadores(m, command, conn, text, budy, from, fkontak, prefix, args, q, quoted, lang, lolkeysapi) {
-    if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
+  //  if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
         video: {
             url: verificar
         },
@@ -112,27 +112,26 @@ async function buscadores(m, command, conn, text, budy, from, fkontak, prefix, a
     }
 
 
-    if (command == 'google') {
-        if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} gatito`);
+if (command == 'google') {
+    if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} gatito`);
 
-        const query = encodeURIComponent(text);
-        const googleUrl = `https://www.google.com/search?q=${query}`;
+    const query = encodeURIComponent(text);
+    const googleUrl = `https://www.google.com/search?q=${query}`;
+    const apiUrl = `https://eliasar-yt-api.vercel.app/api/google?query=${query}`;
+    const screenshotUrl = `https://eliasar-yt-api.vercel.app/api/ssweb?url=${googleUrl}`;
 
-        const apiUrl = `https://api.dorratz.com/v2/google-search?q=${query}&page=10`;
-        const screenshotUrl = `https://api.dorratz.com/ssweb?url=${googleUrl}`;
-
-        let response = await axios.get(apiUrl);
-        if (response.data.status) {
-            let teks = `💫  ${lenguaje['result']()} ${text}\n\n`;
-            for (let g of response.data.results) {
-                teks += `🔍 ${lenguaje.lengua.titulo} ${g.title}\n`;
-                teks += `🔍 *LINK* : ${g.link}\n\n★━━━━━━✩━━━━━━★\n\n`;
-            }
-            conn.sendFile(m.chat, screenshotUrl, 'screenshot.png', teks.trim(), m);
-        } else {
-            m.reply('Error en la búsqueda.');
+    let response = await axios.get(apiUrl);
+    if (response.data.status) {
+        let teks = `💫  ${lenguaje['result']()} ${text}\n\n`;
+        for (let g of response.data.results) {
+            teks += `🔍 ${lenguaje.lengua.titulo} ${g.title}\n`;
+            teks += `🔍 *LINK* : ${g.link}\n\n★━━━━━━✩━━━━━━★\n\n`;
         }
+        conn.sendFile(m.chat, screenshotUrl, 'screenshot.png', teks.trim(), m);
+    } else {
+        m.reply('Error en la búsqueda.');
     }
+}
 
 
     if (command == 'imagen') {
@@ -269,44 +268,57 @@ async function buscadores(m, command, conn, text, budy, from, fkontak, prefix, a
         m.react('🗣️')
     }
 
-    if (command == 'chatgpt' || command == 'ia') {
-        const translate = require('@vitalets/google-translate-api')
-        const {
-            Configuration,
-            OpenAIApi
-        } = require('openai')
-        const configuration = new Configuration({
-            organization: global.openai_org_id,
-            apiKey: global.openai_key
-        })
-        const openaiii = new OpenAIApi(configuration)
-        if (prefix == 'a' || prefix == 'A') return
-        if (!text) return m.reply(`${lenguaje.lengua.ia} ${prefix + command} Recomienda un top 10 de películas de acción`)
+if (command == 'chatgpt' || command == 'ia') {
+    const {
+        Configuration,
+        OpenAIApi
+    } = require('openai');
+
+    const configuration = new Configuration({
+        organization: global.openai_org_id,
+        apiKey: global.openai_key
+    });
+
+    const openaiii = new OpenAIApi(configuration);
+
+    if (prefix == 'a' || prefix == 'A') return;
+    if (!text) return m.reply(`${lenguaje.lengua.ia} ${prefix + command} Recomienda un top 10 de películas de acción`);
+
+    try {
+        conn.sendPresenceUpdate('composing', m.chat);
+        const sistema1 = `Actuarás como Ansibot, un bot de WhatsApp agradable y tu creador es Eliasar54 (EliasarYT)`;
 
         try {
-            conn.sendPresenceUpdate('composing', m.chat)
-            let sistema1 = `Actuarás como Ansibot, un bot de WhatsApp agradable y tu creador es Eliasar54 (EliasarYT)`
+            const apiURL1 = `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(sistema1)}`;
+            const response1 = await fetch(apiURL1);
+            const result1 = await response1.json();
 
-            const apiURL = `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(sistema1)}`
-            const response = await fetch(apiURL)
-            const result = await response.json()
-
-            try {
-                m.react('💬')
-            } catch (error) {
-                console.error("Ocurrió un error al reaccionar:", error)
-            }
-
-            if (result.success && result.response) {
-                m.reply(result.response.trim())
+            if (result1.success && result1.response) {
+                m.react('💬');
+                return m.reply(result1.response.trim());
             } else {
-                throw new Error('Error en la respuesta de la API')
+                throw new Error();
             }
-        } catch (error) {
-            console.error("Ocurrió un error:", error)
-            m.reply("Ocurrió un error al procesar la solicitud.")
+        } catch (error1) {}
+
+        try {
+            const apiURL2 = `https://api.siputzx.my.id/api/ai/gpt3?prompt=${encodeURIComponent(sistema1)}&content=${encodeURIComponent(text)}`;
+            const response2 = await fetch(apiURL2);
+            const result2 = await response2.json();
+
+            if (result2.status && result2.data) {
+                m.react('💬');
+                return m.reply(result2.data.trim());
+            } else {
+                throw new Error();
+            }
+        } catch (error2) {
+            m.reply("Ocurrió un error al procesar la solicitud con ambas APIs.");
         }
+    } catch (error) {
+        m.reply("Ocurrió un error al procesar la solicitud.");
     }
+}
 
 
     if (command === 'gpt4o' || command === 'gpt') {
@@ -383,89 +395,104 @@ async function buscadores(m, command, conn, text, budy, from, fkontak, prefix, a
         }
     }
 
-    if (command == 'dalle' || command == 'aimg' || command == 'imagine' || command == 'dall-e') {
-        if (!text) return m.reply(`${lenguaje.lengua.ia2} ${prefix + command} gatitos llorando`);
-        m.reply(`${lenguaje.lengua.espere}`);
+if (command == 'dalle' || command == 'aimg' || command == 'imagine' || command == 'dall-e') {
+    if (!text) return m.reply(`${lenguaje.lengua.ia2} ${prefix + command} gatitos llorando`);
+    m.reply(`${lenguaje.lengua.espere}`);
+
+    try {
+        const apiURL1 = `https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(text)}`;
+        await conn.sendMessage(m.chat, {
+            image: { url: apiURL1 }
+        }, {
+            quoted: m,
+            ephemeralExpiration: 24 * 60 * 100,
+            disappearingMessagesInChat: 24 * 60 * 100
+        });
+    } catch (e1) {
+        console.log(`${info.error + e1}`);
 
         try {
-            const imageUrl = `https://api.dorratz.com/v2/image-ai?prompt=${encodeURIComponent(text)}`;
+            const apiURL2 = `https://api.siputzx.my.id/api/ai/stable-diffusion?prompt=${encodeURIComponent(text)}`;
             await conn.sendMessage(m.chat, {
-                image: {
-                    url: imageUrl
-                }
+                image: { url: apiURL2 }
             }, {
                 quoted: m,
                 ephemeralExpiration: 24 * 60 * 100,
                 disappearingMessagesInChat: 24 * 60 * 100
             });
-        } catch (e) {
-            console.log(`${info.error + e}`);
+        } catch (e2) {
+            console.log(`${info.error + e2}`);
 
             try {
-                const tiores1 = await fetch(`https://vihangayt.me/tools/imagine?q=${text}`);
-                const json1 = await tiores1.json();
+                const apiURL3 = `https://api.dorratz.com/v2/image-ai?prompt=${encodeURIComponent(text)}`;
                 await conn.sendMessage(m.chat, {
-                    image: {
-                        url: json1.data
-                    }
+                    image: { url: apiURL3 }
                 }, {
                     quoted: m,
                     ephemeralExpiration: 24 * 60 * 100,
                     disappearingMessagesInChat: 24 * 60 * 100
                 });
-            } catch (e) {
-                console.log(`${e}`);
+            } catch (e3) {
+                console.log(`${info.error + e3}`);
 
                 try {
-                    const tiores2 = await conn.getFile(`https://vihangayt.me/tools/midjourney?q=${text}`);
+                    const tiores1 = await fetch(`https://vihangayt.me/tools/imagine?q=${text}`);
+                    const json1 = await tiores1.json();
                     await conn.sendMessage(m.chat, {
-                        image: {
-                            url: tiores2.data
-                        }
+                        image: { url: json1.data }
                     }, {
                         quoted: m,
                         ephemeralExpiration: 24 * 60 * 100,
                         disappearingMessagesInChat: 24 * 60 * 100
                     });
-                } catch (e) {
-                    console.log(`${e}`);
+                } catch (e4) {
+                    console.log(`${info.error + e4}`);
 
                     try {
-                        const tiores3 = await fetch(`https://vihangayt.me/tools/lexicaart?q=${text}`);
-                        const json3 = await tiores3.json();
+                        const tiores2 = await conn.getFile(`https://vihangayt.me/tools/midjourney?q=${text}`);
                         await conn.sendMessage(m.chat, {
-                            image: {
-                                url: json3.data[0].images[0].url
-                            }
+                            image: { url: tiores2.data }
                         }, {
                             quoted: m,
                             ephemeralExpiration: 24 * 60 * 100,
                             disappearingMessagesInChat: 24 * 60 * 100
                         });
-                    } catch (e) {
-                        console.log(e);
+                    } catch (e5) {
+                        console.log(`${info.error + e5}`);
 
                         try {
-                            const tiores4 = await conn.getFile(`https://api.lolhuman.xyz/api/dall-e?apikey=${lolkeysapi}&text=${text}`);
+                            const tiores3 = await fetch(`https://vihangayt.me/tools/lexicaart?q=${text}`);
+                            const json3 = await tiores3.json();
                             await conn.sendMessage(m.chat, {
-                                image: {
-                                    url: tiores4.data
-                                }
+                                image: { url: json3.data[0].images[0].url }
                             }, {
                                 quoted: m,
                                 ephemeralExpiration: 24 * 60 * 100,
                                 disappearingMessagesInChat: 24 * 60 * 100
                             });
-                        } catch (e) {
-                            console.log(e);
-                            return m.reply(info.error);
+                        } catch (e6) {
+                            console.log(`${info.error + e6}`);
+
+                            try {
+                                const tiores4 = await conn.getFile(`https://api.lolhuman.xyz/api/dall-e?apikey=${lolkeysapi}&text=${text}`);
+                                await conn.sendMessage(m.chat, {
+                                    image: { url: tiores4.data }
+                                }, {
+                                    quoted: m,
+                                    ephemeralExpiration: 24 * 60 * 100,
+                                    disappearingMessagesInChat: 24 * 60 * 100
+                                });
+                            } catch (e7) {
+                                console.log(`${info.error + e7}`);
+                                return m.reply(info.error);
+                            }
                         }
                     }
                 }
             }
         }
     }
-
+}
 
     if (command == 'ss' || command == 'ssweb') {
         if (!text) return m.reply(`${lenguaje.lengua.ejem} ${prefix + command} link`)

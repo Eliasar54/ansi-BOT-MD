@@ -5,57 +5,15 @@ const chalk = require("chalk");
 const { smsg, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom} = require('../libs/fuctions.js'); 
 
 async function enable(m, command, isGroupAdmins, text, command, args, conn, isBotAdmins, isGroupAdmins, isCreator) {
-if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
+//if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
 //let user = global.db.data.users[m.sender]
-const {welcome, antilink, antiFake, antiArabe, detect, autosticker, antiNsfw, game2, modeadmin, chatbot, audios, autolevelup, antitoxic, antiprivado, anticall, antilink2, AntiTiktok, AntiTelegram, viewonce, AntiFacebook, AntInstagram, AntiYoutube, AntiTwitter, autoread} = global.db.data.chats[m.chat];
+const {welcome, antiFake, antiArabe, detect, autosticker, antiNsfw, game2, modeadmin, chatbot, audios, autolevelup, antitoxic, antiprivado, anticall, antilink2, AntiTiktok, AntiTelegram, viewonce, AntiFacebook, AntInstagram, AntiYoutube, AntiTwitter, autoread} = global.db.data.chats[m.chat];
   let chat = global.db.data.chats[m.chat]
   let user = global.db.data.users[m.sender]
 let bot = global.db.data.settings[conn.user.jid] || {}
   let isAll = false, isUser = false
   
 if (command == 'enable' || command == 'configuracion' || command == 'configurar') {
-
-let listSections = []    
-listSections.push({
-title: '『 FUNCIÓN PARA ADMINS 』',
-rows: [{ header: `𝐖𝐄𝐋𝐂𝐎𝐌𝐄 ${welcome ? '✅' : '❌'}`, title: "", id: `.welcome on`, description: `ᵈᵃʳ ˡᵃ ᵇᶦᵉⁿᵛᵉⁿᶦᵈᵃ ᵃ ˡᵒˢ ⁿᵘᵉᵛᵒ ᵐᶦᵉᵐᵇʳᵒˢ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 ${antilink ? '✅' : '❌'}`, title: "", id: `.antilink on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵃ ˡᶦⁿᵏˢ ᵈᵉ́ ᵒᵗʳᵒˢ ᵍʳᵘᵖᵒˢ\n` },
-{ header: `𝐓𝐎𝐃𝐎𝐒 𝐋𝐎𝐒 𝐋𝐈𝐍𝐊 ${antilink2 ? '✅' : '❌'}`, title: "", id: `.antilink2 on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᶜᵘᵃˡᵠᵘᶦᵉʳ ˡᶦⁿᵏ ᵠᵘᵉ ᶜᵒⁿᵗᵉⁿᵍᵃⁿ https/\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 𝐃𝐄 𝐓𝐈𝐊𝐓𝐎𝐊 ${AntiTiktok ? '✅' : '❌'}`, title: "", id: `.AntiTiktok on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᵃˡᵍᵘⁿ ˡᶦⁿᵏ ᵈᵉ ᵀᶦᵏᵀᵒᵏ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 𝐃𝐄 𝐓𝐄𝐋𝐄𝐆𝐑𝐀𝐌 ${AntiTelegram ? '✅' : '❌'}`, title: "", id: `.AntiTelegram on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᵃˡᵍᵘⁿ ˡᶦⁿᵏ ᵈᵉ ᵀᵉˡᵉᵍʳᵃᵐ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 𝐃𝐄 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 ${AntiFacebook ? '✅' : '❌'}`, title: "", id: `.AntiFacebook on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᵃˡᵍᵘⁿ ˡᶦⁿᵏ ᵈᵉ ᶠᵃᶜᵉᵇᵒᵒᵏ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 𝐃𝐄 𝐈𝐍𝐒𝐓𝐀𝐆𝐑𝐀𝐌 ${AntInstagram ? '✅' : '❌'}`, title: "", id: `.AntInstagram on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᵃˡᵍᵘⁿ ˡᶦⁿᵏ ᵈᵉ ᴵⁿˢᵗᵃᵍʳᵃᵐ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 𝐃𝐄 𝐘𝐎𝐔𝐓𝐔𝐁𝐄 ${AntiYoutube ? '✅' : '❌'}`, title: "", id: `.AntiYoutube on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᵃˡᵍᵘⁿ ˡᶦⁿᵏ ᵈᵉ ʸᵒᵘᵀᵘᵇᵉ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐋𝐈𝐍𝐊 𝐃𝐄 𝐓𝐖𝐈𝐓𝐄𝐑 ${AntiTwitter ? '✅' : '❌'}`, title: "", id: `.AntiTwitter on`, description: `ᵉˣᵖᵘˡˢᵃ ᵃ ˡᵒˢ ᵠᵘᵉ ᵐᵃⁿᵈᵉ ᵃˡᵍᵘⁿ ˡᶦⁿᵏ ᵈᵉ ᵀʷᶦᵗᵉʳ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈𝐅𝐀𝐊𝐄 ${antiFake ? '✅' : '❌'}`, title: "", id: `.antiFake on`, description: `ᶦⁿᵍʳᵉˢᵒ ᵈᵉ ⁿᵘᵐᵉʳᵒ ᶠᵃᵏᵉ (ᵛᶦʳᵗᵘᵃˡᵉˢ), ˢᵉʳᵃⁿ ᵉˣᵖˡᵘˢᵃᵈᵒ ᵃᵘᵗᵒᵐᵃ́ᵗᶦᶜᵃᵐᵉⁿᵗᵉ ᵈᵉˡ ᴳʳᵘᵖᵒ...\n` }, 
-{ header: `𝐀𝐍𝐓𝐈-𝐀𝐑𝐀𝐁𝐄 ${antiArabe ? '✅' : '❌'}`, title: "", id: `.antiArabe on`, description: `ᶦⁿᵍʳᵉˢᵒ ᵈᵉ ⁿᵘᵐᵉʳᵒ ᵃʳᵃᵇᵉ (+212, +91, +92, ᵉᵗᶜ), ˢᵉʳᵃⁿ ᵉˣᵖˡᵘˢᵃᵈᵒ ᵃᵘᵗᵒᵐᵃ́ᵗᶦᶜᵃᵐᵉⁿᵗᵉ ᵈᵉˡ ᴳʳᵘᵖᵒ...\n` }, 
-{ header: `𝐀𝐍𝐓𝐈-𝐓𝐎𝐗𝐈𝐂 ${antitoxic ? '✅' : '❌'}`, title: "", id: `.antitoxic on`, description: `ᴰᵉᵗᵉᶜᵗᵃ ˡᵃ ᵐᵃˡᵃˢ ᵖᵃˡᵃᵇʳᵃˢ ʸ ᵃᵈᵛᶦᵉʳᵗᵉ ᵃˡ ᵖᵃʳᵗᶦᶜᶦᵖᵃⁿᵗᵉ del ᵍʳᵘᵖᵒ, ᵃⁿᵗᵉˢ ᵈᵉ ˢᵉʳ ᵉˡᶦᵐᶦⁿᵃᵈᵒ\n` }, 
-{ header: `𝐆𝐀𝐌𝐄 ${game2 ? '✅' : '❌'}`, title: "", id: `.game2 on`, description: `ᵃᶜᵗᶦᵛᵃʳ/ᵈᵉˢᵃᶜᵗᶦᵛᵃʳ ᵉˡ ʲᵘᵉᵍᵒ ᵈᵉ ˡᵃ ʳᵘˡᵉᵗᵃ ʳᵘˢᵃ\n` }, 
-{ header: `𝐃𝐄𝐓𝐄𝐂𝐓𝐎 ${detect ? '✅' : '❌'}`, title: "", id: `.detect on`, description: `ᵈᵉᵗᵉᶜᵗᵃʳ ⁿᵒᵗᶦᶠᶦᶜᵃᶜᶦᵒⁿᵉˢ ᵈᵉ ᵃᵛᶦˢᵒ ᵉˡ ᵍʳᵘᵖᵒ.\n` }, 
-{ header: `𝐀𝐔𝐓𝐎-𝐒𝐓𝐈𝐂𝐊𝐄𝐑 ${autosticker ? '✅' : '❌'}`, title: "", id: `.autosticker on`, description: `ᶜʳᵉᵃʳ ˢᵗᶦᶜᵏᵉʳˢ ᵈᵉ ᵐᵃⁿᵉʳᵃ ᵃᵘᵗᵒᵐᵃ́ᵗᶦᶜᵃ ˢᶦⁿ ᵖᵒⁿᵉʳ ⁿᶦⁿᵍᵘⁿ ᵖʳᵉᶠᶦʲᵒ ˢᵒˡᵒ ᵉⁿᵛᶦᵃʳ ˡᵃ ᶦᵐᵃᵍᵉⁿ/ᵛᶦᵈᵉᵒ.\n` }, 
-{ header: `𝐌𝐎𝐃𝐎 +𝟏𝟖 ${antiNsfw ? '✅' : '❌'}`, title: "", id: `.antiNsfw on`, description: `ᵃᶜᵗᶦᵛᵃʳ ˡᵒˢ ᶜᵒⁿᵗᵉⁿᶦᵈᵒˢ +18\n` }, 
-{ header: `𝐀𝐔𝐃𝐈𝐎𝐒 ${audios ? '✅' : '❌'}`, title: "", id: `.audios on`, description: `ᴬᶜᵗᶦᵛᵃʳ ˡᵒˢ ᵃᵘᵈᶦᵒˢ ᵃᵘᵗᵒᵐᵃ́ᵗᶦᶜᵒ..\n` }, 
-{ header: `𝐀𝐔𝐓𝐎-𝐋𝐄𝐕𝐄𝐋𝐔𝐏 ${autolevelup ? '✅' : '❌'}`, title: "", id: `.autolevelup on`, description: `ᵃᶜᵗᶦᵛᵃʳ ᵖᵃʳᵃ ˢᵘᵇᶦʳ ᵈᵉ ⁿᶦᵛᵉˡ ᵃᵘᵗᵒᵐᵃ́ᵗᶦᶜᵃᵐᵉⁿᵗᵉ.\n` }, 
-{ header: `𝐂𝐇𝐀𝐓𝐁𝐎𝐓 ${chatbot ? '✅' : '❌'}`, title: "", id: `.chatbot on`, description: `ᴱˡ ᵇᵒᵗ ᵉᵐᵖᵉᶻᵃʳ ᵃ ʰᵃᵇˡᵃʳ ᶜᵒⁿ ᵗᵒᵈᵒˢ ᵉˡ ᵍʳᵘᵖᵒ. \n` }, 
-{ header: `𝐀𝐍𝐓𝐈-𝐕𝐈𝐄𝐖𝐎𝐍𝐂𝐄 ${viewonce ? '✅' : '❌'}`, title: "", id: `.viewonce on`, description: `ᵃᶜᵗᶦᵛᵃʳ/ᵈᵉˢᵃᶜᵗᶦᵛᵃʳ ᵖᵃʳᵃ ᵠᵘᵉ ˡᵒˢ ᵘˢᵘᵃʳᶦᵒˢ ⁿᵒ ᵒᶜᵘˡᵗᵃʳ ᶦᵐᵃᵍᵉⁿ/ᵛᶦ́ᵈᵉᵒ ᵉⁿ ᵛᶦᵉʷᵒⁿᶜᵉ\n` }, 
-{ header: `𝐌𝐎𝐃𝐎𝐀𝐃𝐌𝐈𝐍𝐒 ${modeadmin ? '✅' : '❌'}`, title: "", id: `.modeadmin on`, description: `ᵉˡ ᵇᵒᵗ ˢᵒˡᵒ ᶠᵘⁿᶜᶦᵒⁿᵃ ᵖᵃʳᵃ ˡᵒˢ ᵃᵈᵐᶦⁿˢ ᵈᵉˡ ᴳʳᵘᵖᵒ\n` }, 
-{ header: `『 FUNCIÓN SOLO PARA OWNER 』\n`, title: `𝐀𝐍𝐓𝐈-𝐏𝐑𝐈𝐕𝐀𝐃𝐎 ${antiprivado ? '✅' : '❌'}`, id: `.antiprivado on`, description: `ᴱˡ ᵇᵒᵗ ᵇˡᵒᵠᵘᵉʳᵃ́ ᵃ ᵗᵒᵈᵒˢ ˡᵒˢ ᵠᵘᵉ ᵘˢᵉⁿ ᶜᵒᵐᵃⁿᵈᵒ ᵉˡ ᵖʳᶦᵛᵃᵈᵒ\n` }, 
-{ header: `𝐀𝐍𝐓𝐈-𝐋𝐋𝐀𝐌𝐀𝐃𝐀 ${anticall ? '✅' : '❌'}`, title: "", id: `.anticall on`, description: `ᴱˡ ᴮᵒᵗ ᵇˡᵒᵠᵘᵉʳᵃ́ ᵃ ˡᵃˢ ᵖᵉʳˢᵒⁿᵃˢ ᵠᵘᵉ ˡˡᵃᵐᵉⁿ ᵃˡ ᴮᵒᵗ.\n` }, 
-{ header: `𝐀𝐔𝐓𝐎𝐑𝐄𝐀𝐃 ${autoread ? '✅' : '❌'}`, title: "", id: `.autoread on`, description: `ᴹᵃʳᶜᵃ ᶜᵒᵐᵒ ˡᵉᶦᵈᵒ ˡᵒˢ ᵐᵉⁿˢᵃʲᵉˢ ʸ ˡᵒˢ ᵉˢᵗᵃᵈᵒˢ ᵃᵘᵗᵒᵐᵃ́ᵗᶦᶜᵃᵐᵉⁿᵗᵉ.\n` }
-            ]
-        });
-
-conn.sendList(m.chat, `╔═════ೋೋ═════╗
-║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
-║aqui tiene las lista para activa y desactivar
-║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
-║ Ejemplo de usó:
-║❍ _#welcome on_
-║❍ _#welcome off_
-║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
-╚════ ≪ •❈• ≫ ════╝
-
-`, "Preciona aquí", `sᴇʟᴇᴄᴄɪᴏɴᴇs ᴀǫᴜɪ`, listSections, m)
 m.reply(`─━━━━━━━━⊱✿⊰━━━━━━━━─
 ┃◤━━━━━ ☆. ∆ .☆ ━━━━━◥
 ┃_𝗮𝗾𝘂𝗶 𝘁𝗶𝗲𝗻𝗲 𝗹𝗮𝘀 𝗹𝗶𝘀𝘁𝗮 𝗽𝗮𝗿𝗮 𝗮𝗰𝘁𝗶𝘃𝗮 𝘆 𝗱𝗲𝘀𝗮𝗰𝘁𝗶𝘃𝗮𝗿_
@@ -126,98 +84,6 @@ global.db.data.chats[m.chat].antilink = true
 m.reply(lenguaje.enable.text3)
 } else if (args[0] === "off") {
 global.db.data.chats[m.chat].antilink = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antilink2') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return m.reply(`${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`) 
-if (args[0] === "on") {
-global.db.data.chats[m.chat].antiLink2 = true
-m.reply(lenguaje.enable.text3)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].antiLink2 = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antitwiter' || command == 'AntiTwiter') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return conn.sendButton(m.chat, `${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`, botname, null, [['✅ Activar', `${prefix + command} on`], ['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-if (args[0] === "on") {
-global.db.data.chats[m.chat].AntiTwitter = true
-//conn.sendButton(m.chat, `✅ *${command}* ${lenguaje.enable.text1}\n`, botname, null, [['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-m.reply(`✅ *${command}* ${lenguaje.enable.text1}`)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].AntiTwitter = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antitiktok' || command == 'AntiTikTok') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return conn.sendButton(m.chat, `${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`, botname, null, [['✅ Activar', `${prefix + command} on`], ['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-if (args[0] === "on") {
-global.db.data.chats[m.chat].AntiTiktok = true
-m.reply(`✅ *${command}* ${lenguaje.enable.text1}`)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].AntiTiktok = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antitelegram' || command == 'AntiTelegram') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return conn.sendButton(m.chat, `${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`, botname, null, [['✅ Activar', `${prefix + command} on`], ['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-if (args[0] === "on") {
-global.db.data.chats[m.chat].AntiTelegram = true
-m.reply(`✅ *${command}* ${lenguaje.enable.text1}`)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].AntiTelegram = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antifacebook' || command == 'AntiFacebook' || command == 'AntiFb') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return conn.sendButton(m.chat, `${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`, botname, null, [['✅ Activar', `${prefix + command} on`], ['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-if (args[0] === "on") {
-global.db.data.chats[m.chat].AntiFacebook = true
-m.reply(`✅ *${command}* ${lenguaje.enable.text1}`)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].AntiFacebook = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antinstagram' || command == 'AntInstagram' || command == 'AntiIg') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return conn.sendButton(m.chat, `${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`, botname, null, [['✅ Activar', `${prefix + command} on`], ['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-if (args[0] === "on") {
-global.db.data.chats[m.chat].AntInstagram = true
-m.reply(`✅ *${command}* ${lenguaje.enable.text1}`)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].AntInstagram = false
-m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
-}}
-
-if (command == 'antiyoutube' || command == 'AntiYoutube') {
-if (!m.isGroup) return m.reply(info.group)
-if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isGroupAdmins) return m.reply(info.admin)
-if (!text) return conn.sendButton(m.chat, `${lenguaje.enable.text}\n\n*• ${prefix + command} on*\n*• ${prefix + command} off*\n`, botname, null, [['✅ Activar', `${prefix + command} on`], ['❌ Desactivar', `${prefix + command} off`], ['🔰Menu', `.menu`]], null, null, m)
-if (args[0] === "on") {
-global.db.data.chats[m.chat].AntiYoutube = true
-m.reply(`✅ *${command}* ${lenguaje.enable.text1}`)
-} else if (args[0] === "off") {
-global.db.data.chats[m.chat].AntiYoutube = false
 m.reply(`❌ *${command}* ${lenguaje.enable.text2}`)
 }}
 

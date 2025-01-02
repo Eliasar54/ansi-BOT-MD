@@ -10,6 +10,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const Jimp = require('jimp')
 const os = require('os')
+const PhoneNumber = require('awesome-phonenumber') 
 const {createHash} = require('crypto') 
 const { canLevelUp, xpRange } = require('../libs/levelling.js')
 let minar = `${pickRandom([
@@ -74,65 +75,176 @@ let robmal = `${pickRandom([
 
 let verificados2 = 'https://i.ibb.co/LJdWZ4x/20241019-084424.jpg';
 let verificadosError = 'https://i.ibb.co/YL9ykFr/20241104-172510.jpg';
-
+global.ch = { ch1: '120363386885800287@newsletter' };
+/*async function reg(command, conn, m, sender, text, budy, fkontak, delay, args) {
+if (global.db.data.users[m.sender].banned) return
+if (command == 'reg' || command == 'verificar') {
+let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
+let user = global.db.data.users[m.sender]
+let codigosIdiomas = ['es', 'en']
+let nombresIdiomas = {'es': 'Español', 'en': 'English' }
+if (user.registered === true) return m.reply(lenguaje.smsReg()) 
+if (!Reg.test(text)) return m.reply(lenguaje.smsReg1(prefix)) 
+let [_, name, splitter, age] = text.match(Reg)
+if (!name) return m.reply(lenguaje.smsReg2()) 
+if (!age) return m.reply(lenguaje.smsReg3()) 
+age = parseInt(age)
+if (age > 100) return m.reply(lenguaje.smsReg4()) 
+if (age < 6) return m.reply(lenguaje.smsReg5()) 
+if (name.length >= 45) return m.reply(lenguaje.smsReg6()) 
+user.name = name + 'ͧͧͧͦꙶͣͤ✓'.trim()
+user.age = age
+user.regTime = + new Date
+user.registered = true
+const sn = createHash('md5').update(m.sender).digest('hex');
+let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.fromMe ? conn.user.jid : m.sender
+//let ppch = await conn.profilePictureUrl(who, 'image').catch(_ => "") 
+let api = await axios.get(`${apis}/tools/country?text=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`)
+let userNationalityData = api.data.result
+let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido'
+const date = moment.tz('America/Bogota').format('DD/MM/YYYY')
+const time = moment.tz('America/Argentina/Buenos_Aires').format('LT')
+let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
+global.db.data.users[m.sender].limit += 2
+global.db.data.users[m.sender].exp += 200
+conn.sendMessage(m.chat, { text: lenguaje.smsReg7(name, user, age, time, date, sender, sn, prefix, rtotalreg),
+contextInfo:{
+mentionedJid:[name],
+forwardingScore: 9999999,
+isForwarded: false, 
+"externalAdReply": {
+"showAdAttribution": true,
+"containsAutoReply": true,
+"title": `${botname}`,
+"body": `${name}`,
+"previewType": "PHOTO",
+"thumbnailUrl": ``,
+"thumbnail": imagen1, 
+"sourceUrl": md}}},
+{ quoted: fkontak, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+//conn.sendButton(m.chat, lenguaje.smsReg7(name, user, age, time, date, sender, sn, prefix, rtotalreg), 'Seleccióna tu idioma', null, [['𝐄𝐒𝐏𝐀𝐍̃𝐎𝐋', `.idioma 1`], ['𝐈𝐍𝐆𝐋𝐄𝐒', `.idioma 2`], ['𝐀𝐑𝐀𝐁𝐄', `.idioma 3`], ['𝐈𝐍𝐃𝐎𝐍𝐄𝐒𝐈𝐀', `.idioma 4`], ['𝐏𝐎𝐑𝐓𝐔𝐆𝐔𝐄𝐒', `.idioma 5`], ['𝐑𝐔𝐒𝐎', `.idioma 6`]], null, [['𝐂𝐚𝐧𝐚𝐥', nna]], {quoted: fkontak})
+await delay(1000)
+m.reply(sn) 
+await delay(1000)
+m.reply(lenguaje.smsReg8()) 
+await conn.sendMessage("120363365700004535@newsletter", { text: `◉ *Usuarios:* ${m.pushName || 'Anónimo'}
+◉ *País:* ${userNationality}
+◉ *Verificación:* ${user.name}
+◉ *Edad:* ${age} años
+◉ *Fecha:* ${date}
+◉ *Bot:* ${wm}
+◉ *Número de serie:*
+⤷ ${sn}`, contextInfo: {
+externalAdReply: {
+title: "『 𝙉𝙊𝙏𝙄𝙁𝙄𝘾𝘼𝘾𝙄𝙊́𝙉 📢 』",
+body: "Nuevo usuario registrado 🥳",
+thumbnail: imagen1, 
+sourceUrl: pickRandom(nna, nna2, nn, md, yt, tiktok),
+mediaType: 1,
+showAdAttribution: false,
+renderLargerThumbnail: false
+}}}, { quoted: null })
+}*/
 async function reg(command, conn, m, sender, text, budy, fkontak, delay, args) {
     if (global.db.data.users[m.sender].banned) return;
     if (command == 'reg' || command == 'verificar' || command == 'Registrar') {
         let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
         let user = global.db.data.users[m.sender];
-        
-        if (user.registered === true) return m.reply('*Ya estás registrado 🧐*');
-        
+        if (user.registered === true) return m.reply('✨ *Ya estás registrado* 🧐');
         if (!Reg.test(text)) {
-            return conn.sendMessage(m.chat, {image: {url: verificadosError}, caption: `*❌ Forma incorrecta*\n\nUse de esta forma\nEjemplo: ${prefix}reg nombre.edad`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
+            return conn.sendMessage(m.chat, {
+                image: { url: verificadosError },
+                caption: `⚠️ *Formato incorrecto* ⚠️\n\n💡 Usa: *${prefix}reg nombre.edad*\n📝 Ejemplo: *${prefix}reg Juan.25*`
+            }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
         }
-
         let [_, name, splitter, age] = text.match(Reg);
-        if (!name) return m.reply('El nombre no puede estar vacío');
-        if (!age) return m.reply('La edad no puede estar vacía (Numeros)');
-        
+        if (!name) return m.reply('❌ *El nombre no puede estar vacío*');
+        if (!age) return m.reply('❌ *La edad no puede estar vacía (solo números)*');
         age = parseInt(age);
-        if (age > 100) return m.reply('Está Viejo (。-`ω´-)');
-        if (age < 3) return m.reply('🚼  Basado, los bebés saben escribir.✍️😳');
-        if (name.length >= 99) return m.reply('🐈 Fua que basado, el nombre es muy largo que quiere un puente como nombre😹');
-        
-        user.name = name + 'ͧͧͧͦꙶͣͤ✓'.trim();
+        if (age > 100) return m.reply('😅 *Parece que eres demasiado mayor para esto...*');
+        if (age < 3) return m.reply('👶 *¡Vaya! Un bebé sabe escribir. Impresionante.*');
+        if (name.length >= 99) return m.reply('😹 *Tu nombre es demasiado largo. Intenta con algo más corto.*');
+        user.name = name + ' ✓';
         user.age = age;
-        user.regTime = + new Date();
+        user.regTime = +new Date();
         user.registered = true;
-        
         let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
-        let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.fromMe ? conn.user.jid : m.sender;
+        let who = m.sender;
+    let profilePicture;
+    try {
+        const sender = m.isGroup ? m.sender : m.chat;
+        profilePicture = await conn.profilePictureUrl(sender, 'image');
+    } catch {
+        profilePicture = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60';
+    }
+ const response = await axios.get(profilePicture, { responseType: 'arraybuffer' });
+            const thumbnailBuffer = Buffer.from(response.data, 'binary');
+        let api = await axios.get(`${apis}/tools/country?text=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`);
+        let userNationalityData = api.data.result;
+        let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido';
         const date = moment.tz('America/Bogota').format('DD/MM/YYYY');
         const time = moment.tz('America/Argentina/Buenos_Aires').format('LT');
-        let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length;
-        
+        let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered === true).length;
         global.db.data.users[m.sender].limit += 5;
-        global.db.data.users[m.sender].exp += 600;
-        
+        global.db.data.users[m.sender].exp += 600;        
+        const apiUrl = `https://eliasar-yt-api.vercel.app/api/canvas/reg?url=${encodeURIComponent(profilePicture)}&key=EliasarYT`;
         conn.sendMessage(m.chat, {
-            image: {url: verificados2}, 
-            caption: `[ ✅ REGISTRO EXITOSO ✨ ]\n\n ◉ *Nombre:* ${name} ${user.registered === true ? '✔️' : ''}\n ◉ *Edad:* ${age} años 🌸\n ◉ *Hora:* ${time} ⏰\n ◉ *Fecha:* ${date} 📅\n ◉ *Número:* wa.me/${sender.split("@")[0]} 📞\n ◉ *Número de serie:*\n ⤷ ${sn} 🔢\n\n 🎁 *Recompensa:* 🎉\n ⤷ 2 diamantes 💎\n ⤷ 200 puntos de experiencia 🌟\n\n *◉ Para ver los comandos del bot usa:*\n ${prefix}menu 📜\n\n ◉ *Total de usuarios registrados:* ${rtotalreg} 👥`
-        }, {quoted: fkontak, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
-        
-        await delay(2 * 2000);
-        
-        conn.sendMessage(m.chat, {text: sn, contextInfo: {forwardingScore: 9999999, isForwarded: false}}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
-        await delay(2 * 2000);
-        
-        conn.sendMessage(m.chat, {text: '*𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾 𝙰 𝙰𝙽𝚂𝙸𝙱𝙾𝚃 🥰*', contextInfo: {forwardingScore: 9999999, isForwarded: false}}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
-}
+            image: { url: apiUrl },
+            caption: `
+✅ *¡REGISTRO EXITOSO!* ✅
 
+🌟 *Datos del usuario:* 🌟
+👤 *Nombre:* ${name}
+🎂 *Edad:* ${age} años
+⏰ *Hora:* ${time}
+🏙️ *País:* ${userNationality}
+📅 *Fecha:* ${date}
+📞 *Número:* wa.me/${who.split("@")[0]}
+🔑 *ID de serie:* ${sn}
+🎁 *Recompensa obtenida:* 🎁
+💎 2 Diamantes
+✨ 200 puntos de experiencia
+👥 *Usuarios registrados hasta ahora:* ${rtotalreg}
+⚡ *Usa:* ${prefix}menu *para ver más comandos.
+> mira tu registro aquí https://whatsapp.com/channel/0029Vb1f29nIt5rnxPslac3q`
+        }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+        await delay(2000);
+        conn.sendMessage(m.chat, {
+            text: `🎉 *¡Bienvenido a la comunidad!* 🥳\n\n🌺 *Disfruta de las funciones y comandos disponibles.* 🌟`,
+            contextInfo: { forwardingScore: 9999999, isForwarded: false }
+        }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+        await conn.sendMessage("120363386885800287@newsletter", {
+            text: `◉ *Usuario:* ${m.pushName || 'Anónimo'}
+◉ *País:* ${userNationality}
+◉ *Verificación:* ${user.name}
+◉ *Edad:* ${age} años
+◉ *Fecha:* ${date}
+◉ *Bot:* ${wm}
+◉ *Número de serie:*
+⤷ ${sn}`,
+            contextInfo: {
+                externalAdReply: {
+                    title: "『 𝙉𝙊𝙏𝙄𝙁𝘼𝘾𝘼𝙄𝙊́𝙉 📢 』",
+                    body: "Nuevo usuario registrado 🥳",
+                    thumbnail: thumbnailBuffer,
+                    sourceUrl: pickRandom(nna, nna2, nn, md, yt, tiktok),
+                    mediaType: 1,
+                    showAdAttribution: false,
+                    renderLargerThumbnail: false
+                }
+            }
+        }, { quoted: null });
+    }
 
 if (command == 'unreg') {
 const {createHash} = require('crypto') 
 if (!args[0]) return m.reply(lenguaje.rpg.unreg) 
 const user = global.db.data.users[m.sender];
-let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
+   let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
 if (args[0] !== sn) return m.reply(lenguaje.rpg.myns) 
 user.registered = false; 
-global.db.data.users[m.sender].limit -= 5
-global.db.data.users[m.sender].exp -= 600
+global.db.data.users[m.sender].limit -= 2
+global.db.data.users[m.sender].exp -= 200
 m.reply(lenguaje.rpg.delreg)}
 
 if (command == 'myns') {
@@ -357,19 +469,8 @@ m.reply(`${lenguaje.rpg.text15}\n🆙 *xᴘ* : ${exp}\n💎 *ᴅɪᴀᴍᴀɴᴛ
 global.db.data.users[m.sender].lastclaim = new Date * 1
 }
 
-if (command == 'perfil') {
-avatar = await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')
-let { money, exp, role, limit, level, registered, age} = global.db.data.users[m.sender]
-conn.sendMessage(m.chat, { image: { url: avatar }, caption: `${lenguaje.rpg.pp}
 
-${lenguaje.rpg.pp2} ${pushname} ${registered === true ? 'ͧͧͧͦꙶͣͤ✓' : ''}
-${lenguaje.rpg.pp3} wa.me/${sender.split("@")[0]} ${registered ? '\n*🧐 EDAD :* ' + age + ' años' : ''}
-${lenguaje.rpg.pp4} ${limit}
-${lenguaje.rpg.pp5} ${level}
-*⬆️ EXP :* ${exp}
-${lenguaje.rpg.pp6} ${role}
-${lenguaje.rpg.pp7} ${registered ? 'Si': 'No'}`}, { quoted: fkontak, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
-m.react(done)}
+
 
 if (command == 'levelup' || command == 'nivel') {
   let user = global.db.data.users[m.sender];

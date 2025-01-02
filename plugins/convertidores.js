@@ -37,7 +37,7 @@ const {
 
 async function efec(conn, command, mime, quoted, exec, prefix, m, from) {
     try {
-        if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
+   //     if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
             video: {
                 url: verificar
             },
@@ -100,7 +100,7 @@ async function efec(conn, command, mime, quoted, exec, prefix, m, from) {
 }
 
 async function efect2(m, text, prefix, command, conn) {
-    if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
+ //   if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
         video: {
             url: verificar
         },
@@ -241,7 +241,7 @@ ${prefix}marvel texto1|texto2`)
 }
 
 async function convertidores(conn, command, mime, quoted, util, m, exec, lolkeysapi, text) {
-    if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
+//    if (global.db.data.users[m.sender].registered < true) return conn.sendMessage(m.chat, {
         video: {
             url: verificar
         },

@@ -65,7 +65,7 @@ async function descarga(m, command, conn, text, command, args, fkontak, from, bu
     if (global.db.data.users[m.sender].banned) return
 
 
-if (command === 'play' || command === 'musica') {
+/*if (command === 'play' || command === 'musica') {
     if (!text) return m.reply(`*¿Qué está buscando? 🎶*\nEjemplo: *${prefix + command}* ozuna`);
 
     const startTime = Date.now();
@@ -98,9 +98,14 @@ if (command === 'play' || command === 'musica') {
         const response = await axios.get(apiUrl);
         if (response.data.status) {
             const audioUrl = response.data.result.urlAudio;
+            const audioCaption = `Listo, aquí está ${videoInfo.title}`;
+
             await conn.sendMessage(m.chat, {
-                audio: { url: audioUrl },
-                mimetype: 'audio/mpeg'
+                document: { url: audioUrl },
+                mimetype: 'audio/mpeg',
+                fileName: `${videoInfo.title}.mp3`,
+                caption: audioCaption,
+                thumbnail: videoInfo.thumbnail
             }, { quoted: m });
 
             const endTime = Date.now();
@@ -113,9 +118,14 @@ if (command === 'play' || command === 'musica') {
     } catch (e) {
         const fallbackAudioUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoInfo.url)}`;
         try {
+            const audioCaption = `Listo, aquí está ${videoInfo.title}`;
+
             await conn.sendMessage(m.chat, {
-                audio: { url: fallbackAudioUrl },
-                mimetype: 'audio/mpeg'
+                document: { url: fallbackAudioUrl },
+                mimetype: 'audio/mpeg',
+                fileName: `${videoInfo.title}.mp3`,
+                caption: audioCaption,
+                thumbnail: videoInfo.thumbnail
             }, { quoted: m });
 
             const endTime = Date.now();
@@ -127,10 +137,73 @@ if (command === 'play' || command === 'musica') {
             m.reply(`Ocurrió un error inesperado - ${error.message}`);
         }
     }
-}
+}*/
 
+if (command == 'play2test' || command == 'videotest') {
+if (!text) return m.reply(`*🤔Que está buscando? 🤔*\n*Ingrese el nombre de la canción*\n\n*Ejemplo:*\n#play emilia 420`) 
+const yt_play = await search(args.join(' '));
+const ytplay2 = await yts(text);
+await conn.sendFile(m.chat, yt_play[0].thumbnail, 'error.jpg', `${yt_play[0].title}
+*⇄ㅤ     ◁   ㅤ  ❚❚ㅤ     ▷ㅤ     ↻*
 
-if (command === 'video' || command === 'play2') {
+*⏰ Duración:* ${secondString(yt_play[0].duration.seconds)}
+*👉🏻Aguarde un momento en lo que envío su video*`, m, null,);
+try {
+const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(yt_play[0].url)}`;
+const apiResponse = await fetch(apiUrl);
+const delius = await apiResponse.json();
+if (!delius.status) return m.react("❌");
+const downloadUrl = delius.data.download.url;
+const fileSize = await getFileSize(downloadUrl);
+if (fileSize > LimitVid) {
+await conn.sendMessage(m.chat, { document: { url: downloadUrl }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}` }, { quoted: m });
+} else {
+await conn.sendMessage(m.chat, { video: { url: downloadUrl }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}`, thumbnail: yt_play[0].thumbnail, mimetype: 'video/mp4' }, { quoted: m });
+}} catch (e1) {
+try {    
+let qu = args[1] || '360'
+let q = qu + 'p'
+const yt = await youtubedl(yt_play[0].url).catch(async _ => await youtubedlv2(yt_play[0].url))
+const dl_url = await yt.video[q].download()
+const ttl = await yt.title
+const size = await yt.video[q].fileSizeH
+await await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', caption: `🔰 𝘼𝙦𝙪𝙞 𝙚𝙨𝙩𝙖 𝙩𝙪 𝙫𝙞𝙙𝙚𝙤 \n🔥 𝙏𝙞𝙩𝙪𝙡𝙤: ${ttl}`, thumbnail: await fetch(yt.thumbnail) }, { quoted: m })
+} catch (e2) {
+try {    
+const downloadUrl = await fetch9Convert(yt_play[0].url); 
+await conn.sendMessage(m.chat, { video: { url: downloadUrl }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}`, thumbnail: yt_play[0].thumbnail, mimetype: 'video/mp4' }, { quoted: m });
+} catch (e3) {
+try {
+const downloadUrl = await fetchY2mate(yt_play[0].url);
+await conn.sendMessage(m.chat, { video: { url: downloadUrl }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}`, thumbnail: yt_play[0].thumbnail, mimetype: 'video/mp4' }, { quoted: m });
+} catch (e4) {
+try {
+const videoInfo = await fetchInvidious(yt_play[0].url)
+const downloadUrl = videoInfo.videoFormats.find(format => format.mimeType === "audio/mp4").url;
+await conn.sendMessage(m.chat, { video: { url: downloadUrl }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}`, thumbnail: yt_play[0].thumbnail, mimetype: 'video/mp4' }, { quoted: m });
+} catch (e5) {
+try {
+let searchh = await yts(yt_play[0].url)
+let __res = searchh.all.map(v => v).filter(v => v.type == "video")
+let infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId)
+let ress = await ytdl.chooseFormat(infoo.formats, { filter: 'audioonly' })
+conn.sendMessage(m.chat, { video: { url: downloadUrl }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}`, thumbnail: yt_play[0].thumbnail, mimetype: 'video/mp4' }, { quoted: m });
+} catch (e6) {
+try {
+let d2 = await fetch(`https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${yt_play[0].url}`);
+let dp = await d2.json();
+const audiop = await getBuffer(dp.result.media.mp4);
+const fileSize = await getFileSize(dp.result.media.mp4);
+if (fileSize > LimitVid) {
+await conn.sendMessage(m.chat, { document: { url: audiop }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}` }, { quoted: m });
+} else {
+await conn.sendMessage(m.chat, { video: { url: audiop }, fileName: `${yt_play[0].title}.mp4`, caption: `🔰 Aquí está tu video \n🔥 Título: ${yt_play[0].title}`, thumbnail: yt_play[0].thumbnail, mimetype: 'video/mp4' }, { quoted: m });
+}} catch (e) {    
+await m.react('❌');
+console.log(e);
+}}}}}}}}
+
+/*if (command === 'video' || command === 'play2') {
     if (!text) return m.reply(`*¿Qué video está buscando? 🎥*\nEjemplo: *${prefix + command}* ozuna`);
 
     const startTime = Date.now();
@@ -138,7 +211,7 @@ if (command === 'video' || command === 'play2') {
     conn.fakeReply(
         m.chat,
         `*ᴇsᴘᴇʀᴀ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ 🎥.*\n\n> No hagas spam de comandos`,
-        '0@s.whatsapp.net',
+        '13135550002@s.whatsapp.net',
         '𝐄𝐧𝐯𝐢𝐚𝐧𝐝𝐨 𝐯𝐢𝐝𝐞𝐨 𝐞𝐬𝐩𝐞𝐫𝐚'
     );
 
@@ -201,7 +274,7 @@ if (command === 'video' || command === 'play2') {
             return m.reply(`Ocurrió un error inesperado - ${error.message}`);
         }
     }
-}
+}*/
 
     if (command === 'bilibili') {
         if (!text) return m.reply(`Por favor proporciona un enlace de Bilibili usando el comando de esta forma: *${prefix + command} <URL del video>*`);
@@ -506,25 +579,35 @@ if (command == 'tiktok' || command == 'tt') {
 }
 
 async function descarga2(m, command, text, args, conn, lolkeysapi, isCreator) {
-    if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
-    if (global.db.data.users[m.sender].limit < 1) return m.reply(info.endLimit)
+   // if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
+    //if (global.db.data.users[m.sender].limit < 1) return m.reply(info.endLimit)
     if (global.db.data.users[m.sender].banned) return
-    if (command == 'facebook' || command == 'fb') {
-        const igeh = require(`../libs/scraper.js`)
-        if (!args[0] || !text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://fb.watch/ncowLHMp-x/?mibextid=rS40aB7S9Ucbxw6v`)
-        if (!args[0].match(/www.facebook.com|fb.watch/g)) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://fb.watch/ncowLHMp-x/?mibextid=rS40aB7S9Ucbxw6v`)
-        m.react("📥")
-        conn.fakeReply(m.chat, `${lenguaje.lengua.espere}`, '0@s.whatsapp.net', 'No haga spam')
+if (command == 'facebook' || command == 'fb') {
+    const igeh = require(`../libs/scraper.js`)
+    if (!args[0] || !text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://fb.watch/ncowLHMp-x/?mibextid=rS40aB7S9Ucbxw6v`)
+    if (!args[0].match(/www.facebook.com|fb.watch/g)) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://fb.watch/ncowLHMp-x/?mibextid=rS40aB7S9Ucbxw6v`)
+    m.react("📥")
+    conn.fakeReply(m.chat, `${lenguaje.lengua.espere}`, '0@s.whatsapp.net', 'No haga spam')
+    try {
+        const eliasarResponse = await fetch(`https://eliasar-yt-api.vercel.app/api/facebookdl?link=${args[0]}`)
+        const eliasarData = await eliasarResponse.json()
+        if (eliasarData.status && eliasarData.data.length > 0) {
+            const videoUrl = eliasarData.data[0].url
+            conn.sendFile(m.chat, videoUrl, 'video.mp4', `${lenguaje.descargar.text16}`, m)
+        } else {
+            throw new Error('Error en EliasarYT')
+        }
+    } catch (err1) {
         try {
             const dorratzResponse = await fetch(`https://api.dorratz.com/fbvideo?url=${args[0]}`)
             const dorratzData = await dorratzResponse.json()
             if (dorratzData.result) {
                 const videoUrl = dorratzData.result.hd || dorratzData.result.sd
-                conn.sendFile(m.chat, videoUrl, 'error.mp4', `${lenguaje.descargar.text16}`, m)
+                conn.sendFile(m.chat, videoUrl, 'video.mp4', `${lenguaje.descargar.text16}`, m)
             } else {
-                throw new Error('No se encontró un enlace de video en la respuesta de la API principal')
+                throw new Error('Error en Dorratz')
             }
-        } catch (err1) {
+        } catch (err2) {
             try {
                 const req = await igeh(args[0])
                 conn.sendMessage(m.chat, {
@@ -532,33 +615,35 @@ async function descarga2(m, command, text, args, conn, lolkeysapi, isCreator) {
                         url: req.url_list
                     }
                 }, m)
-            } catch (err1_2) {
+            } catch (err3) {
                 try {
                     const Rres = await fetch(`https://api.lolhuman.xyz/api/facebook?apikey=${lolkeysapi}&url=${args[0]}`)
                     const Jjson = await Rres.json()
                     let VIDEO = Jjson.result[0]
                     if (VIDEO == '' || !VIDEO || VIDEO == null) VIDEO = Jjson.result[1]
-                    conn.sendFile(m.chat, VIDEO, 'error.mp4', `${lenguaje.descargar.text16}`, m)
-                } catch (err2) {
+                    conn.sendFile(m.chat, VIDEO, 'video.mp4', `${lenguaje.descargar.text16}`, m)
+                } catch (err4) {
                     try {
                         const ress = await fg.fbdl(args[0])
                         const urll = await ress.data[0].url
-                        await conn.sendFile(m.chat, urll, 'error.mp4', `${lenguaje.descargar.text16}`, m)
-                    } catch (err3) {
+                        await conn.sendFile(m.chat, urll, 'video.mp4', `${lenguaje.descargar.text16}`, m)
+                    } catch (err5) {
                         try {
                             const res3 = await fetch(`https://latam-api.vercel.app/api/facebookdl?apikey=nekosmic&q=${args[0]}`)
                             const json = await res3.json()
                             const url3 = await json.video
-                            await conn.sendFile(m.chat, url3, 'error.mp4', `${lenguaje.descargar.text16}`, m)
+                            await conn.sendFile(m.chat, url3, 'video.mp4', `${lenguaje.descargar.text16}`, m)
                         } catch (err6) {
                             m.reply(info.error)
-                            console.log(e)
+                            console.log(err6)
                         }
                     }
                 }
             }
         }
     }
+}
+
 
     if (command == 'instagram' || command == 'ig') {
         if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://www.instagram.com/p/CCoI4DQBGVQ/?igshid=YmMyMTA2M2Y=`)

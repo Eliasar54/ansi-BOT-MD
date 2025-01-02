@@ -8,7 +8,7 @@ let porn2 = 'https://qu.ax/TxtQ.webp'
 
 async function nsfw(m, sender, command, pickRandom, conn, sendImageAsUrl) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
-if (global.db.data.chats[m.chat].antiNsfw < true) return conn.sendFile(m.chat, pickRandom([porn, porn2]), 'sticker.webp', '', m, true, { contextInfo: { 'forwardingScore': 200, 'isForwarded': false, externalAdReply:{ showAdAttribution: false, title: `ᴸᵒˢ ᶜᵒᵐᵃⁿᵈᵒ ʰᵒʳⁿʸ ᵉˢᵗᵃ ᵈᵉˢᵃᶜᵗᶦᵛᵃᵈᵒ ˢᶦ ᵉʳᵉˢ ᵃᵈᵐᶦⁿ ʸ ᵠᵘᶦᵉʳᵉ ᵃᶜᵗᶦᵛᵃʳˡᵒˢ ᵘˢᵃʳ:`, body: '#modocaliente on', mediaType: 2, sourceUrl: md, thumbnail: imagen1}}}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})   
+if (global.db.data.chats[m.chat].antiNsfw < true) return conn.sendFile(m.chat, pickRandom([porn, porn2]), 'sticker.webp', '', m, true, { contextInfo: { 'forwardingScore': 200, 'isForwarded': false, externalAdReply:{ showAdAttribution: false, title: `ᴸᵒˢ ᶜᵒᵐᵃⁿᵈᵒ ʰᵒʳⁿʸ ᵉˢᵗᵃ ᵈᵉˢᵃᶜᵗᶦᵛᵃᵈᵒ ˢᶦ ᵉʳᵉˢ ᵃᵈᵐᶦⁿ ʸ ᵠᵘᶦᵉʳᵉ ᵃᶜᵗᶦᵛᵃʳˡᵒˢ ᵘˢᵃʳ:`, body: 'modocaliente on', mediaType: 2, sourceUrl: md, thumbnail: imagen1}}}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})   
 //m.reply(info.nsfw)
 if (global.db.data.users[m.sender].limit < 1) return m.reply(info.endLimit)
 if (global.db.data.users[m.sender].banned) return
@@ -16,16 +16,36 @@ if (!m.isGroup) return m.reply(info.group)
 let user = global.db.data.users[m.sender].age
 if (user < 15) return m.reply(lenguaje.nsfw.text) 
 if (command == 'hentai') {
-//sendImageAsUrl("https://delirius-nsfw.onrender.com/media/h/bdsm", '🥵')
-conn.sendButton(m.chat, '🥵', botname, "https://delirius-nsfw.onrender.com/media/h/bdsm", [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-m.react(xmoji) 
-db.data.users[m.sender].limit -= 1
-m.reply('1 ' + info.limit)}
+    try {
+        let response = await fetch('https://eliasar-yt-api.vercel.app/api/nsfw');
+        let data = await response.json();
+        
+        if (data.status) {
+            let doujin = data.doujin;
+            let mensaje = `
+🔞 *Doujin Encontrado* 🔞
+📖 *Título:* ${doujin.title}
+🎨 *Artista:* ${doujin.artist}
+📚 *Tags:* ${doujin.tags.join(', ')}
+🌐 *Idioma:* ${doujin.language}
+            `;
+            conn.sendMessage(
+                m.chat, 
+                { image: { url: doujin.image_url }, caption: mensaje }, 
+                { quoted: m }
+            );
+        } else {
+            conn.reply(m.chat, 'Error al obtener el Doujin. Intentando nuevamente...', m);
+            await runCommand(command);
+        }
+    } catch (err) {
+        conn.reply(m.chat, 'Hubo un error al procesar la solicitud. Inténtalo más tarde.', m);
+    }
+}
 if (command == 'nsfwloli') {
 var nsfw = JSON.parse(fs.readFileSync('./src/nsfw/nsfwloli.json'))
 var result = pickRandom(nsfw)
-conn.sendButton(m.chat, '🥵', botname, result.url, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//conn.sendMessage(m.chat, { caption: '🥵', image: { url: result.url } }, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+conn.sendMessage(m.chat, { caption: '🥵', image: { url: result.url } }, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 m.react(xmoji) 
 db.data.users[m.sender].limit -= 1
 m.reply('1 ' + info.limit)}
@@ -41,23 +61,20 @@ if (command == 'hentai2') {
 if (global.db.data.users[m.sender].level < 3) return m.reply(`${lenguaje['nivel']()} 3 ${lenguaje['nivel2']()} ${prefix}nivel`) 
 var hentai = JSON.parse(fs.readFileSync('./src/nsfw/neko.json'))
 var hentairesult = pickRandom(hentai)
-conn.sendButton(m.chat, '🥵', botname, hentairesult.url, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//conn.sendMessage(m.chat, { caption: `🥵`, image: { url: hentairesult.url } }, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+conn.sendMessage(m.chat, { caption: `🥵`, image: { url: hentairesult.url } }, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 m.react(xmoji) 
 db.data.users[m.sender].limit -= 2
 m.reply('2 ' + info.limit)}
 
 if (command == 'porno') {
-conn.sendButton(m.chat, '🥵', botname, "https://delirius-nsfw.onrender.com/media/r/ass", [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//sendImageAsUrl("https://delirius-nsfw.onrender.com/media/r/ass", '🥵');
+sendImageAsUrl("https://delirius-nsfw.onrender.com/media/r/ass", '🥵');
 m.react(xmoji) 
 db.data.users[m.sender].limit -= 1
 m.reply('1 ' + info.limit)}
 
 if (command == 'pack') {
 const url = await pack[Math.floor(Math.random() * pack.length)];
-conn.sendButton(m.chat, lenguaje.nsfw.text1, botname, url, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//sendImageAsUrl(url, `${lenguaje.nsfw.text1}`)
+sendImageAsUrl(url, `${lenguaje.nsfw.text1}`)
 }
 
 if (command == 'pack2' || command == 'pack3') {
@@ -70,30 +87,40 @@ m.reply('1 ' + info.limit)}
 if (command == 'videoxxx' || command == 'vídeoxxx' || command == 'videoxxxlesbi') {
 if (global.db.data.users[m.sender].level < 5) return m.reply(`${lenguaje['nivel']()} 5 ${lenguaje['nivel2']()} ${prefix}nivel`) 
 const url4 = await videosxxxc[Math.floor(Math.random() * videosxxxc.length)];
-await conn.sendButton(m.chat, lenguaje.nsfw.text2, botname, url4, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//conn.sendMessage(m.chat, {video: {url: url4}, caption: `${lenguaje.nsfw.text2}`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+/*await conn.sendButton(m.chat, lenguaje.nsfw.text2, botname, url4, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)*/
+conn.sendMessage(m.chat, {video: {url: url4}, caption: `${lenguaje.nsfw.text2}`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 db.data.users[m.sender].limit -= 1
 m.reply('1 ' + info.limit)}
 
 if (command == 'videolesbixxx' || command == 'pornolesbivid' || command == 'pornolesbianavid' || command == 'pornolesbiv' || command == 'pornolesbianav') {
-if (global.db.data.users[m.sender].level < 6) return m.reply(`${lenguaje['nivel']()} 6 ${lenguaje['nivel2']()} ${prefix}nivel`) 
-const url5 = await videosxxxc2[Math.floor(Math.random() * videosxxxc2.length)];
-await conn.sendButton(m.chat, lenguaje.nsfw.text2, botname, url5, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//conn.sendMessage(m.chat, {video: {url: url5}, caption: `${lenguaje.nsfw.text2}`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
-db.data.users[m.sender].limit -= 2
-m.reply('2 ' + info.limit)}
+    if (global.db.data.users[m.sender].level < 6) 
+        return m.reply(`${lenguaje['nivel']()} 6 ${lenguaje['nivel2']()} ${prefix}nivel`);
+    
+    const url5 = await videosxxxc2[Math.floor(Math.random() * videosxxxc2.length)];
+    
+    await conn.sendMessage(
+        m.chat,
+        { video: { url: url5 }, caption: `${lenguaje.nsfw.text2}` },
+        { quoted: m, ephemeralExpiration: 24 * 60 * 1000, disappearingMessagesInChat: 24 * 60 * 1000 }
+    );
+    
+    db.data.users[m.sender].limit -= 2;
+    m.reply('2 ' + info.limit);
+}
 
 if (command == 'tetas') {
-const resError = (await axios.get(`https://raw.githubusercontent.com/elrebelde21/NovaBot-MD/master/src/nsfw/tetas.json`)).data;
-let res = await conn.getFile(`https://api-fgmods.ddns.net/api/nsfw/boobs?apikey=fg-dylux`).data;
-if (res == '' || !res || res == null) res = await resError[Math.floor(resError.length * Math.random())];
-conn.sendButton(m.chat, `_${command}_`, botname, res, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
-//conn.sendMessage(m.chat, {image: {url: res}, caption: `_${command}_`.trim()}, {quoted: m})
-db.data.users[m.sender].limit -= 1
-m.reply('1 ' + info.limit)}
+    const res = (await axios.get(`https://eliasar-yt-api.vercel.app/api/tetas`)).data.image;
+    conn.sendMessage(
+        m.chat,
+        { image: { url: res }, caption: `_${command}_`.trim() },
+        { quoted: m }
+    );
+    db.data.users[m.sender].limit -= 1;
+    m.reply('1 ' + info.limit);
+}
     
 if (command == 'pechos') {
-const res = (await axios.get(`https://raw.githubusercontent.com/elrebelde21/NovaBot-MD/master/src/nsfw/pechos.json`)).data;
+const res = (await axios.get(`https://raw.githubusercontent.com/Eliasar54/ansi-BOT-MD/refs/heads/main/src/nsfw/pechos.json`)).data;
 const url = await res[Math.floor(res.length * Math.random())];
 conn.sendButton(m.chat, `_${command}_`, botname, url, [['🔄 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄 🔄', `/${command}`]], null, null, m)
 //conn.sendMessage(m.chat, {image: {url: url}, caption: `_${command}_`.trim()}, {quoted: m})
