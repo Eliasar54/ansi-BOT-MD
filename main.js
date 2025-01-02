@@ -2855,6 +2855,50 @@ case 'video': {
 
         if (json.status) {
             const videoUrl = json.data.dl;
+            await conn.sendMessage(m.chat, {
+                video: { url: videoUrl },
+                caption: '✅ Aquí está tu video.',
+            }, { quoted: m });
+        } else {
+            throw new Error('API de Siputzx falló.');
+        }
+    } catch {
+        try {
+            const axeelApi = `https://axeel.my.id/api/download/video?url=${encodeURIComponent(url)}`;
+            const axeelRes = await fetch(axeelApi);
+            const axeelJson = await axeelRes.json();
+
+            if (axeelJson && axeelJson.downloads?.url) {
+                const videoUrl = axeelJson.downloads.url;
+                await conn.sendMessage(m.chat, {
+                    video: { url: videoUrl },
+                    caption: `✅ Aquí está tu video: ${axeelJson.metadata.title}`,
+                }, { quoted: m });
+            } else {
+                throw new Error('API de Axeel falló.');
+            }
+        } catch {
+            m.reply('❌ Todas las APIs fallaron. No se pudo procesar tu solicitud.');
+        }
+    }
+    break;
+}
+
+/*case 'video': {
+    if (!text) return m.reply('Por favor, proporciona un enlace de YouTube válido.');
+    const url = args[0];
+
+    if (!url.includes('youtu')) return m.reply('Por favor, proporciona un enlace válido de YouTube.');
+
+    m.reply('🔄 Descargando el video, por favor espera...');
+    
+    try {
+        const api = `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`;
+        const res = await fetch(api);
+        const json = await res.json();
+
+        if (json.status) {
+            const videoUrl = json.data.dl;
 
             await conn.sendMessage(m.chat, {
                 video: { url: videoUrl },
@@ -2867,9 +2911,101 @@ case 'video': {
         m.reply('❌ Hubo un problema al procesar tu solicitud.');
     }
 }
-break;
+break;*/
 
 case 'musica': {
+    const fetch = require('node-fetch');
+
+    if (!args.length || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(args[0])) {
+        return m.reply('Por favor, ingresa un enlace de YouTube válido.');
+    }
+    m.reply('🔄 Descargando el audio, por favor espera...');
+    const videoUrl = args[0];
+
+    try {
+        const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
+        const apiResponse = await fetch(apiUrl);
+        const delius = await apiResponse.json();
+        if (!delius || !delius.status) throw new Error();
+        const downloadUrl = delius.data.download.url;
+        await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
+    } catch {
+        try {
+            const yt = await ytdl(videoUrl);
+            const dl_url = yt.audio['128kbps']?.download();
+            if (!dl_url) throw new Error();
+            await conn.sendFile(m.chat, dl_url, `${videoUrl.split('v=')[1]}.mp3`, null, m, false, { mimetype: 'audio/mp4' });
+        } catch {
+            try {
+                const axeelUrl = `https://axeel.my.id/api/download/audio?url=${encodeURIComponent(videoUrl)}`;
+                const axeelResponse = await fetch(axeelUrl);
+                const axeelData = await axeelResponse.json();
+                if (!axeelData || !axeelData.downloads?.url) throw new Error();
+                await conn.sendMessage(m.chat, { audio: { url: axeelData.downloads.url }, mimetype: 'audio/mpeg' }, { quoted: m });
+            } catch {
+                try {
+                    const siputzxUrl = `https://api.siputzx.my.id/api/d/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+                    const siputzxResponse = await fetch(siputzxUrl);
+                    const siputzxData = await siputzxResponse.json();
+                    if (!siputzxData.status || !siputzxData.data?.dl) throw new Error();
+                    await conn.sendMessage(m.chat, { audio: { url: siputzxData.data.dl }, mimetype: 'audio/mpeg' }, { quoted: m });
+                } catch {
+                    try {
+                        const ryzenUrl = `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+                        const ryzenResponse = await fetch(ryzenUrl);
+                        const ryzenData = await ryzenResponse.json();
+                        if (ryzenData.status === 'tunnel' && ryzenData.url) {
+                            const downloadUrl = ryzenData.url;
+                            await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
+                        } else {
+                            throw new Error();
+                        }
+                    } catch {
+                        try {
+                            const dorratzUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoUrl)}`;
+                            await conn.sendMessage(m.chat, { audio: { url: dorratzUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
+                        } catch {
+                            try {
+                                const downloadUrl = await fetch9Convert(videoUrl);
+                                await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
+                            } catch {
+                                try {
+                                    const downloadUrl = await fetchY2mate(videoUrl);
+                                    await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
+                                } catch {
+                                    try {
+                                        const res = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${videoUrl}`);
+                                        const audioData = await res.json();
+                                        if (!audioData.status || !audioData.result?.downloadUrl) throw new Error();
+                                        await conn.sendMessage(m.chat, { audio: { url: audioData.result.downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
+                                    } catch {
+                                        try {
+                                            const d2 = await fetch(`https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${videoUrl}`);
+                                            const dp = await d2.json();
+                                            const audiop = dp.result.media.mp3;
+                                            const fileSize = dp.result.media.mp3_size;
+                                            if (!audiop) throw new Error();
+                                            if (fileSize > LimitAud) {
+                                                await conn.sendMessage(m.chat, { document: { url: audiop }, mimetype: 'audio/mp3', fileName: `${videoUrl.split('v=')[1]}.mp3` }, { quoted: m });
+                                            } else {
+                                                await conn.sendMessage(m.chat, { audio: { url: audiop }, mimetype: 'audio/mpeg' }, { quoted: m });
+                                            }
+                                        } catch {
+                                            await m.reply('Todas las APIs fallaron. No se pudo procesar tu solicitud.');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    break;
+}
+
+/*case 'musica': {
     const fetch = require('node-fetch');
 
     if (!args.length || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(args[0])) {
@@ -2951,7 +3087,7 @@ case 'musica': {
         }
     }
     break;
-}
+}*/
 
 case 'tiktokserch': {
    const axios = require('axios');
