@@ -146,30 +146,30 @@ renderLargerThumbnail: false
 }}}, { quoted: null })
 }*/
 async function reg(command, conn, m, sender, text, budy, fkontak, delay, args) {
-    if (global.db.data.users[m.sender].banned) return;
-    if (command == 'reg' || command == 'verificar' || command == 'Registrar') {
-        let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
-        let user = global.db.data.users[m.sender];
-        if (user.registered === true) return m.reply('✨ *Ya estás registrado* 🧐');
-        if (!Reg.test(text)) {
-            return conn.sendMessage(m.chat, {
-                image: { url: verificadosError },
-                caption: `⚠️ *Formato incorrecto* ⚠️\n\n💡 Usa: *${prefix}reg nombre.edad*\n📝 Ejemplo: *${prefix}reg Juan.25*`
-            }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
-        }
-        let [_, name, splitter, age] = text.match(Reg);
-        if (!name) return m.reply('❌ *El nombre no puede estar vacío*');
-        if (!age) return m.reply('❌ *La edad no puede estar vacía (solo números)*');
-        age = parseInt(age);
-        if (age > 100) return m.reply('😅 *Parece que eres demasiado mayor para esto...*');
-        if (age < 3) return m.reply('👶 *¡Vaya! Un bebé sabe escribir. Impresionante.*');
-        if (name.length >= 99) return m.reply('😹 *Tu nombre es demasiado largo. Intenta con algo más corto.*');
-        user.name = name + ' ✓';
-        user.age = age;
-        user.regTime = +new Date();
-        user.registered = true;
-        let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
-        let who = m.sender;
+if (global.db.data.users[m.sender].banned) return;
+if (command == 'reg' || command == 'verificar' || command == 'Registrar') {
+    let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
+    let user = global.db.data.users[m.sender];
+    if (user.registered === true) return m.reply('✨ *Ya estás registrado* 🧐');
+    if (!Reg.test(text)) {
+        return conn.sendMessage(m.chat, {
+            image: { url: verificadosError },
+            caption: `⚠️ *Formato incorrecto* ⚠️\n\n💡 Usa: *${prefix}reg nombre.edad*\n📝 Ejemplo: *${prefix}reg Juan.25*`
+        }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+    }
+    let [_, name, splitter, age] = text.match(Reg);
+    if (!name) return m.reply('❌ *El nombre no puede estar vacío*');
+    if (!age) return m.reply('❌ *La edad no puede estar vacía (solo números)*');
+    age = parseInt(age);
+    if (age > 100) return m.reply('😅 *Parece que eres demasiado mayor para esto...*');
+    if (age < 3) return m.reply('👶 *¡Vaya! Un bebé sabe escribir. Impresionante.*');
+    if (name.length >= 99) return m.reply('😹 *Tu nombre es demasiado largo. Intenta con algo más corto.*');
+    user.name = name + ' ✓';
+    user.age = age;
+    user.regTime = +new Date();
+    user.registered = true;
+    let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
+    let who = m.sender;
     let profilePicture;
     try {
         const sender = m.isGroup ? m.sender : m.chat;
@@ -177,27 +177,23 @@ async function reg(command, conn, m, sender, text, budy, fkontak, delay, args) {
     } catch {
         profilePicture = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60';
     }
- const response = await axios.get(profilePicture, { responseType: 'arraybuffer' });
-            const thumbnailBuffer = Buffer.from(response.data, 'binary');
-        let api = await axios.get(`${apis}/tools/country?text=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`);
-        let userNationalityData = api.data.result;
-        let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido';
-        const date = moment.tz('America/Bogota').format('DD/MM/YYYY');
-        const time = moment.tz('America/Argentina/Buenos_Aires').format('LT');
-        let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered === true).length;
-        global.db.data.users[m.sender].limit += 5;
-        global.db.data.users[m.sender].exp += 600;        
-        const apiUrl = `https://eliasar-yt-api.vercel.app/api/canvas/reg?url=${encodeURIComponent(profilePicture)}&key=EliasarYT`;
-        conn.sendMessage(m.chat, {
-            image: { url: apiUrl },
-            caption: `
+    const response = await axios.get(profilePicture, { responseType: 'arraybuffer' });
+    const thumbnailBuffer = Buffer.from(response.data, 'binary');
+    const date = moment.tz('America/Bogota').format('DD/MM/YYYY');
+    const time = moment.tz('America/Argentina/Buenos_Aires').format('LT');
+    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered === true).length;
+    global.db.data.users[m.sender].limit += 5;
+    global.db.data.users[m.sender].exp += 600;        
+    const apiUrl = `https://eliasar-yt-api.vercel.app/api/canvas/reg?url=${encodeURIComponent(profilePicture)}&key=EliasarYT`;
+    conn.sendMessage(m.chat, {
+        image: { url: apiUrl },
+        caption: `
 ✅ *¡REGISTRO EXITOSO!* ✅
 
 🌟 *Datos del usuario:* 🌟
 👤 *Nombre:* ${name}
 🎂 *Edad:* ${age} años
 ⏰ *Hora:* ${time}
-🏙️ *País:* ${userNationality}
 📅 *Fecha:* ${date}
 📞 *Número:* wa.me/${who.split("@")[0]}
 🔑 *ID de serie:* ${sn}
@@ -207,35 +203,33 @@ async function reg(command, conn, m, sender, text, budy, fkontak, delay, args) {
 👥 *Usuarios registrados hasta ahora:* ${rtotalreg}
 ⚡ *Usa:* ${prefix}menu *para ver más comandos.
 > mira tu registro aquí https://whatsapp.com/channel/0029Vb1f29nIt5rnxPslac3q`
-        }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
-        await delay(2000);
-        conn.sendMessage(m.chat, {
-            text: `🎉 *¡Bienvenido a la comunidad!* 🥳\n\n🌺 *Disfruta de las funciones y comandos disponibles.* 🌟`,
-            contextInfo: { forwardingScore: 9999999, isForwarded: false }
-        }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
-        await conn.sendMessage("120363386885800287@newsletter", {
-            text: `◉ *Usuario:* ${m.pushName || 'Anónimo'}
-◉ *País:* ${userNationality}
+    }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+    await delay(2000);
+    conn.sendMessage(m.chat, {
+        text: `🎉 *¡Bienvenido a la comunidad!* 🥳\n\n🌺 *Disfruta de las funciones y comandos disponibles.* 🌟`,
+        contextInfo: { forwardingScore: 9999999, isForwarded: false }
+    }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+    await conn.sendMessage("120363386885800287@newsletter", {
+        text: `◉ *Usuario:* ${m.pushName || 'Anónimo'}
 ◉ *Verificación:* ${user.name}
 ◉ *Edad:* ${age} años
 ◉ *Fecha:* ${date}
 ◉ *Bot:* ${wm}
 ◉ *Número de serie:*
 ⤷ ${sn}`,
-            contextInfo: {
-                externalAdReply: {
-                    title: "『 𝙉𝙊𝙏𝙄𝙁𝘼𝘾𝘼𝙄𝙊́𝙉 📢 』",
-                    body: "Nuevo usuario registrado 🥳",
-                    thumbnail: thumbnailBuffer,
-                    sourceUrl: pickRandom(nna, nna2, nn, md, yt, tiktok),
-                    mediaType: 1,
-                    showAdAttribution: false,
-                    renderLargerThumbnail: false
-                }
+        contextInfo: {
+            externalAdReply: {
+                title: "『 𝙉𝙊𝙏𝙄𝙁𝙄𝘾𝘼𝙄𝙊́𝙉 📢 』",
+                body: "Nuevo usuario registrado 🥳",
+                thumbnail: thumbnailBuffer,
+                sourceUrl: pickRandom(nna, nna2, nn, md, yt, tiktok),
+                mediaType: 1,
+                showAdAttribution: false,
+                renderLargerThumbnail: false
             }
-        }, { quoted: null });
-    }
-
+        }
+    }, { quoted: null });
+}	
 if (command == 'unreg') {
 const {createHash} = require('crypto') 
 if (!args[0]) return m.reply(lenguaje.rpg.unreg) 
