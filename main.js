@@ -2003,7 +2003,80 @@ break;
     }
     break;
 }
-          
+
+case 'idch':
+case 'inspectchannel': {
+    if (!text) return m.reply(`*⚠️ Proporcione un enlace válido de un canal de WhatsApp.*`);
+
+    const channelUrl = text.match(/(?:https:\/\/)?(?:www\.)?(?:chat\.|wa\.)?whatsapp\.com\/(?:channel\/|joinchat\/)?([0-9A-Za-z]{22,24})/i)?.[1];
+    if (!channelUrl) return m.reply(`*⚠️ El enlace proporcionado no parece ser un enlace válido de canal.*`);
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return date.toLocaleDateString('es-ES', options);
+    };
+
+    try {
+        const channelInfo = await conn.newsletterMetadata("invite", channelUrl);
+        if (!channelInfo) return m.reply(`*⚠️ No se pudo recuperar la información del canal. Verifique que el enlace sea correcto.*`);
+
+        const id = channelInfo.id || "No disponible";
+        const name = channelInfo.name || "Nombre no disponible";
+        const description = channelInfo.description || "Descripción no disponible";
+        const subscribers = channelInfo.subscribers ? channelInfo.subscribers.toLocaleString() : "No disponible";
+        const state = channelInfo.state === "ACTIVE" ? "Activo" : "Inactivo";
+        const createdAt = channelInfo.creation_time ? formatDate(channelInfo.creation_time * 1000) : "Fecha no disponible";
+        const nameTime = channelInfo.nameTime ? formatDate(channelInfo.nameTime) : "No disponible";
+        const descriptionTime = channelInfo.descriptionTime ? formatDate(channelInfo.descriptionTime) : "No disponible";
+        const invite = channelInfo.invite || "No disponible";
+        const handle = channelInfo.handle || "Alias no disponible";
+        const preview = channelInfo.preview ? `https://mmg.whatsapp.net${channelInfo.preview}` : "No disponible";
+        const reactionCodes = channelInfo.reaction_codes ? 
+            (channelInfo.reaction_codes === "ALL" ? "Todas las reacciones permitidas" : 
+            channelInfo.reaction_codes === "BASIC" ? "Reacciones básicas permitidas" : 
+            "No se permiten reacciones") : "Desconocido";
+        const verification = channelInfo.verification === "VERIFIED" ? "Verificado" : "No verificado";
+        const viewerMetadata = channelInfo.viewer_metadata || "No disponible";
+
+        let caption = `*📢 Información Completa del Canal*\n\n`;
+        caption += `🆔 *ID del Canal:* ${id}\n`;
+        caption += `🏷️ *Nombre:* ${name}\n`;
+        caption += `📝 *Descripción:* ${description}\n`;
+        caption += `👥 *Suscriptores:* ${subscribers}\n`;
+        caption += `📅 *Creado el:* ${createdAt}\n`;
+        caption += `🕒 *Nombre actualizado el:* ${nameTime}\n`;
+        caption += `🕒 *Descripción actualizada el:* ${descriptionTime}\n`;
+        caption += `📌 *Estado:* ${state}\n`;
+        caption += `🔗 *Enlace de Invitación:* ${invite}\n`;
+        caption += `👤 *Alias:* ${handle}\n`;
+        caption += `🖼️ *Previsualización:* ${preview}\n`;
+        caption += `😃 *Reacciones permitidas:* ${reactionCodes}\n`;
+        caption += `✅ *Verificación:* ${verification}\n`;
+        caption += `👁️ *Metadatos del espectador:* ${viewerMetadata}\n`;
+
+        await conn.sendMessage(m.chat, {
+            text: caption,
+            contextInfo: {
+                externalAdReply: {
+                    title: "『 𝙄𝙉𝙁𝙊 𝘾𝘼𝙉𝘼𝙇 📢 』",
+                    body: "Detalles completos del canal.",
+                    thumbnail: { url: preview },
+                    sourceUrl: text,
+                    mediaType: 1,
+                    showAdAttribution: false,
+                    renderLargerThumbnail: false
+                }
+            }
+        }, { quoted: m });
+        m.reply(`${id}`);
+    } catch (e) {
+        console.error(e);
+        m.reply(`*⚠️ Ocurrió un error al recuperar la información del canal.*`);
+    }
+    break;
+}
+		    
 case 'logo': {
     if (!text) {
         m.reply('Por favor, proporciona el texto para el logo.');
