@@ -263,7 +263,7 @@ if (command == 'google') {
         m.react('🗣️')
     }
 
-if (command == 'chatgpt' || command == 'ia') {
+/*if (command == 'chatgpt' || command == 'ia') {
     const {
         Configuration,
         OpenAIApi
@@ -313,7 +313,7 @@ if (command == 'chatgpt' || command == 'ia') {
     } catch (error) {
         m.reply("Ocurrió un error al procesar la solicitud.");
     }
-}
+}*/
 
 
     if (command === 'gpt4o' || command === 'gpt') {
