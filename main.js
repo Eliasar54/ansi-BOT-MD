@@ -1140,7 +1140,6 @@ ${isWin ? `@${winner.split('@')[0]} ${lenguaje.game.text2} ${winScore} XP` : isT
         case 'traducir':
         case 'translate':
         case "tts":
-        case 'ia':
         case 'chatgpt':
         case 'dalle':
         case 'ia2':
@@ -2076,7 +2075,119 @@ case 'inspectchannel': {
     }
     break;
 }
-		    
+case 'yes6262': {
+m.react('✨');
+let menu = `
+
+╭━━━⍣༻ ✧༺⍣━━━╮  
+┃ ✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨ ┃  
+╰━━━⍣༻ ✧༺⍣━━━╯  
+╭━━━⍣✦✧✦⍣━━━╮  
+┃ ✧ 𝗛𝗢𝗟𝗔 @⁨EliasarYT (soporte de ansi-BOT-MD)⁩ ͧͧͧͦꙶͣͤ✓ 👋 ┃  
+╰━━━⍣✦✧✦⍣━━━╯  
+
+╭─༻ℹ️【 ✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨ 】ℹ️─╮  
+┃ • Creador: 𝐸𝐿𝐼𝐴𝑆𝐴𝑅 𝑌𝑇  
+┃ • Prefix: ➤ [ . ]  
+┃ • Fecha: ➤ 07/02/2025  
+┃ • Hora: ➤ 12:20 PM  
+┃ • Vercion: ➤ 𝟮.𝟭  
+┃ • Usuarios: 589  
+┃ • Activo: 00:00:00:19  
+┃ • Modo: 𝗣𝘂𝗯𝗹𝗶𝗰𝗼  
+┃ • Plataforma: linux  
+┃ • RAM: 22571.19 MB / 96621.52 MB  
+┃ • Núcleos CPU: 32  
+╰──────────────────╯  
+
+╭─⍣༻ 🌐 *ᴜꜱᴜᴀʀɪᴏ* 🌐 ─⍣╮  
+┃ • ʟíᴍɪᴛᴇꜱ: 30  
+┃ • ɴɪᴠᴇʟ: 3  
+┃ • ʀᴏʟ: 🌸 INICIANTE  
+┃ • ᴇxᴘ: 600  
+┃ • ᴄᴏɪɴꜱ: 0  
+┃ • ᴜꜱᴜᴀʀɪᴏꜱ ʀᴇɢɪꜱᴛʀᴀᴅᴏꜱ: 55 / 589  
+╰──────────────────╯  
+
+╭⍣༻ *ᴍᴇɴᴜ ᴅᴇ ᴄᴏᴍᴀɴᴅᴏꜱ* ༺⍣╮  
+┃ ➤ .allmenu | ᴍᴇɴᴜ ᴄᴏᴍᴘʟᴇᴛᴏ  
+┃ ➤ .menu1 | ᴅᴇꜱᴄᴀʀɢᴀꜱ  
+┃ ➤ .menu2 | ᴀᴜᴅɪᴏꜱ  
+┃ ➤ .menu3 | ᴍᴇɴᴜ ɢʀᴜᴘᴏꜱ  
+┃ ➤ .menu4 | ʙᴜꜱᴄᴀᴅᴏʀᴇꜱ  
+┃ ➤ .menu5 | ᴊᴜᴇɢᴏꜱ  
+┃ ➤ .menu6 | ᴇꜰᴇᴄᴛᴏꜱ  
+┃ ➤ .menu7 | ᴄᴏɴᴠᴇʀᴛɪᴅᴏʀᴇꜱ  
+┃ ➤ .menu8 | ꜰᴜɴ  
+┃ ➤ .menu9 | ʀᴘɢ  
+┃ ➤ .menu10 | ꜱᴛɪᴄᴋᴇʀꜱ  
+┃ ➤ .menu11 | ꜰᴜɴᴄɪᴏɴᴇꜱ ᴏᴡɴᴇʀ  
+╰⍣༻ ✧ ✦ ✧ ༺⍣╯  
+
+╭⍣༻ *ɪɴꜰᴏʀᴍᴀᴄɪóɴ ʙᴏᴛ* ༺⍣╮  
+┃ ➤ .estado ➤ (ᴇꜱᴛᴀᴅᴏ ᴅᴇʟ ʙᴏᴛ)  
+┃ ➤ .nuevo ➤ (ɴᴜᴇᴠᴏ ᴄᴏᴍᴀɴᴅᴏ)  
+┃ ➤ .reglas ➤ (ʀᴇɢʟᴀꜱ)  
+┃ ➤ .ping ➤ (ᴠᴇʟᴏᴄɪᴅᴀᴅ)  
+┃ ➤ .join ➤ (ᴀɢʀᴇɢᴀʀ ʙᴏᴛ ᴀ ᴛᴜ ɢʀᴜᴘᴏ)  
+┃ ➤ .owner ➤ (ᴄᴏɴᴛᴀᴄᴛᴏ ᴄʀᴇᴀᴅᴏʀ)  
+┃ ➤ .report ➤ (ʀᴇᴘᴏʀᴛᴀʀ ᴇʀʀᴏʀᴇꜱ)  
+╰⍣༻ ✧ ✦ ✧ ༺⍣╯  
+
+╭⍣༻ ✧ ✦ ✧ ༺⍣╮  
+┃ *✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨ ᴄʜᴀɴᴇʟ:*  
+┃ 🌐 Canal oficial:  
+┃ https://tinyurl.com/25xfelmv 
+╰⍣༻ ✧ ✦ ✧ ༺⍣╯
+`;
+
+let profilePic;
+try {
+profilePic =  conn.profilePictureUrl(m.sender, 'image');
+} catch {
+profilePic = 'https://cdn.arifzyn.site/f/sy6tjbzk.jpg';
+}
+
+conn.sendMessage('120363296103096943@newsletter', {
+image: { url: 'https://tinyurl.com/29fxd3d7' },
+caption: menu,
+footer: `─ ᵇʸ ᵃᶰˢᶤ ᵇᵒᵗ ᵐᵈ:*`,
+contextInfo: {
+mentionedJid: [m.sender, owner + "@s.whatsapp.net"],
+forwardingScore: 999,
+isForwarded: true,
+externalAdReply: {
+showAdAttribution: true,
+title: `OFC WA BOT`,
+body: "by EliasarYT",
+thumbnailUrl: profilePic,
+sourceUrl: "https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36",
+mediaType: 1,
+renderLargerThumbnail: false
+}
+},
+buttons: [
+{
+buttonId: '.creador',
+buttonText: { displayText: 'Creador' },
+type: 1
+},
+{
+buttonId: '.p',
+buttonText: { displayText: 'VELOCIDAD' },
+type: 1
+},
+{
+buttonId: '.menu1',
+buttonText: { displayText: 'MENU1' },
+type: 1
+}
+],
+headerType: 1,
+viewOnce: true
+});
+break
+}		    
 case 'logo': {
     if (!text) {
         m.reply('Por favor, proporciona el texto para el logo.');
@@ -2545,7 +2656,92 @@ case 'testcmd': {
     }
     break;
 }
+case 'ia': {
+  const fs = require('fs');
+  const https = require('https');
+  const sender = m.key.fromMe ? (conn.user.id.split(':')[0] + '@s.whatsapp.net' || conn.user.id) : (m.key.participant || m.key.remoteJid);
+  const botNumber = await conn.decodeJid(conn.user.id);
+  const senderNumber = sender.split('@')[0];
+  const path = './conversationHistory.json';
 
+  if (!fs.existsSync(path)) {
+    fs.writeFileSync(path, JSON.stringify({}));
+  }
+
+  let args = m.text.split(/\s+/).slice(1);
+  let txt = args.join(" ").trim();
+
+  if (!txt) {
+    m.reply('Por favor, proporciona un texto para enviar a la IA.');
+    return;
+  }
+
+  conn.sendPresenceUpdate('composing', m.chat);
+  conn.readMessages([m.key]);
+
+  let conversationHistory = JSON.parse(fs.readFileSync(path, 'utf8'));
+
+  if (!conversationHistory[sender]) {
+    conversationHistory[sender] = [
+      { role: 'system', content: `Actúa como un bot de WhatsApp. Te llamas ansi-BOT-MD, un modelo de lenguaje natural avanzado. Responderás de manera amigable a los usuarios. Tu creador es EliasarYT (o en GitHub como Eliasar54), y mi nombre es ${pushname}.` }
+    ];
+  }
+
+  conversationHistory[sender].push({ role: 'user', content: txt });
+
+  let conversationText = conversationHistory[sender].map(msg => 
+    msg.role === 'system' ? `Sistema: ${msg.content}\n\n`
+    : msg.role === 'user' ? `Usuario: ${msg.content}\n\n`
+    : `${msg.content}\n\n`
+  ).join('');
+
+  const data = JSON.stringify({
+    contents: [{ parts: [{ text: conversationText }] }]
+  });
+
+  const options = {
+    hostname: 'generativelanguage.googleapis.com',
+    path: '/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDvz3ugbxACZzEi2dELUYJnLznMNVtmHgY',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(data)
+    }
+  };
+
+  const req = https.request(options, (res) => {
+    let responseData = '';
+
+    res.on('data', (chunk) => {
+      responseData += chunk;
+    });
+
+    res.on('end', () => {
+      try {
+        const responseJson = JSON.parse(responseData);
+        const replyText = responseJson?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (replyText) {
+          conversationHistory[sender].push({ role: 'assistant', content: replyText });
+          fs.writeFileSync(path, JSON.stringify(conversationHistory, null, 2));
+          conn.sendMessage(m.chat, { text: replyText }, { quoted: m });
+        } else {
+          m.reply("La IA no envió una respuesta válida.");
+        }
+      } catch (error) {
+        m.reply(`Error al procesar la respuesta: ${error.message}`);
+      }
+    });
+  });
+
+  req.on('error', (error) => {
+    m.reply(`Error de conexión con la IA: ${error.message}`);
+  });
+
+  req.write(data);
+  req.end();
+  break;
+}
 case 'infomsg': {
     if (!isOwner) return m.reply('⚠️ Este comando solo puede ser ejecutado por el owner.');
 
@@ -2987,93 +3183,121 @@ case 'video': {
 break;*/
 
 case 'musica': {
-    const fetch = require('node-fetch');
+    const axios = require('axios');
+    const yts = require('yt-search');
+    const fs = require('fs');
+    const path = require('path');
+    const botNumber = '123456789@s.whatsapp.net';
 
     if (!args.length || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(args[0])) {
-        return m.reply('Por favor, ingresa un enlace de YouTube válido.');
+        return m.reply('⚠️ Ingresa un enlace de YouTube válido.');
     }
-    m.reply('🔄 Descargando el audio, por favor espera...');
+
+    m.reply('🔄 Procesando tu solicitud, por favor espera...');
     const videoUrl = args[0];
 
-    try {
-        const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
-        const apiResponse = await fetch(apiUrl);
-        const delius = await apiResponse.json();
-        if (!delius || !delius.status) throw new Error();
-        const downloadUrl = delius.data.download.url;
-        await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-    } catch {
+    async function getVideoInfo(videoUrl) {
         try {
-            const yt = await ytdl(videoUrl);
-            const dl_url = yt.audio['128kbps']?.download();
-            if (!dl_url) throw new Error();
-            await conn.sendFile(m.chat, dl_url, `${videoUrl.split('v=')[1]}.mp3`, null, m, false, { mimetype: 'audio/mp4' });
-        } catch {
+            const searchResults = await yts(videoUrl);
+            if (!searchResults || !searchResults.videos.length) return null;
+            const video = searchResults.videos[0];
+            return {
+                title: video.title || 'Audio de YouTube',
+                thumbnail: video.thumbnail || null
+            };
+        } catch (error) {
+            console.error('Error obteniendo la información del video:', error);
+            return null;
+        }
+    }
+
+    try {
+        const videoInfo = await getVideoInfo(videoUrl);
+        if (!videoInfo) {
+            return m.reply('⚠️ No se pudo obtener la información del video.');
+        }
+
+        const { title, thumbnail } = videoInfo;
+        const tmpFolder = path.join(__dirname, 'tmp');
+        if (!fs.existsSync(tmpFolder)) fs.mkdirSync(tmpFolder);
+
+        const audioFilePath = path.join(tmpFolder, `${Date.now()}.mp3`);
+
+        async function downloadAudio(url) {
             try {
-                const axeelUrl = `https://axeel.my.id/api/download/audio?url=${encodeURIComponent(videoUrl)}`;
-                const axeelResponse = await fetch(axeelUrl);
-                const axeelData = await axeelResponse.json();
-                if (!axeelData || !axeelData.downloads?.url) throw new Error();
-                await conn.sendMessage(m.chat, { audio: { url: axeelData.downloads.url }, mimetype: 'audio/mpeg' }, { quoted: m });
-            } catch {
-                try {
-                    const siputzxUrl = `https://api.siputzx.my.id/api/d/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-                    const siputzxResponse = await fetch(siputzxUrl);
-                    const siputzxData = await siputzxResponse.json();
-                    if (!siputzxData.status || !siputzxData.data?.dl) throw new Error();
-                    await conn.sendMessage(m.chat, { audio: { url: siputzxData.data.dl }, mimetype: 'audio/mpeg' }, { quoted: m });
-                } catch {
-                    try {
-                        const ryzenUrl = `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-                        const ryzenResponse = await fetch(ryzenUrl);
-                        const ryzenData = await ryzenResponse.json();
-                        if (ryzenData.status === 'tunnel' && ryzenData.url) {
-                            const downloadUrl = ryzenData.url;
-                            await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-                        } else {
-                            throw new Error();
-                        }
-                    } catch {
-                        try {
-                            const dorratzUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoUrl)}`;
-                            await conn.sendMessage(m.chat, { audio: { url: dorratzUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-                        } catch {
-                            try {
-                                const downloadUrl = await fetch9Convert(videoUrl);
-                                await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
-                            } catch {
-                                try {
-                                    const downloadUrl = await fetchY2mate(videoUrl);
-                                    await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
-                                } catch {
-                                    try {
-                                        const res = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${videoUrl}`);
-                                        const audioData = await res.json();
-                                        if (!audioData.status || !audioData.result?.downloadUrl) throw new Error();
-                                        await conn.sendMessage(m.chat, { audio: { url: audioData.result.downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-                                    } catch {
-                                        try {
-                                            const d2 = await fetch(`https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${videoUrl}`);
-                                            const dp = await d2.json();
-                                            const audiop = dp.result.media.mp3;
-                                            const fileSize = dp.result.media.mp3_size;
-                                            if (!audiop) throw new Error();
-                                            if (fileSize > LimitAud) {
-                                                await conn.sendMessage(m.chat, { document: { url: audiop }, mimetype: 'audio/mp3', fileName: `${videoUrl.split('v=')[1]}.mp3` }, { quoted: m });
-                                            } else {
-                                                await conn.sendMessage(m.chat, { audio: { url: audiop }, mimetype: 'audio/mpeg' }, { quoted: m });
-                                            }
-                                        } catch {
-                                            await m.reply('Todas las APIs fallaron. No se pudo procesar tu solicitud.');
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                const response = await axios({
+                    url,
+                    method: 'GET',
+                    responseType: 'stream'
+                });
+
+                const writer = fs.createWriteStream(audioFilePath);
+                response.data.pipe(writer);
+
+                return new Promise((resolve, reject) => {
+                    writer.on('finish', () => resolve(audioFilePath));
+                    writer.on('error', reject);
+                });
+            } catch (error) {
+                throw new Error(`Error descargando el audio: ${error.message}`);
             }
         }
+
+        async function sendAudio(filePath) {
+            await conn.sendMessage(m.chat, {
+                audio: fs.readFileSync(filePath),
+                mimetype: 'audio/mpeg',
+                ptt: false,
+                contextInfo: {
+                    externalAdReply: {
+                        containsAutoReply: true,
+                        mediaType: 1,
+                        mediaUrl: videoUrl,
+                        renderLargerThumbnail: true,
+                        showAdAttribution: true,
+                        sourceUrl: videoUrl,
+                        thumbnailUrl: thumbnail,
+                        title: title,
+                        body: 'ᵇʸ ᵃᶰˢᶤ-BOT-MD'
+                    }
+                }
+            }, {});
+            fs.unlinkSync(filePath);
+        }
+
+        const apis = [
+            `https://api.siputzx.my.id/api/d/ytmp3?url=${encodeURIComponent(videoUrl)}`,
+            `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`,
+            `https://axeel.my.id/api/download/audio?url=${encodeURIComponent(videoUrl)}`,
+            `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`,
+            `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoUrl)}`,
+            `https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${encodeURIComponent(videoUrl)}`,
+            `https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${encodeURIComponent(videoUrl)}`
+        ];
+
+        let success = false;
+        for (let url of apis) {
+            try {
+                const response = await axios.get(url);
+                const data = response.data;
+                const downloadUrl = data.result?.downloadUrl || data.data?.dl || data.downloads?.url || data.result?.media?.mp3;
+                if (downloadUrl) {
+                    const filePath = await downloadAudio(downloadUrl);
+                    await sendAudio(filePath);
+                    success = true;
+                    break;
+                }
+            } catch (error) {
+                console.error(`Error con la API: ${url}`, error);
+            }
+        }
+
+        if (!success) {
+            throw new Error('⚠️ Todas las APIs fallaron. No se pudo procesar tu solicitud.');
+        }
+    } catch (error) {
+        console.error('Error inesperado:', error);
+        return m.reply(`❌ Ocurrió un error inesperado:\n\`\`\`${error.stack}\`\`\``);
     }
     break;
 }
