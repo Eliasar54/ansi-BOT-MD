@@ -289,7 +289,7 @@ let menuOwner = `꧁✦  *💻 ＭＥＮＵ ＯＷＮＥＲ 💻*  ✦꧂
 ┃ ➫ ❏ => 
 ┗━━━━━━━━━━━━━━•`
 
-if (command == 'menu' || command == 'help') {
+/*if (command == 'menu' || command == 'help') {
     m.react('✨') 
     const platform = os.platform();
     const uptime = os.uptime();
@@ -306,7 +306,7 @@ if (command == 'menu' || command == 'help') {
     const ramUsage = (usedMem / (1024 * 1024)).toFixed(2);
     const totalRam = (totalMem / (1024 * 1024)).toFixed(2);
 
-  /*  const totalComandos = await obtenerTotalComandos();*/
+  const totalComandos = await obtenerTotalComandos();
 
     let menu = `
 ╭━━━━━━━✦✗✦━━━━━━━━╮
@@ -399,7 +399,7 @@ conn.sendMessage(
     },
     { quoted: m }
 );
-}
+}*/
 /*conn.sendMessage(m.chat, { image: { url: imagen2 }, caption: menu }, { quoted: fkontak, ephemeralExpiration: 24 * 60 * 1000, disappearingMessagesInChat: 24 * 60 * 1000 });
 };*/
 /*conn.sendMessage(m.chat, {
