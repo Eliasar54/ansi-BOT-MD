@@ -1,26 +1,23 @@
-const ytdl = require('@distube/ytdl-core');
+/*
+CODE MADE BY TU PAPI ELIASARYT 
+CHANEL: https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36
+*/
+const axios = require("axios");
 
-async function obtenerInfo(url) {
-  try {
-    const datos = await ytdl.getInfo(url);
-    return {
-      titulo: datos.videoDetails.title,
-      descripcion: datos.videoDetails.shortDescription,
-      autor: datos.videoDetails.author.name,
-      fecha: datos.videoDetails.uploadDate,
-      duracion: datos.videoDetails.lengthSeconds,
-      vistas: datos.videoDetails.viewCount,
-      miniatura: datos.videoDetails.thumbnails[0].url,
-      formatos: datos.formats.map(f => ({
-        calidad: f.qualityLabel,
-        tipo: f.container,
-        enlace: f.url
-      }))
-    };
-  } catch (e) {
-    console.error('Error:', e);
-    throw e;
-  }
+async function ytdl(url) {
+const apis = [
+`https://ytdownloader.nvlgroup.my.id/audio?url=${url}&bitrate=128`,
+`https://api.dorratz.com/v2/yt-mp3?url=${url}`
+];
+
+for (let api of apis) {
+try {
+await axios.get(api);
+return { status: "success", creador: "eliasaryt", dl: api };
+} catch (e) {}
 }
 
-module.exports = obtenerInfo;
+return { status: "error", creador: "eliasaryt", dl: null };
+}
+
+module.exports = ytdl;
