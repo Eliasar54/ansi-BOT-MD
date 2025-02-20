@@ -3167,65 +3167,57 @@ break;
 
 case 'play2':
 case 'play': {
-const yts = require('yt-search'), 
-youtubedl = require('youtubedl-core'), 
-ytdl = require('ytdl-core'), 
-fetch = require('node-fetch');
-if (!text || text.trim() === '') text = 'Empire';
-const query = args.length ? args.join(' ') : text;
-let videoUrl = '', video = {};
-if (/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(query)) {
-videoUrl = query;
-try {
-const videoInfo = await ytdl.getInfo(videoUrl);
-if (!videoInfo.videoDetails || !videoInfo.videoDetails.thumbnails) throw new Error();
-video = {
-url: videoUrl,
-title: videoInfo.videoDetails.title,
-thumbnail: videoInfo.videoDetails.thumbnails[0]?.url || 'default-thumbnail.jpg',
-timestamp: videoInfo.videoDetails.lengthSeconds
-};
-} catch {
-return m.reply('No se pudo procesar el enlace proporcionado.');
+const yts = require('yt-search'); 
+
+if (!text || text.trim() === '') {
+return m.reply('> 𖦼 *Por favor, ingrese el nombre de una canción o un enlace de YouTube.*');
 }
-} else {
+
+const query = args.join(' ');
 const yt_play = await yts(query);
-if (!yt_play || yt_play.all.length === 0) return m.reply('No se encontraron resultados para tu búsqueda.');
+
+if (!yt_play || yt_play.all.length === 0) return m.reply('> 𖦼 No se encontraron resultados para tu búsqueda.');
+
 const firstResult = yt_play.all[0];
-video = {
+const video = {
 url: firstResult.url,
 title: firstResult.title,
 thumbnail: firstResult.thumbnail || 'default-thumbnail.jpg',
-timestamp: firstResult.timestamp
+timestamp: firstResult.timestamp,
+views: firstResult.views || 'N/A' 
 };
-videoUrl = video.url;
-}
+
 await conn.sendMessage(m.chat, {
-image: { url: video.thumbnail || 'default-thumbnail.jpg' },
-caption: `╭──❰ *🎶 ESPERA*... ❱──\n│\n├ 📌 *Título:* ${video.title}\n├ ⏱️ *Duración:* ${video.timestamp}\n│\n╰──────────────\n\n📥 *Seleccione una opción para continuar...*\n\n⇄ㅤ   ◁ㅤ  ❚❚ㅤ   ▷ㅤ   ↻\nsɪɢᴜᴇᴍᴇ ᴘᴀᴘᴜ 🧑‍💻\n👉 https://tinyurl.com/25xfelmv`,
-footer: "𝐛𝐲 𝐄𝐥𝐢𝐚𝐬𝐚𝐫𝐘𝐓 ッ",
+image: { url: video.thumbnail },
+caption: `> 𖦼 *TÍTULO:* ${video.title}  
+> 𖦼 *LINK:* ${video.url}  
+> 𖦼 *DURACIÓN:* ${video.timestamp}  
+> 𖦼 *VISTAS:* ${video.views}  
+
+> 𖦼 📥 *Seleccione una opción para continuar...*  
+> 𖦼 ⇄ㅤ   ◁ㅤ  ❚❚ㅤ   ▷ㅤ   ↻  
+
+> 𖦼 *Sígueme papu 🧑‍💻*  
+👉 https://tinyurl.com/25xfelmv`,
+footer: "> 𖦼 𝐛𝐲 𝐄𝐥𝐢𝐚𝐬𝐚𝐫𝐘𝐓 ッ",
 buttons: [
 {
-buttonId: `.musica ${video.url}`,
-buttonText: { displayText: "🔈 𝗔𝗨𝗗𝗜𝗢 🔈" },
-type: 1,
-},
-{
-buttonId: `.video ${video.url}`,
-buttonText: { displayText: "📼 𝗩𝗜𝗗𝗘𝗢 📼" },
-type: 1,
-},
-{
-buttonId: `.menu`,
-buttonText: { displayText: "📖 𝗠𝗘𝗡𝗨 📖" },
-type: 1,
-},
+buttonId: `.video ${video.url}`, 
+buttonText: { 
+displayText: '⇣ 𝗩𝗜𝗗𝗘𝗢 ⇣' 
+}
+}, {
+buttonId: `.musica ${video.url}`, 
+buttonText: {
+displayText: "⇣ 𝗔𝗨𝗗𝗜𝗢 ⇣"
+}
+}
 ],
 viewOnce: true,
-headerType: 4,
+headerType: 1,
 mentions: [m.sender],
 }, { quoted: m });
-break;
+    break;
 }
 
 case 'video': {
