@@ -3220,50 +3220,30 @@ mentions: [m.sender],
     break;
 }
 
-case 'video': { 
-const fetch = require('node-fetch');
+case 'video': { const fetch = require('node-fetch');
 
 if (!text) return m.reply('Proporciona un enlace de YouTube válido.');
 const url = args[0];
 
 if (!url.includes('youtu')) return m.reply('Proporciona un enlace válido de YouTube.');
 
-m.reply('🔄 Obteniendo información del video, espera...');
+m.reply('🔄 Descargando el video en 1080p, espera...');
 
 try {
-    const infoResponse = await fetch(`https://ytdownloader.nvlgroup.my.id/info?url=${url}`);
-    const info = await infoResponse.json();
-
-    if (!info.resolutions || info.resolutions.length === 0) {
-        throw new Error('No hay resoluciones disponibles.');
-    }
-
-    const highestResolution = info.resolutions.reduce((max, res) => (res.height > max.height ? res : max), info.resolutions[0]);
-
-    const videoUrl = `https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=${highestResolution.height}`;
+    const videoUrl = `https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=1080`;
 
     await conn.sendMessage(m.chat, {
         video: { url: videoUrl },
-        caption: `✅ Tu video: ${info.title} - ${info.uploader}`,
+        caption: `✅ Aquí está tu video en 1080p.`,
     }, { quoted: m });
 } catch (e) {
-    let errorMessage = '❌ Error al procesar la solicitud.';
-
-    m.reply(`❌ Error: ${e.stack || e.message}`);
-
-    if (e.response && e.response.status === 504) {
-        errorMessage = '❌ La solicitud tardó demasiado. Inténtalo más tarde.';
-    } else if (e.code === 'ECONNABORTED') {
-        errorMessage = '❌ La conexión tardó demasiado. Inténtalo más tarde.';
-    } else if (e.message.includes('No hay resoluciones disponibles')) {
-        errorMessage = '❌ No se pudo obtener el video, verifica el enlace de YouTube.';
-    }
-
-    m.reply(errorMessage);
+    m.reply(`❌ Error: ${e.stack}\n\nURL formada: https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=1080`);
 }
 break;
 
 }
+
+
 
 
 
