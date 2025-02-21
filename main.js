@@ -1808,7 +1808,6 @@ case 'ytvideo':
 case 'music':
 case 'spotify':
 case 'gitclone':
-case 'tiktok':
 case 'tt':
 case 'lyrics':
 case 'letra':
@@ -3164,7 +3163,88 @@ text: '💔 Ocurrió un error inesperado. Verifica el enlace e inténtalo nuevam
 break;
 }
 
+case 'tiktok': { 
+    const fetch = require('node-fetch');
 
+    if (!text) return m.reply('Proporciona un enlace de TikTok válido.');
+    const url = args[0];
+
+    if (!url.includes('tiktok')) return m.reply('Proporciona un enlace válido de TikTok.');
+
+    try {
+        const infoResponse = await fetch(`https://eliasar-yt-api.vercel.app/api/download/tiktok?query=${url}`);
+        const info = await infoResponse.json();
+
+        if (!info.status) {
+            return m.reply('❌ No se encontró el video.');
+        }
+
+        const videoUrl = info.results.video.noWatermark;
+        const musicUrl = info.results.music.playUrl;
+        const videoTitle = info.results.title;
+        const creatorName = info.results.author.authorName;
+        const likeCount = info.results.stats.likeCount;
+        const commentCount = info.results.stats.commentCount;
+        const shareCount = info.results.stats.shareCount;
+
+        const caption = `
+> 𖦼 Título del video: ${videoTitle}
+> 𖦼 Creado por: ${creatorName}
+> 𖦼 Likes: ${likeCount}
+> 𖦼 Comentarios: ${commentCount}
+> 𖦼 Compartidos: ${shareCount}`;
+
+        await conn.sendMessage(m.chat, {
+            video: { url: videoUrl },
+            caption: caption,
+            buttons: [
+                {
+                    buttonId: `.musicdltt ${url}`,
+                    buttonText: { 
+                        displayText: '🎵 Descargar música'
+                    }
+                }
+            ],
+            viewOnce: true,
+            headerType: 1,
+            mentions: [m.sender],
+        }, { quoted: m });
+
+    } catch (e) {
+        m.reply(`❌ Error: ${e.stack}\n\nNo se pudo obtener información del video.`);
+    }
+    break;
+}
+
+case 'musicdltt': {
+    const fetch = require('node-fetch');
+
+    if (!text) return m.reply('Proporciona un enlace de TikTok válido.');
+    const url = args[0];
+
+    if (!url.includes('tiktok')) return m.reply('Proporciona un enlace válido de TikTok.');
+
+    try {
+        const infoResponse = await fetch(`https://eliasar-yt-api.vercel.app/api/download/tiktok?query=${url}`);
+        const info = await infoResponse.json();
+
+        if (!info.status) {
+            return m.reply('❌ No se encontró el audio.');
+        }
+
+        const musicUrl = info.results.music.playUrl;
+
+        await conn.sendMessage(m.chat, {
+            audio: { url: musicUrl },
+            mimetype: 'audio/mpeg',
+        }, { quoted: m });
+
+    } catch (e) {
+        m.reply(`❌ Error: ${e.stack}\n\nNo se pudo descargar la música.`);
+    }
+    break;
+}
+    
 case 'play2':
 case 'play': {
 const yts = require('yt-search'); 
