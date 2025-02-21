@@ -3220,33 +3220,41 @@ mentions: [m.sender],
     break;
 }
 
-case 'video': { const fetch = require('node-fetch');
+case 'video': { 
+    const fetch = require('node-fetch');
 
-if (!text) return m.reply('Proporciona un enlace de YouTube válido.');
-const url = args[0];
+    if (!text) return m.reply('Proporciona un enlace de YouTube válido.');
+    const url = args[0];
 
-if (!url.includes('youtu')) return m.reply('Proporciona un enlace válido de YouTube.');
+    if (!url.includes('youtu')) return m.reply('Proporciona un enlace válido de YouTube.');
 
-m.reply('🔄 Descargando el video en 1080p, espera...');
+    m.reply('🔄 Obteniendo información del video...');
 
-try {
-    const videoUrl = `https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=1080`;
+    try {
+        const infoResponse = await fetch(`https://ytdownloader.nvlgroup.my.id/info?url=${url}`);
+        const info = await infoResponse.json();
 
-    await conn.sendMessage(m.chat, {
-        video: { url: videoUrl },
-        caption: `✅ Aquí está tu video en 1080p.`,
-    }, { quoted: m });
-} catch (e) {
-    m.reply(`❌ Error: ${e.stack}\n\nURL formada: https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=1080`);
+        if (!info.resolutions || info.resolutions.length === 0) {
+            return m.reply('❌ No se encontraron resoluciones disponibles.');
+        }
+
+        const randomResolution = info.resolutions[Math.floor(Math.random() * info.resolutions.length)];
+        const selectedHeight = randomResolution.height;
+
+        m.reply(`🔄 Descargando el video en ${selectedHeight}p, espera...`);
+
+        const videoUrl = `https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=${selectedHeight}`;
+
+        await conn.sendMessage(m.chat, {
+            video: { url: videoUrl },
+            caption: `✅ Aquí está tu video en ${selectedHeight}p.`,
+        }, { quoted: m });
+    } catch (e) {
+        m.reply(`❌ Error: ${e.stack}\n\nNo se pudo obtener información del video.`);
+    }
+    break;
 }
-break;
-
-}
-
-
-
-
-
+    
 /*case 'video': {
 if (!text) return m.reply('Por favor, proporciona un enlace de YouTube válido.');
 const url = args[0];
