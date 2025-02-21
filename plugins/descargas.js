@@ -419,7 +419,7 @@ console.log(e);
         }
     }
 
-if (command == 'tiktok' || command == 'tt') {
+/*if (command == 'tiktok' || command == 'tt') {
     if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://vm.tiktok.com/ZMjdrFCtg/`);
     if (!isUrl(args[0]) && !args[0].includes('tiktok')) return m.reply(`¡Link inválido!`);
     conn.fakeReply(m.chat, `${lenguaje.lengua.espere}`, '0@s.whatsapp.net', 'No haga spam');
@@ -459,7 +459,7 @@ if (command == 'tiktok' || command == 'tt') {
     } catch (e) {
         m.reply(info.error);
     }
-}
+}*/
 
     if (command == 'tik2') {
         if (!text) return m.reply(`${lenguaje.lengua.ejem}\n${prefix + command} https://vm.tiktok.com/ZMjdrFCtg/`)
