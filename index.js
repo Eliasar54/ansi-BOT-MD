@@ -666,7 +666,7 @@ sock.ev.on('group-participants.update', async (anu) => {
                     let groupName = metadata.subject || "Nombre del grupo desconocido";
                     let memberCount = metadata.participants.length || 0;
 
-                    let apiUrl = `https://eliasar-yt-api.vercel.app/api/v2/welcome?avatar=${encodeURIComponent(ppuser)}&username=${username}&bg=https://i.ibb.co/b3kycJP/9aaca021b696e6c31cda498ca489f114.jpg&groupname=${encodeURIComponent(groupName)}&member=${memberCount}`;
+                    let apiUrl = `https://eliasar-yt-api.vercel.app/api/v2/welcome?avatar=${encodeURIComponent(ppuser)}&username=${username}&bg=https://tinyurl.com/2a99js3e&groupname=${encodeURIComponent(groupName)}&member=${memberCount}`;
 
                     let response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
 
