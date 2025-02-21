@@ -3220,49 +3220,52 @@ mentions: [m.sender],
     break;
 }
 
-case 'video': {
-if (!text) return m.reply('Por favor, proporciona un enlace de YouTube válido.');
+case 'video': { 
+const fetch = require('node-fetch');
+
+if (!text) return m.reply('Proporciona un enlace de YouTube válido.');
 const url = args[0];
 
-if (!url.includes('youtu')) return m.reply('Por favor, proporciona un enlace válido de YouTube.');
+if (!url.includes('youtu')) return m.reply('Proporciona un enlace válido de YouTube.');
 
-m.reply('🔄 Descargando el video, por favor espera...');
+m.reply('🔄 Obteniendo información del video, espera...');
 
 try {
-const api = `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`;
-const res = await fetch(api);
-const json = await res.json();
+    const infoResponse = await fetch(`https://ytdownloader.nvlgroup.my.id/info?url=${url}`);
+    const info = await infoResponse.json();
 
-if (json.status) {
-const videoUrl = json.data.dl;
-await conn.sendMessage(m.chat, {
-video: { url: videoUrl },
-caption: '✅ Aquí está tu video.',
-}, { quoted: m });
-} else {
-throw new Error('API de Siputzx falló.');
-}
-} catch {
-try {
-const axeelApi = `https://axeel.my.id/api/download/video?url=${encodeURIComponent(url)}`;
-const axeelRes = await fetch(axeelApi);
-const axeelJson = await axeelRes.json();
+    if (!info.resolutions || info.resolutions.length === 0) {
+        throw new Error('No hay resoluciones disponibles.');
+    }
 
-if (axeelJson && axeelJson.downloads?.url) {
-const videoUrl = axeelJson.downloads.url;
-await conn.sendMessage(m.chat, {
-video: { url: videoUrl },
-caption: `✅ Aquí está tu video: ${axeelJson.metadata.title}`,
-}, { quoted: m });
-} else {
-throw new Error('API de Axeel falló.');
-}
-} catch {
-m.reply('❌ Todas las APIs fallaron. No se pudo procesar tu solicitud.');
-}
+    const highestResolution = info.resolutions.reduce((max, res) => (res.height > max.height ? res : max), info.resolutions[0]);
+
+    const videoUrl = `https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=${highestResolution.height}`;
+
+    await conn.sendMessage(m.chat, {
+        video: { url: videoUrl },
+        caption: `✅ Tu video: ${info.title} - ${info.uploader}`,
+    }, { quoted: m });
+} catch (e) {
+    let errorMessage = '❌ Error al procesar la solicitud.';
+
+    m.reply(`❌ Error: ${e.stack || e.message}`);
+
+    if (e.response && e.response.status === 504) {
+        errorMessage = '❌ La solicitud tardó demasiado. Inténtalo más tarde.';
+    } else if (e.code === 'ECONNABORTED') {
+        errorMessage = '❌ La conexión tardó demasiado. Inténtalo más tarde.';
+    } else if (e.message.includes('No hay resoluciones disponibles')) {
+        errorMessage = '❌ No se pudo obtener el video, verifica el enlace de YouTube.';
+    }
+
+    m.reply(errorMessage);
 }
 break;
+
 }
+
+
 
 /*case 'video': {
 if (!text) return m.reply('Por favor, proporciona un enlace de YouTube válido.');
